@@ -1,0 +1,31 @@
+@import './partials/_variables';
+@import './partials/_animation';
+
+html{
+    overflow-x: hidden;
+}
+
+body{
+	height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    font-family: 'Lato', Arial, Helvetica, sans-serif;
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+@import './partials/_header';
+@import './partials/_content';
+@import './partials/_nav';
+
+
+
+
+
+

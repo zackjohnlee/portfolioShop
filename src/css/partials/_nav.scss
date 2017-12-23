@@ -1,0 +1,90 @@
+nav{
+    position: fixed;
+    //top: 350px;
+    //transform: translateY(350px);
+    width: 100%;
+    z-index: 10;
+    //overflow-x: hidden;
+    #toggle{
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        label{
+            transition: right .3s cubic-bezier(.27,.86,.54,.99);
+            position: absolute;
+            opacity: 1;
+            z-index: 20;
+            .menu-bar{
+                transition: 0.1s linear;
+                width: 30px;
+                height: 2px;
+                margin: 7px 0;
+                border-radius: 1px;
+                background: white;
+                box-shadow: 2px 2px 2px rgba(255,129,124,0.7);
+            }
+        }
+        
+        .expandee{
+            position: fixed;
+            top: 0;
+            left:0;
+            z-index: 1;
+			width: 100%;
+			height: 0;
+			transition: height 0.2s linear;
+			overflow: hidden;
+			background: rgba(255,255,255,0.9);
+			ul{
+				list-style-type: none;
+				margin: 20% auto;
+				padding: 0;
+				li{
+					display: block;
+					width: 100%;
+					text-align: center;
+					a{
+                        font-family: 'Lato', Arial, Helvetica, sans-serif;
+                        font-weight: 200;
+                        font-size: 5rem;
+                        color: white;
+                        text-shadow: 2px 2px 2px rgba(255,129,124,0.7);
+						height: 30%;
+                        display: block;
+                        text-decoration: none;
+                        padding: 5% 0;
+						&:hover, &.active{
+							cursor: pointer;
+							text-shadow: 2px 2px 2px rgba(255,129,124,1);
+						}
+					}
+				}
+			}
+        }
+        
+        #navToggle{
+            display: none;
+            &:checked ~ .expandee{
+				height: 100vh;
+			}
+            &:checked ~ label{
+				& :nth-child(1){
+					transform: translateY(10px) rotate(45deg);
+				}
+				& :nth-child(2){
+					opacity: 0;
+				}
+				& :nth-child(3){
+                    transform: translateY(-8px) rotate(-45deg);
+                    box-shadow: -2px 2px 2px rgba(255,129,124,0.7);
+				}
+            }
+        }
+    }
+}
+
+.slide{
+    animation: slide 1s;
+}
