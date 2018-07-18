@@ -14,29 +14,24 @@ class App extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
-			renav: false,
-			scrollTop: 0,
 			checked: false,
 			window: {
 				width: 0,
 				height: 0
 			}
-		}
+		};
 
-		this.updateDimensions = this.updateDimensions.bind(this);
-		//this.handleScroll = this.handleScroll.bind(this);
 		this.toggleCheckbox = this.toggleCheckbox.bind(this);
+		this.updateDimensions = this.updateDimensions.bind(this);
 
 	}
 	
 	componentDidMount() {
 		this.updateDimensions();
-		//window.addEventListener('scroll', this.handleScroll, true);
 		window.addEventListener('resize', this.updateDimensions);
 	}
 
 	componentWillUnmount() {
-		//window.removeEventListener('scroll', this.handleScroll);
 		window.removeEventListener('resize', this.updateDimensions);
 	}
 
@@ -49,19 +44,6 @@ class App extends Component {
 		});
 	}
 
-	// handleScroll(){
-	// 	let top = window.scrollY;
-	// 	if(top >= this.state.window.height/2){
-	// 		this.setState({
-	// 			renav: true
-	// 		});
-	// 	}else{
-	// 		this.setState({
-	// 			renav: false
-	// 		});
-	// 	}
-	// }
-
 	toggleCheckbox(){
 		this.setState({
 			checked: !this.state.checked
@@ -72,17 +54,14 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<div className="App">
-					<Header 
-						scroll={this.state.scrollTop}
-					/>
-					<Nav 
-						window={this.state.window} 
-						scroll={this.state.scrollTop} 
-						
-						renav={this.state.renav}
-						handleCheck={this.toggleCheckbox}
-						checked={this.state.checked}
-					/>
+					<div ref="headNav">
+						<Header/>
+						<Nav
+							window={this.state.window} 
+							handleCheck={this.toggleCheckbox}
+							checked={this.state.checked}
+						/>
+					</div>
 					<Content/>
 				</div>
 			</BrowserRouter>
