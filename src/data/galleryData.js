@@ -36,6 +36,21 @@ export const galleryData = [
             },
             {
                 src: "otl4",
+            },
+            {
+                src: "otl5",
+            },
+            {
+                src: "otl6",
+            },
+            {
+                src: "otl7",
+            },
+            {
+                src: "otl8",
+            },
+            {
+                src: "otl9",
             }
         ]
     }
