@@ -9,6 +9,8 @@ body{
 	height: 100%;
     margin: 0;
     padding: 0;
+    background-attachment: fixed;
+    background: $sunset no-repeat fixed;
 }
 
 .App {

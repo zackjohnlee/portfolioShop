@@ -19,6 +19,12 @@ export const galleryData = [
             },
             {
                 src: "cactus6",
+            },
+            {
+                src: "cactus7",
+            },
+            {
+                src: "cactus8",
             }
         ]
     },

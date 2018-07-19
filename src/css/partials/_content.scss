@@ -7,7 +7,7 @@
     top: 10vh;
     justify-items: center;
     align-items: center;
-    z-index: 1;
+    z-index: -1;
 }
 
 .tile{
@@ -21,6 +21,8 @@
 .image{
     height: 162px;
     width: 100%;
+    position:relative;
+    z-index: 1;
 }
 
 img{

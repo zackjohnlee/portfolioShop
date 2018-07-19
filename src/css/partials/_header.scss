@@ -1,22 +1,16 @@
 .App-header {
     position: fixed;
     top: 0;
-    //height: 100vh;
+    height: 8vh;
     width: 100%;
     padding: 0 0 20px;
     text-transform: uppercase;
     color: white;
-    z-index: 1;
-    #Background{
-        position: fixed;
-        z-index: -1;
-        top: -20vh;
-        height: 200vh;
-        width: 100%;
-        background: $sunset;
-    }
+    background: $header;
+    // z-index: 1;
     h1{
-        position: fixed;
+        position: absolute;
+        z-index:20;
         margin: 15px;
         font-size: 1rem;
         font-weight: 100;
