@@ -23,6 +23,7 @@ class App extends Component {
 
 		this.toggleCheckbox = this.toggleCheckbox.bind(this);
 		this.updateDimensions = this.updateDimensions.bind(this);
+		this.imageClick = this.imageClick.bind(this);
 
 	}
 	
@@ -50,6 +51,20 @@ class App extends Component {
 		});
 	}
 
+	// imageClick(e){
+	// 	let imgRef=e.target.src;
+	// 	imgRef = imgRef.replace(/.+(static\/media\/)+/, "");
+	// 	imgRef = imgRef.replace(/\..+/, "");
+	// 	let test = e.target.collection;
+	// 	console.log(test);
+	// 	console.log(imgRef);
+	// }
+
+	imageClick(col, src){
+		console.log(col);
+		console.log(src);
+	}
+
 	render() {
 		return (
 			<BrowserRouter>
@@ -62,7 +77,8 @@ class App extends Component {
 							checked={this.state.checked}
 						/>
 					</div>
-					<Content/>
+					<Content
+						click={this.imageClick}/>
 				</div>
 			</BrowserRouter>
 		);
