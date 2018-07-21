@@ -3,20 +3,21 @@
 
 html{
     overflow-x: hidden;
-}
-
-body{
-	height: 100%;
-    margin: 0;
-    padding: 0;
-    background-attachment: fixed;
     background: $sunset no-repeat fixed;
 }
 
+body{
+	// height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
 .App {
+    // position:absolute;
+    // z-index:-1;
     font-family: 'Lato', Arial, Helvetica, sans-serif;
     text-align: center;
-    height: 0;
+    height: 100vh;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -25,6 +26,7 @@ body{
 @import './partials/_header';
 @import './partials/_content';
 @import './partials/_nav';
+@import './partials/_modal';
 
 
 

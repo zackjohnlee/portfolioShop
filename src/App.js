@@ -5,16 +5,24 @@ import {
 	Switch
 } from 'react-router-dom';
 
+import {galleryData} from './data/galleryData';
+
 import './css/App.css';
 import Content from "./components/Content";
 import Nav from "./components/Nav";
 import Header from "./components/Header";
+
 
 class App extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state={
 			checked: false,
+			modalOpen: false,
+			modalSrc: {
+				collection: "",
+				src: ""
+			},
 			window: {
 				width: 0,
 				height: 0
@@ -51,18 +59,14 @@ class App extends Component {
 		});
 	}
 
-	// imageClick(e){
-	// 	let imgRef=e.target.src;
-	// 	imgRef = imgRef.replace(/.+(static\/media\/)+/, "");
-	// 	imgRef = imgRef.replace(/\..+/, "");
-	// 	let test = e.target.collection;
-	// 	console.log(test);
-	// 	console.log(imgRef);
-	// }
-
 	imageClick(col, src){
-		console.log(col);
-		console.log(src);
+		this.setState({
+			modalSrc: {
+				collection: col,
+				src: src
+			},
+			modalOpen: true
+		});
 	}
 
 	render() {
@@ -78,7 +82,12 @@ class App extends Component {
 						/>
 					</div>
 					<Content
-						click={this.imageClick}/>
+						data={galleryData}
+						click={this.imageClick}
+						modalOpen={this.state.modalOpen}
+						mainSrc={this.state.modalSrc.src}
+						collection={this.state.modalSrc.collection}
+					/>
 				</div>
 			</BrowserRouter>
 		);

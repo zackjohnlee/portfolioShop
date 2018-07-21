@@ -7,13 +7,13 @@
     text-transform: uppercase;
     color: white;
     background: $header;
-    // z-index: 1;
+    z-index: 3;
     h1{
         position: absolute;
         z-index:20;
         margin: 15px;
-        font-size: 1rem;
-        font-weight: 100;
-        text-shadow: 2px 2px 2px rgba(255,129,124,0.7);
+        font-size: 1.2rem;
+        font-weight: 300;
+        text-shadow: 1px 1px .3px rgba(255,129,124,1);
     } 
 }
