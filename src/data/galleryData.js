@@ -1,6 +1,7 @@
 export const galleryData = [
     {
         collection: "cactus",
+        type: "series",
         images: [
             {
                 src: "cactus1",
@@ -30,6 +31,7 @@ export const galleryData = [
     },
     {
         collection: "on the line",
+        type: "series",
         images: [
             {
                 src: "otl1",

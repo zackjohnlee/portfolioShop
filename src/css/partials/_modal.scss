@@ -1,3 +1,38 @@
 #modal{
-    position: absolute;
+    position: fixed;
+    top: 0;
+    z-index: 4;
+    height: 100vh;
+    background: rgba(255,255,255,.7);
+    #modalToggle{
+        height: 40px;
+        width: 40px;;
+        border-radius: 5px;
+        position: relative;
+        top:100px;
+        z-index: 5;
+        label{
+            position: absolute;
+            z-index: 5;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            &:after{
+                content: "\274c"; /* use the hex value here... */
+                font-size: 20px; 
+                color: #FFF;
+                line-height: 50px;
+                text-align: center;
+            }
+        }
+        #modalCheck{
+            display: none;
+        }
+    }
+}
+
+#modalImage{
+    position: relative;
+    top: 10%;
 }

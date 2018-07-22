@@ -32,6 +32,7 @@ class App extends Component {
 		this.toggleCheckbox = this.toggleCheckbox.bind(this);
 		this.updateDimensions = this.updateDimensions.bind(this);
 		this.imageClick = this.imageClick.bind(this);
+		this.toggleModal = this.toggleModal.bind(this);
 
 	}
 	
@@ -56,6 +57,12 @@ class App extends Component {
 	toggleCheckbox(){
 		this.setState({
 			checked: !this.state.checked
+		});
+	}
+
+	toggleModal(){
+		this.setState({
+			modalOpen: !this.state.modalOpen
 		});
 	}
 
@@ -85,6 +92,7 @@ class App extends Component {
 						data={galleryData}
 						click={this.imageClick}
 						modalOpen={this.state.modalOpen}
+						handleModal={this.toggleModal}
 						mainSrc={this.state.modalSrc.src}
 						collection={this.state.modalSrc.collection}
 					/>

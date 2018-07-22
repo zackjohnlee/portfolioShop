@@ -21,6 +21,7 @@ const Content = (props) => {
             <Modal
                 data={props.data}
                 modalOpen={props.modalOpen}
+                handleModal={props.handleModal}
 				mainSrc={props.mainSrc}
 				collection={props.collection}
             />
