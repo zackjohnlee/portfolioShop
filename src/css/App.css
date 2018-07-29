@@ -13,8 +13,12 @@ html {
   background: linear-gradient(to bottom, #1a4184 0%, #525182 15%, rgba(255, 129, 124, 0.88) 33%, rgba(255, 222, 147, 0.78) 54%, rgba(249, 255, 186, 0.73) 66%, rgba(255, 255, 255, 0.57) 100%) no-repeat fixed; }
 
 body {
+  height: 100vh;
   margin: 0;
   padding: 0; }
+
+body.noScroll {
+  overflow-x: hidden; }
 
 .App {
   font-family: 'Lato', Arial, Helvetica, sans-serif;
@@ -60,17 +64,15 @@ body {
   width: 95%;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.5); }
-
-.image {
-  height: 162px;
-  width: 100%;
-  position: relative;
-  z-index: 1; }
-
-img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover; }
+  .tile .image {
+    height: 162px;
+    width: 100%;
+    position: relative;
+    z-index: 1; }
+    .tile .image img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover; }
 
 nav {
   position: fixed;
@@ -146,16 +148,22 @@ nav {
 
 #modal {
   position: fixed;
+  display: grid;
+  grid-template-rows: minmax(40vh, 100vh) 10vh 30vh;
+  grid-template-areas: "image" "galNav" "desc";
+  justify-items: center;
   top: 0;
   z-index: 4;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.7); }
+  background: rgba(255, 255, 255, 0.9);
+  overflow: scroll; }
   #modal #modalToggle {
     height: 40px;
     width: 40px;
     border-radius: 5px;
-    position: relative;
-    top: 100px;
+    position: fixed;
+    top: 69px;
+    left: 22px;
     z-index: 5; }
     #modal #modalToggle label {
       position: absolute;
@@ -163,19 +171,94 @@ nav {
       top: 0;
       bottom: 0;
       left: 0;
-      right: 0; }
+      right: -10px; }
       #modal #modalToggle label:after {
-        content: "\274c";
-        /* use the hex value here... */
-        font-size: 20px;
         color: #FFF;
+        text-shadow: 2px 2px 2px #ff817c;
+        content: "\00D7";
+        /* use the hex value here... */
+        font-size: 30px;
         line-height: 50px;
         text-align: center; }
     #modal #modalToggle #modalCheck {
       display: none; }
 
+#galleryNav {
+  grid-area: galNav; }
+  #galleryNav button {
+    position: absolute;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    bottom: 30vh;
+    z-index: 8;
+    height: 40px;
+    width: 40px; }
+  #galleryNav #adv {
+    right: 20px; }
+    #galleryNav #adv:after {
+      color: #FFF;
+      text-shadow: 2px 2px 2px #ff817c;
+      content: "\203a";
+      font-size: 30px;
+      line-height: 50px;
+      text-align: center; }
+  #galleryNav #dec {
+    left: 20px; }
+    #galleryNav #dec:after {
+      color: #FFF;
+      text-shadow: 2px 2px 2px #ff817c;
+      content: "\2039";
+      font-size: 30px;
+      line-height: 50px;
+      text-align: center; }
+
 #modalImage {
   position: relative;
-  top: 10%; }
+  grid-area: image;
+  display: flex;
+  align-items: center;
+  top: 5%; }
+  #modalImage .image {
+    position: relative;
+    width: 100%;
+    margin: auto 0; }
+    #modalImage .image img {
+      max-width: 95%;
+      max-height: 60vh;
+      box-shadow: 2px 2px 10px rgba(255, 129, 124, 0.7); }
+
+#modalDesc {
+  position: relative;
+  grid-area: desc;
+  margin: 10vh 0; }
+  #modalDesc p {
+    text-align: left;
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0 auto;
+    width: 85%; }
+
+#checkoutModal {
+  position: fixed;
+  display: none;
+  z-index: 7;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.9); }
+
+form {
+  position: fixed;
+  top: 100px;
+  margin: 0 5%;
+  height: 100px;
+  width: 90%;
+  background: white;
+  padding: 5px;
+  border-radius: 4px; }
+
+.StripeElement {
+  margin: '10px, 0';
+  width: '90%'; }
 
 /*# sourceMappingURL=App.css.map */

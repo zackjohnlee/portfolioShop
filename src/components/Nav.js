@@ -8,14 +8,15 @@ const Nav = props => {
                 <input 
                     id="navToggle" 
                     type="checkbox"
-                    checked={props.checked}
-                    onChange={props.handleCheck}/>
+                    name="menuOpen"
+                    checked={props.menuOpen}
+                    onChange={props.handleMenu}/>
                 <label htmlFor="navToggle">
                     <div className="menu-bar"></div>
                     <div className="menu-bar"></div>
                     <div className="menu-bar"></div>
                 </label>
-                <div className="expandee" onClick={props.handleCheck}>
+                <div className="expandee" name="menuOpen" type="checkbox" onClick={props.handleMenu}>
 					<ul>
 						<li><NavLink exact to="/">WORKS</NavLink></li>
 						<li><NavLink to="/about">ABOUT</NavLink></li>

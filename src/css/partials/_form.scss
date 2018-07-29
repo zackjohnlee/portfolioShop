@@ -1,0 +1,25 @@
+#checkoutModal{
+    position: fixed;
+    display: none;
+    z-index: 7;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(255,255,255,.9); 
+}
+
+form{
+    position: fixed;
+    top: 100px;
+    margin: 0 5%;
+    height: 100px;
+    width: 90%;
+    background: white;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.StripeElement{
+    margin: '10px, 0';
+    width: '90%';
+}

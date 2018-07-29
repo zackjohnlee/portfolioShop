@@ -7,9 +7,14 @@ html{
 }
 
 body{
-	// height: 100vh;
+    // position: absolute;
+	height: 100vh;
     margin: 0;
     padding: 0;
+}
+
+body.noScroll{
+    overflow-x: hidden;
 }
 
 .App {
@@ -27,7 +32,7 @@ body{
 @import './partials/_content';
 @import './partials/_nav';
 @import './partials/_modal';
-
+@import './partials/_form';
 
 
 

@@ -1,0 +1,10 @@
+const config = {
+    stripe: {
+      apiKey: 'API_PUBLISHABLE_KEY',
+      checkoutUrl: 'INSERT AWS LAMBDA ENDPOINT FOR CHARGES',
+      productsUrl: 'INSERT AWS LAMBDA ENDPOINT FOR PRODUCTS',
+      currency: 'USD',
+    },
+  };
+  
+  export default config;

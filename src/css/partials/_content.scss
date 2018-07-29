@@ -5,6 +5,8 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     grid-gap: 10px 0;
     top: 10vh;
+    // height:100vh;
+    // overflow: scroll;
     justify-items: center;
     align-items: center;
     z-index: 2;
@@ -17,19 +19,21 @@
     width: 95%;
     border-radius: 5px;
     background-color: rgba(255,255,255,.5);
-}
-.image{
-    height: 162px;
-    width: 100%;
-    position:relative;
-    z-index: 1;
+    .image{
+        height: 162px;
+        width: 100%;
+        position:relative;
+        z-index: 1;
+        img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
 }
 
-img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
+
+
 
 // .tile{
 //     overflow: hidden;
