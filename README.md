@@ -2,7 +2,7 @@ bootstrapped with create-react-app,
 
 this project is an attempt to integrate an artist portfolio with an online store.
 
-e-commerce is powered by Stripe. We use AWS lambda for hosting as well as handling the interactions with the Stripe API. this is to help with security...also why not?
+e-commerce is powered by Stripe. We use AWS for hosting and Lambda for handling the interactions with the Stripe API. this is to help with security...also why not?
 
 Stripe will also be used to keep track of inventory, so item information like price and stock levels will be pulled from the Stripe API and populated dynamically when a shop item is being viewed.
 
