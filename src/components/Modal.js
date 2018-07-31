@@ -29,7 +29,12 @@ const Modal = (props) => {
                     <button id="adv" onClick={props.navGallery}/>
                 </div>
                 <div id="modalDesc">
-                    <p>{props.modalSrc.data.desc}</p>
+                    {props.modalSrc.data.type === "shop"
+                        ? 
+                        <p>${props.modalSrc.product.price/100.00}</p>
+                        :
+                        <p>{props.modalSrc.data.desc}</p>
+                    }
                 </div>
             </div>
         </div>

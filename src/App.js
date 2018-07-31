@@ -27,6 +27,7 @@ class App extends Component {
 			modalSrc: {
 				data: null,
 				src: "",
+				name: "",
 			},
 			window: {
 				width: 0,
@@ -78,14 +79,25 @@ class App extends Component {
 		});
 	}
 
-	imageClick(col, src){
+	imageClick(col, src, name){
+		let product;
 		let modalGallery = galleryData.filter((gallery) => {
 			return gallery.collection === col;
 		});
+
+		if(modalGallery[0].type === "shop"){
+			product = this.state.products.filter((product)=>{
+				return product.id === src;
+			});
+			product = product[0];
+		 } else { product = null; }
+		
 		this.setState({
 			modalSrc: {
-				data:modalGallery[0],
-				src: src
+				data: modalGallery[0],
+				src: src,
+				name: name,
+				product: product
 			},
 			modalOpen: true
 		});
@@ -97,9 +109,8 @@ class App extends Component {
 		let prevImg;
 		let addImg;
 		let images = this.state.modalSrc.data.images;
-		let thisIdx = images.map((image, index)=>{
+		images.forEach((image, index)=>{
 			if(image.src === this.state.modalSrc.src){
-				console.log(index);
 				index >= images.length-1
 					? addImg = images[0].src
 					: addImg = images[index+1].src
@@ -116,8 +127,9 @@ class App extends Component {
 			modalSrc: {
 				data: this.state.modalSrc.data,
 				src: nextImg,
+				name: this.state.modalSrc.name,
 			},
-		})
+		});
 	}
 
 	async fetchProducts() {

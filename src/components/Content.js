@@ -7,7 +7,7 @@ const Content = (props, scrollPosition) => {
     let tiles = props.data.map((tile) =>{
         return tile.images.map((image) => {
             return <div className={"tile"}
-                        onClick={() => props.click(tile.collection, image.src)} 
+                        onClick={() => props.click(tile.collection, image.src, image.name)} 
                         key={image.src}>
                         <LazyLoadImage
                             key={image.src}
@@ -19,28 +19,19 @@ const Content = (props, scrollPosition) => {
         });
     });
 
+    // const scrollBackTo = (scroll) =>{
+    //     window.scrollTo(0, scroll);
+    // }
+
     // let styles = {};
-    // // let scroll = window.scrollY;
-    // // console.log(scroll);
-    let scrollTo;
-    if(props.modalOpen || props.menuOpen){
-        const scroll = window.scrollY;
-        scrollTo = scroll;
-        console.log(scroll);
-        // styles = {
-        //     // top: "-" + scroll + "px",
-        //     position: "fixed"
-        // };
-        if(props.modalOpen != props.modalOpen){
-            window.scrollTo(0, scroll);
-        }
-    } 
-    // window.scrollTo(0, scrollTo);
-    // else{
-    //     styles = {
-    //         position: "relative",
-    //         // top: "10vh"
-    //     };
+    // let scrollBack;
+    // let modalClosed = false;
+    // if(props.modalOpen || props.menuOpen){
+    //     const scroll = window.scrollY;
+    //     styles = {position: "fixed"};
+    //     scrollBack = scroll;
+    // } else {
+    //     scrollBackTo(scrollBack);
     // }
 
     return (

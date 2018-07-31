@@ -7,7 +7,6 @@ export const galleryData = [
     //         {
     //             src: "",
     //             name: "",
-    //             desc: ""
     //         }
     //     ]
     // },
@@ -19,7 +18,6 @@ export const galleryData = [
             {
                 src: "stickerTest",
                 name: "stickerTest",
-                desc: "its the test sticker!"
             }
         ]
     },
