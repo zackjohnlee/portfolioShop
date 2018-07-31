@@ -25,10 +25,8 @@ class App extends Component {
 			modalOpen: false,
 			paymentOpen: false,
 			modalSrc: {
-				collection: "",
-				desc: "",
+				data: null,
 				src: "",
-				gallery: []
 			},
 			window: {
 				width: 0,
@@ -84,15 +82,10 @@ class App extends Component {
 		let modalGallery = galleryData.filter((gallery) => {
 			return gallery.collection === col;
 		});
-		let collectionDesc = modalGallery[0].desc;
-		let galleryImages = modalGallery[0].images;
-
 		this.setState({
 			modalSrc: {
-				collection: col,
-				src: src,
-				gallery: galleryImages,
-				desc: collectionDesc
+				data:modalGallery[0],
+				src: src
 			},
 			modalOpen: true
 		});
@@ -103,7 +96,7 @@ class App extends Component {
 		let nextImg;
 		let prevImg;
 		let addImg;
-		let images = this.state.modalSrc.gallery;
+		let images = this.state.modalSrc.data.images;
 		let thisIdx = images.map((image, index)=>{
 			if(image.src === this.state.modalSrc.src){
 				console.log(index);
@@ -121,25 +114,23 @@ class App extends Component {
 
 		this.setState({
 			modalSrc: {
-				collection: this.state.modalSrc.collection,
+				data: this.state.modalSrc.data,
 				src: nextImg,
-				gallery: this.state.modalSrc.gallery,
-				desc: this.state.modalSrc.desc
 			},
 		})
 	}
 
 	async fetchProducts() {
         console.log("fetch start...");
-        // const res = await fetch(config.stripe.productsUrl, {
-        //   method: 'GET'
-        // });
-        // const response = await res.json();
-        // const products = response.data;
+        const res = await fetch(config.stripe.productsUrl, {
+          method: 'GET'
+        });
+        const response = await res.json();
+        const products = response.data;
     
-        // this.setState({
-		// 	products
-		// });
+        this.setState({
+			products
+		});
     }
 
 	render() {
@@ -159,6 +150,7 @@ class App extends Component {
 						click={this.imageClick}
 						modalOpen={this.state.modalOpen}
 						handleModal={this.handleToggle}
+						modalSrc={this.state.modalSrc}
 						mainSrc={this.state.modalSrc.src}
 						collection={this.state.modalSrc.collection}
 						desc={this.state.modalSrc.desc}

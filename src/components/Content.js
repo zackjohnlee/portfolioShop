@@ -22,14 +22,20 @@ const Content = (props, scrollPosition) => {
     // let styles = {};
     // // let scroll = window.scrollY;
     // // console.log(scroll);
-    // if(props.modalOpen || props.menuOpen){
-    //     const scroll = window.scrollY;
-    //     window.scrollTo(0, scroll);
-    //     styles = {
-    //         // top: "-" + scroll + "px",
-    //         position: "fixed"
-    //     };
-    // } 
+    let scrollTo;
+    if(props.modalOpen || props.menuOpen){
+        const scroll = window.scrollY;
+        scrollTo = scroll;
+        console.log(scroll);
+        // styles = {
+        //     // top: "-" + scroll + "px",
+        //     position: "fixed"
+        // };
+        if(props.modalOpen != props.modalOpen){
+            window.scrollTo(0, scroll);
+        }
+    } 
+    // window.scrollTo(0, scrollTo);
     // else{
     //     styles = {
     //         position: "relative",
@@ -44,6 +50,7 @@ const Content = (props, scrollPosition) => {
                 <Modal
                     data={props.data}
                     modalOpen={props.modalOpen}
+                    modalSrc={props.modalSrc}
                     handleModal={props.handleModal}
                     mainSrc={props.mainSrc}
                     collection={props.collection}

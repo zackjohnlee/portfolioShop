@@ -19,7 +19,7 @@ const Modal = (props) => {
                 </div>
                 <div id="modalImage" >
                     <LazyLoadImage
-                        src={require("../images/"+ props.collection + "/" + props.mainSrc + ".jpg")}
+                        src={require("../images/"+ props.modalSrc.data.collection + "/" + props.modalSrc.src + ".jpg")}
                         effect="blur"
                         wrapperClassName="image"
                     />
@@ -29,7 +29,7 @@ const Modal = (props) => {
                     <button id="adv" onClick={props.navGallery}/>
                 </div>
                 <div id="modalDesc">
-                    <p>{props.desc}</p>
+                    <p>{props.modalSrc.data.desc}</p>
                 </div>
             </div>
         </div>
