@@ -159,6 +159,9 @@ nav {
     justify-items: center;
     height: 100%;
     background: rgba(255, 255, 255, 0.9); }
+    #modal #modalContainer:before {
+      height: 60px;
+      content: ""; }
     #modal #modalContainer #modalToggle {
       height: 40px;
       width: 40px;

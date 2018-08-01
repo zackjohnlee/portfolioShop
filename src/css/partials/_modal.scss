@@ -11,6 +11,10 @@
         justify-items: center;
         height: 100%;
         background: rgba(255, 255, 255, 0.9);
+        &:before{
+            height: 60px;
+            content: "";
+        }
         #modalToggle{
             height: 40px;
             width: 40px;;

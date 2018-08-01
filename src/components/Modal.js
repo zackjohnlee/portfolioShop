@@ -31,7 +31,11 @@ const Modal = (props) => {
                 <div id="modalDesc">
                     {props.modalSrc.data.type === "shop"
                         ? 
-                        <p>${props.modalSrc.product.price/100.00}</p>
+                        <div id="shopElements">
+                            <h2>{props.modalSrc.name}</h2>
+                            <h3>${props.modalSrc.product.price/100.00}</h3>
+                            <h3>in stock:{props.modalSrc.product.inventory.quantity}</h3>
+                        </div>
                         :
                         <p>{props.modalSrc.data.desc}</p>
                     }

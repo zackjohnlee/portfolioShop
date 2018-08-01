@@ -128,11 +128,12 @@ class App extends Component {
 				data: this.state.modalSrc.data,
 				src: nextImg,
 				name: this.state.modalSrc.name,
+				product: this.state.modalSrc.product
 			},
 		});
 	}
 
-	async fetchProducts() {
+	async fetchProducts(){
         console.log("fetch start...");
         const res = await fetch(config.stripe.productsUrl, {
           method: 'GET'
@@ -160,6 +161,7 @@ class App extends Component {
 					<Content
 						data={galleryData}
 						click={this.imageClick}
+						handleScroll={this.scrollFix}
 						modalOpen={this.state.modalOpen}
 						handleModal={this.handleToggle}
 						modalSrc={this.state.modalSrc}
