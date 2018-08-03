@@ -171,6 +171,8 @@ class App extends Component {
 				product: this.state.modalSrc.product
 			},
 		});
+
+		this.scrollToggle();
 	}
 
 	async fetchProducts(){
