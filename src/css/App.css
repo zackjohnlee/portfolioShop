@@ -1,32 +1,43 @@
+@charset "UTF-8";
 @keyframes slide {
   0% {
-    opacity: 0; }
+    opacity: 0;
+  }
   100% {
-    opacity: 1; } }
+    opacity: 1;
+  }
+}
 @keyframes antislide {
   0% {
-    opacity: 0; }
+    opacity: 0;
+  }
   100% {
-    opacity: 1; } }
+    opacity: 1;
+  }
+}
 html {
   overflow-x: hidden;
-  background: linear-gradient(to bottom, #1a4184 0%, #525182 15%, rgba(255, 129, 124, 0.88) 33%, rgba(255, 222, 147, 0.78) 54%, rgba(249, 255, 186, 0.73) 66%, rgba(255, 255, 255, 0.57) 100%) no-repeat fixed; }
+  background: linear-gradient(to bottom, #1a4184 0%, #525182 15%, rgba(255, 129, 124, 0.88) 33%, rgba(255, 222, 147, 0.78) 54%, rgba(249, 255, 186, 0.73) 66%, rgba(255, 255, 255, 0.57) 100%) no-repeat fixed;
+}
 
 body {
   height: 100vh;
   margin: 0;
-  padding: 0; }
+  padding: 0;
+}
 
 body.noScroll {
-  overflow-x: hidden; }
+  overflow-x: hidden;
+}
 
 .App {
-  font-family: 'Lato', Arial, Helvetica, sans-serif;
+  font-family: "Lato", Arial, Helvetica, sans-serif;
   text-align: center;
   height: 100vh;
   width: 100%;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+}
 
 .App-header {
   position: fixed;
@@ -37,17 +48,18 @@ body.noScroll {
   text-transform: uppercase;
   color: white;
   background: linear-gradient(to bottom, #1a4184 25%, rgba(26, 65, 132, 0.5) 60%, rgba(255, 255, 255, 0) 100%);
-  z-index: 3; }
-  .App-header h1 {
-    position: absolute;
-    z-index: 20;
-    margin: 15px;
-    font-size: 1.2rem;
-    font-weight: 300;
-    text-shadow: 1px 1px 0.3px #ff817c; }
+  z-index: 3;
+}
+.App-header h1 {
+  position: absolute;
+  z-index: 20;
+  margin: 15px;
+  font-size: 1.2rem;
+  font-weight: 300;
+  text-shadow: 1px 1px 0.3px #ff817c;
+}
 
 #content {
-  position: relative;
   display: grid;
   margin: auto;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -55,7 +67,12 @@ body.noScroll {
   top: 10vh;
   justify-items: center;
   align-items: center;
-  z-index: 2; }
+  z-index: 2;
+}
+#content.modal-open {
+  position: fixed;
+  top: 0;
+}
 
 .tile {
   overflow: hidden;
@@ -63,156 +80,186 @@ body.noScroll {
   height: 162px;
   width: 95%;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.5); }
-  .tile .image {
-    height: 162px;
-    width: 100%;
-    position: relative;
-    z-index: 1; }
-    .tile .image img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover; }
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.tile .image {
+  height: 162px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+.tile .image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
 
 nav {
   position: fixed;
   width: 100%;
-  z-index: 10; }
-  nav #toggle {
-    position: fixed;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    margin: 10px;
-    z-index: 20; }
-    nav #toggle label {
-      transition: right 0.3s cubic-bezier(0.27, 0.86, 0.54, 0.99);
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 1;
-      z-index: 20; }
-      nav #toggle label .menu-bar {
-        transition: 0.1s linear;
-        width: 30px;
-        height: 2px;
-        margin: 7px 0;
-        border-radius: 1px;
-        background: white;
-        box-shadow: 2px 2px 2px rgba(255, 129, 124, 0.7); }
-    nav #toggle .expandee {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      width: 100%;
-      height: 0;
-      transition: height 0.2s linear;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.9); }
-      nav #toggle .expandee ul {
-        list-style-type: none;
-        margin: auto;
-        height: 100vh;
-        padding: 0;
-        padding-top: 12vh; }
-        nav #toggle .expandee ul li {
-          display: block;
-          width: 100%;
-          height: 30%;
-          text-align: center; }
-          nav #toggle .expandee ul li a {
-            font-family: 'Lato', Arial, Helvetica, sans-serif;
-            font-weight: 300;
-            font-size: 5rem;
-            color: white;
-            text-shadow: 2px 2px 2px rgba(255, 129, 124, 0.7);
-            height: 30%;
-            display: block;
-            text-decoration: none;
-            padding: 5% 0; }
-            nav #toggle .expandee ul li a:hover, nav #toggle .expandee ul li a.active {
-              cursor: pointer;
-              text-shadow: 2px 2px 2px #ff817c; }
-    nav #toggle #navToggle {
-      display: none; }
-      nav #toggle #navToggle:checked ~ .expandee {
-        height: 100vh; }
-      nav #toggle #navToggle:checked ~ label :nth-child(1) {
-        transform: translateY(10px) rotate(45deg); }
-      nav #toggle #navToggle:checked ~ label :nth-child(2) {
-        opacity: 0; }
-      nav #toggle #navToggle:checked ~ label :nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-        box-shadow: -2px 2px 2px rgba(255, 129, 124, 0.7); }
+  z-index: 10;
+}
+nav #toggle {
+  position: fixed;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  z-index: 20;
+}
+nav #toggle label {
+  transition: right 0.3s cubic-bezier(0.27, 0.86, 0.54, 0.99);
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  z-index: 20;
+}
+nav #toggle label .menu-bar {
+  transition: 0.1s linear;
+  width: 30px;
+  height: 2px;
+  margin: 7px 0;
+  border-radius: 1px;
+  background: white;
+  box-shadow: 2px 2px 2px rgba(255, 129, 124, 0.7);
+}
+nav #toggle .expandee {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 0;
+  transition: height 0.2s linear;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+}
+nav #toggle .expandee ul {
+  list-style-type: none;
+  margin: auto;
+  height: 100vh;
+  padding: 0;
+  padding-top: 12vh;
+}
+nav #toggle .expandee ul li {
+  display: block;
+  width: 100%;
+  height: 30%;
+  text-align: center;
+}
+nav #toggle .expandee ul li a {
+  font-family: "Lato", Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 5rem;
+  color: white;
+  text-shadow: 2px 2px 2px rgba(255, 129, 124, 0.7);
+  height: 30%;
+  display: block;
+  text-decoration: none;
+  padding: 5% 0;
+}
+nav #toggle .expandee ul li a:hover, nav #toggle .expandee ul li a.active {
+  cursor: pointer;
+  text-shadow: 2px 2px 2px #ff817c;
+}
+nav #toggle #navToggle {
+  display: none;
+}
+nav #toggle #navToggle:checked ~ .expandee {
+  height: 100vh;
+}
+nav #toggle #navToggle:checked ~ label :nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+nav #toggle #navToggle:checked ~ label :nth-child(2) {
+  opacity: 0;
+}
+nav #toggle #navToggle:checked ~ label :nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+  box-shadow: -2px 2px 2px rgba(255, 129, 124, 0.7);
+}
 
 #modal {
   position: fixed;
   z-index: 4;
   top: 0;
-  height: 100vh; }
-  #modal #modalContainer {
-    display: grid;
-    padding-top: 60px;
-    overflow: scroll;
-    grid-template-areas: "image" "galNav" "desc";
-    justify-items: center;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.9); }
-    #modal #modalContainer:before {
-      height: 60px;
-      content: ""; }
-    #modal #modalContainer #modalToggle {
-      height: 40px;
-      width: 40px;
-      border-radius: 5px;
-      position: fixed;
-      top: 69px;
-      left: 22px;
-      z-index: 5; }
-      #modal #modalContainer #modalToggle label {
-        position: absolute;
-        z-index: 5;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: -10px; }
-        #modal #modalContainer #modalToggle label:after {
-          color: #FFF;
-          text-shadow: 2px 2px 2px #ff817c;
-          content: "\00D7";
-          /* use the hex value here... */
-          font-size: 30px;
-          line-height: 50px;
-          text-align: center; }
-      #modal #modalContainer #modalToggle #modalCheck {
-        display: none; }
+  height: 100vh;
+}
+#modal #modalContainer {
+  display: grid;
+  padding-top: 60px;
+  overflow: scroll;
+  grid-template-areas: "image" "galNav" "desc";
+  justify-items: center;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+}
+#modal #modalContainer:before {
+  height: 60px;
+  content: "";
+}
+#modal #modalContainer #modalToggle {
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  position: fixed;
+  top: 69px;
+  left: 22px;
+  z-index: 5;
+}
+#modal #modalContainer #modalToggle label {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: -10px;
+}
+#modal #modalContainer #modalToggle label:after {
+  color: #FFF;
+  text-shadow: 2px 2px 2px #ff817c;
+  content: "×";
+  /* use the hex value here... */
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+}
+#modal #modalContainer #modalToggle #modalCheck {
+  display: none;
+}
 
 #galleryNav {
   grid-area: galNav;
-  align-self: center; }
-  #galleryNav button {
-    position: relative;
-    border: none;
-    background-color: rgba(255, 255, 255, 0);
-    z-index: 8;
-    width: 50vw; }
-  #galleryNav #adv {
-    position: relative; }
-    #galleryNav #adv:after {
-      color: #FFF;
-      text-shadow: 2px 2px 2px #ff817c;
-      content: "\203a";
-      font-size: 50px;
-      text-align: right; }
-  #galleryNav #dec {
-    position: relative; }
-    #galleryNav #dec:after {
-      color: #FFF;
-      text-shadow: 2px 2px 2px #ff817c;
-      content: "\2039";
-      font-size: 50px;
-      text-align: left; }
+  align-self: center;
+}
+#galleryNav button {
+  position: relative;
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 8;
+  width: 50vw;
+}
+#galleryNav #adv {
+  position: relative;
+}
+#galleryNav #adv:after {
+  color: #FFF;
+  text-shadow: 2px 2px 2px #ff817c;
+  content: "›";
+  font-size: 50px;
+  text-align: right;
+}
+#galleryNav #dec {
+  position: relative;
+}
+#galleryNav #dec:after {
+  color: #FFF;
+  text-shadow: 2px 2px 2px #ff817c;
+  content: "‹";
+  font-size: 50px;
+  text-align: left;
+}
 
 #modalImage {
   position: relative;
@@ -222,26 +269,31 @@ nav {
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  width: 100%; }
-  #modalImage .image {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    margin: auto 0; }
-    #modalImage .image img {
-      max-width: 95%;
-      max-height: 100%;
-      box-shadow: 2px 2px 10px rgba(255, 129, 124, 0.7); }
+  width: 100%;
+}
+#modalImage .image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: auto 0;
+}
+#modalImage .image img {
+  max-width: 95%;
+  max-height: 100%;
+  box-shadow: 2px 2px 10px rgba(255, 129, 124, 0.7);
+}
 
 #modalDesc {
   position: relative;
-  grid-area: desc; }
-  #modalDesc p {
-    text-align: left;
-    font-size: 1.2rem;
-    font-weight: 300;
-    margin: 0 auto 15vh;
-    width: 85%; }
+  grid-area: desc;
+}
+#modalDesc p {
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: 300;
+  margin: 0 auto 15vh;
+  width: 85%;
+}
 
 #checkoutModal {
   position: fixed;
@@ -250,7 +302,8 @@ nav {
   top: 0;
   height: 100vh;
   width: 100vw;
-  background: rgba(255, 255, 255, 0.9); }
+  background: rgba(255, 255, 255, 0.9);
+}
 
 form {
   position: fixed;
@@ -260,10 +313,12 @@ form {
   width: 90%;
   background: white;
   padding: 5px;
-  border-radius: 4px; }
+  border-radius: 4px;
+}
 
 .StripeElement {
-  margin: '10px, 0';
-  width: '90%'; }
+  margin: "10px, 0";
+  width: "90%";
+}
 
 /*# sourceMappingURL=App.css.map */
