@@ -10,6 +10,11 @@
     justify-items: center;
     align-items: center;
     z-index: 2;
+
+    &.modal-open {
+        position: fixed;
+        top: 0;
+    }
 }
 
 .tile{

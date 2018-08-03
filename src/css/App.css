@@ -70,6 +70,10 @@ body.noScroll {
   align-items: center;
   z-index: 2;
 }
+#content.modal-open {
+  position: fixed;
+  top: 0;
+}
 
 .tile {
   overflow: hidden;
