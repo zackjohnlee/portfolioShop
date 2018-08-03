@@ -60,7 +60,6 @@ body.noScroll {
 }
 
 #content {
-  position: relative;
   display: grid;
   margin: auto;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
