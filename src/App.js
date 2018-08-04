@@ -33,6 +33,7 @@ class App extends Component {
 				width: 0,
 				height: 0
 			},
+			cart: [],
 			products:[]
 		};
 
@@ -41,6 +42,8 @@ class App extends Component {
 		this.handleToggle = this.handleToggle.bind(this);
 		this.fetchProducts = this.fetchProducts.bind(this);
 		this.navigateGallery = this.navigateGallery.bind(this);
+		this.addItemHandler = this.addItemHandler.bind(this);
+
 
 	}
 	
@@ -175,6 +178,16 @@ class App extends Component {
 		this.scrollToggle();
 	}
 
+	addItemHandler(){
+		let cart = this.state.cart;
+		let product = this.state.modalSrc.product;
+		// product.quantity = 
+		cart.push(product);
+		this.setState({
+			cart: cart
+		});
+	}
+
 	async fetchProducts(){
         console.log("fetch start...");
         const res = await fetch(config.stripe.productsUrl, {
@@ -203,6 +216,7 @@ class App extends Component {
 					<Content
 						data={galleryData}
 						click={this.imageClick}
+						addItem={this.addItemHandler}
 						handleScroll={this.scrollFix}
 						modalOpen={this.state.modalOpen}
 						handleModal={this.handleToggle}

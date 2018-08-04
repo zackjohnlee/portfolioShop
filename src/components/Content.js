@@ -18,34 +18,6 @@ const Content = (props, scrollPosition) => {
                     </div>
         });
     });
-    
-    // const scrollBackTo = (scroll) =>{
-    //     window.scrollTo(0, scroll);
-    //     scrollTo = false;
-    // }
-
-    // let styles = {};
-    // let scrollBack;
-    // let scrollTo;
-    // if(props.modalOpen || props.menuOpen){
-
-    //     scrollTo = false;
-    //     if(!scrollTo){
-    //         const scroll = window.scrollY;
-    //         console.log(scroll);
-    //         scrollBack = scroll;
-    //         scrollTo = true;
-    //         styles = {position: "fixed"};
-    //     }
-    //     console.log("scrollTo", scrollTo);
-    // }
-    // console.log("scrollTo", scrollTo);
-
-    // if(scrollTo && !props.modalOpen) {
-    //     scrollBackTo(scrollBack);
-    //     console.log("scrollBack", scrollBack);
-    // }
-    
 
     return (
         <div id="content">
@@ -57,6 +29,7 @@ const Content = (props, scrollPosition) => {
                     modalSrc={props.modalSrc}
                     handleModal={props.handleModal}
                     mainSrc={props.mainSrc}
+                    addItem={props.addItem}
                     collection={props.collection}
                     desc={props.desc}
                     scrollPosition={scrollPosition}
