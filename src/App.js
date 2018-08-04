@@ -113,7 +113,7 @@ class App extends Component {
 	scrollToggle() {
 		// test if #content has 'modal-open' class
 		let content = document.getElementById('content');
-		if (content.classList.contains('modal-open')) {
+		if (content.classList.contains('modal-open') && !this.state.modalOpen) {
 			// Dismiss modal:
 			// if it does, remove it and scroll to the px it was "scrolled"
 			content.classList.remove('modal-open');
