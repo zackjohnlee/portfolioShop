@@ -178,10 +178,10 @@ class App extends Component {
 		this.scrollToggle();
 	}
 
-	addItemHandler(){
+	addItemHandler(qty){
 		let cart = this.state.cart;
 		let product = this.state.modalSrc.product;
-		// product.quantity = 
+		product.quantity = parseInt(qty);
 		cart.push(product);
 		this.setState({
 			cart: cart

@@ -57,6 +57,13 @@ class Modal extends Component {
         this.state={
             quantity: 1
         }
+        this.updateQuantity = this.updateQuantity.bind(this);
+    }
+
+    updateQuantity(e){
+        this.setState({
+            quantity: e.target.value
+        });
     }
     
     render() {
@@ -89,10 +96,10 @@ class Modal extends Component {
                             ? 
                             <div id="shopElements">
                                 <h2>{this.props.modalSrc.name}</h2>
-                                <button id="addItem" onClick={this.props.addItem}>add to cart</button>
+                                <button id="addItem" onClick={()=>this.props.addItem(this.state.quantity)}>add to cart</button>
                                 <h3>${this.props.modalSrc.product.price/100.00}</h3>
                                 <label htmlfor="quantity">Qty: </label>
-                                <input id="quantity" name="quantity" type="number" defaultValue="1" min="1" max={this.props.modalSrc.product.inventory.quantity}/>
+                                <input id="quantity" name="quantity" onChange={this.updateQuantity}type="number" value={this.state.quantity} min="1" max={this.props.modalSrc.product.inventory.quantity}/>
                                 <h3>in stock:{this.props.modalSrc.product.inventory.quantity}</h3>
                             </div>
                             :
