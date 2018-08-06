@@ -43,6 +43,7 @@ class App extends Component {
 		this.fetchProducts = this.fetchProducts.bind(this);
 		this.navigateGallery = this.navigateGallery.bind(this);
 		this.addItemHandler = this.addItemHandler.bind(this);
+		this.buyNow = this.buyNow.bind(this);
 
 
 	}
@@ -188,6 +189,12 @@ class App extends Component {
 		});
 	}
 
+	buyNow(e, qty){
+		this.addItemHandler(qty);
+		this.handleToggle(e);
+		console.log(e.target);
+	}
+
 	async fetchProducts(){
         console.log("fetch start...");
         const res = await fetch(config.stripe.productsUrl, {
@@ -215,20 +222,31 @@ class App extends Component {
 					</div>
 					<Content
 						data={galleryData}
+
 						click={this.imageClick}
-						addItem={this.addItemHandler}
 						handleScroll={this.scrollFix}
-						modalOpen={this.state.modalOpen}
-						handleModal={this.handleToggle}
-						modalSrc={this.state.modalSrc}
-						mainSrc={this.state.modalSrc.src}
-						collection={this.state.modalSrc.collection}
-						desc={this.state.modalSrc.desc}
 						handleNav={this.navigateGallery}
+
+						modalSrc={this.state.modalSrc}
+						modalOpen={this.state.modalOpen}
+						toggleModal={this.handleToggle}
+
+						paymentOpen={this.state.paymentOpen}
+						buyNow={this.buyNow}
+						addItem={this.addItemHandler}
+						
+						
 					/>
-					<StripeProvider stripe={this.state.stripe}>
-						<StoreCheckout/>
-    				</StripeProvider>
+					{this.state.paymentOpen
+						?
+						<StripeProvider stripe={this.state.stripe}>
+							<StoreCheckout
+								paymentOpen={this.state.paymentOpen}
+								togglePayment={this.handleToggle}/>
+						</StripeProvider>
+						:
+						null
+					}
 				</div>
 			</BrowserRouter>
 		);

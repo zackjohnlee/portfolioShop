@@ -25,15 +25,15 @@ const Content = (props, scrollPosition) => {
                 ?
                 <Modal
                     data={props.data}
-                    modalOpen={props.modalOpen}
+
                     modalSrc={props.modalSrc}
-                    handleModal={props.handleModal}
-                    mainSrc={props.mainSrc}
-                    addItem={props.addItem}
-                    collection={props.collection}
-                    desc={props.desc}
-                    scrollPosition={scrollPosition}
+                    modalOpen={props.modalOpen}
+                    toggleModal={props.toggleModal}
                     navGallery={props.handleNav}
+                    
+                    paymentOpen={props.paymentOpen}
+                    buyNow={props.buyNow}
+                    addItem={props.addItem}
                 /> 
                 :
                 null

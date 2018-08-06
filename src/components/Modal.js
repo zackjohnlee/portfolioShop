@@ -3,54 +3,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
-// const Modal = (props) => {
-//     return (
-//         <div id="modal">
-//             <div id="modalContainer">
-//                 <div id="modalToggle">
-//                     <input 
-//                         id="modalCheck" 
-//                         type="checkbox"
-//                         name="modalOpen"
-//                         checked={props.modalOpen}
-//                         onChange={props.handleModal}
-//                     />
-//                     <label htmlFor="modalCheck"/>
-//                 </div>
-//                 <div id="modalImage" >
-//                     <LazyLoadImage
-//                         src={require("../images/"+ props.modalSrc.data.collection + "/" + props.modalSrc.src + ".jpg")}
-//                         effect="blur"
-//                         wrapperClassName="image"
-//                     />
-//                 </div>
-//                 <div id="galleryNav">
-//                     <button id="dec" onClick={props.navGallery}/>
-//                     <button id="adv" onClick={props.navGallery}/>
-//                 </div>
-//                 <div id="modalDesc">
-//                     {props.modalSrc.data.type === "shop"
-//                         ? 
-//                         <div id="shopElements">
-//                             <h2>{props.modalSrc.name}</h2>
-//                             <button id="addItem" onClick={props.addItem}>add to cart</button>
-//                             <h3>${props.modalSrc.product.price/100.00}</h3>
-//                             <label htmlfor="quantity">Qty: </label>
-//                             <input id="quantity" name="quantity" type="number" defaultValue="1" min="1" max={props.modalSrc.product.inventory.quantity}/>
-//                             <h3>in stock:{props.modalSrc.product.inventory.quantity}</h3>
-//                         </div>
-//                         :
-//                         <p>{props.modalSrc.data.desc}</p>
-//                     }
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Modal;
-
-
 class Modal extends Component {
     constructor(props, context) {
         super(props, context);
@@ -76,7 +28,7 @@ class Modal extends Component {
                             type="checkbox"
                             name="modalOpen"
                             checked={this.props.modalOpen}
-                            onChange={this.props.handleModal}
+                            onChange={this.props.toggleModal}
                         />
                         <label htmlFor="modalCheck"/>
                     </div>
@@ -96,10 +48,29 @@ class Modal extends Component {
                             ? 
                             <div id="shopElements">
                                 <h2>{this.props.modalSrc.name}</h2>
-                                <button id="addItem" onClick={()=>this.props.addItem(this.state.quantity)}>add to cart</button>
+                                <button 
+                                    id="addItem" 
+                                    onClick={()=>this.props.addItem(this.state.quantity)}
+                                >add to cart</button>
+                                <input 
+                                    id="buyNow" 
+                                    type="checkbox" 
+                                    name="paymentOpen" 
+                                    checked={this.props.paymentOpen}
+                                    onChange={(e)=>this.props.buyNow(e, this.state.quantity)}
+                                />
+                                <label htmlFor="buyNow">Buy Now</label>
                                 <h3>${this.props.modalSrc.product.price/100.00}</h3>
-                                <label htmlfor="quantity">Qty: </label>
-                                <input id="quantity" name="quantity" onChange={this.updateQuantity}type="number" value={this.state.quantity} min="1" max={this.props.modalSrc.product.inventory.quantity}/>
+                                <label htmlFor="quantity">Qty: </label>
+                                <input 
+                                    id="quantity" 
+                                    name="quantity" 
+                                    onChange={this.updateQuantity}
+                                    type="number" 
+                                    value={this.state.quantity} 
+                                    min="1" 
+                                    max={this.props.modalSrc.product.inventory.quantity}
+                                />
                                 <h3>in stock:{this.props.modalSrc.product.inventory.quantity}</h3>
                             </div>
                             :

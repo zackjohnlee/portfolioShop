@@ -3,11 +3,21 @@ import {Elements} from 'react-stripe-elements';
 
 import CheckoutForm from './CheckoutForm';
 
-const StoreCheckout = () => {
+const StoreCheckout = (props) => {
     return (
-        <Elements>
-            <CheckoutForm/>
-        </Elements>
+        <div id="paymentModal">
+            <input 
+                id="paymentClose" 
+                type="checkbox"
+                name="paymentOpen"
+                checked={props.paymentOpen}
+                onChange={props.togglePayment}
+            />
+            <label htmlFor="modalCheck"/>
+            <Elements>
+                <CheckoutForm/>
+            </Elements>
+        </div>
     );
 };
 
