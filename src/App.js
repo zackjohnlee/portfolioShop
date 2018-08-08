@@ -183,21 +183,11 @@ class App extends Component {
 		let cart = this.state.cart;
 		let product = this.state.modalSrc.product;
 		let containsItem = false;
-		let newCart = [];
-		console.log("cart", this.state.cart);
 		cart.forEach((item, index)=>{
-			console.log("thisItem", item, index);
-			console.log("original quant",item.quantity);
 			if(item.id === product.id){
 				containsItem = true;
-				console.log("item matched", index);
-				console.log("product", qty);
-				console.log("item", item.quantity);
 				let newQuant = parseInt(qty) + item.quantity;
-				console.log("newQuant", newQuant);
 				item.quantity = newQuant;
-				console.log("updated Product", item);
-				console.log("newCart", cart);
 				this.setState({
 					cart: cart
 				});
@@ -206,7 +196,6 @@ class App extends Component {
 		if(!containsItem){
 			product.quantity = parseInt(qty);
 			cart.push(product);
-			console.log("this was called");
 			this.setState({
 				cart: cart
 			});
