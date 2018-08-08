@@ -2,6 +2,7 @@ import React from 'react';
 import {Elements} from 'react-stripe-elements';
 
 import CheckoutForm from './CheckoutForm';
+import Cart from './Cart';
 
 const StoreCheckout = (props) => {
     return (
@@ -13,7 +14,8 @@ const StoreCheckout = (props) => {
                 checked={props.paymentOpen}
                 onChange={props.togglePayment}
             />
-            <label htmlFor="modalCheck"/>
+            <label htmlFor="paymentClose"/>
+            <Cart/>
             <Elements>
                 <CheckoutForm/>
             </Elements>

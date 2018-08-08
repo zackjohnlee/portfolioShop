@@ -24,11 +24,13 @@ class CheckoutForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Card details
+                    </label>
+                    <div id="cardElements">
                         <CardNumberElement id="cardNumber" style={styles} />
                         <CardExpiryElement id="cardExpiry" style={styles} />
                         <CardCVCElement id="cardCVC" style={styles} />
-                        <PostalCodeElement id="zipCode" style={styles} />
-                    </label>
+                        <PostalCodeElement id="zipCode" style={styles}/>
+                    </div>
                 </form>
             </div>
         );

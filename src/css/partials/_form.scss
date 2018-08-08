@@ -1,16 +1,10 @@
-#paymentModal{
-    position: fixed;
-    z-index: 5;
-    height: 100vh;
-    width: 100vw;
-    background: rgba(255,255,255,.9);
-}
-
 #checkoutModal{
-    position: fixed;
+    // position: fixed;
     // display: none;
     z-index: 7;
     top: 0;
+    padding: 5px;
+    margin: 0 auto;
     // height: 100vh;
     // width: 100vw;
      
@@ -18,16 +12,16 @@
 
 form{
     position: fixed;
-    top: 100px;
+    // top: 100px;
     margin: 0 5%;
     height: 100px;
     width: 90%;
     background: white;
-    padding: 5px;
+    // padding: 5px;
     border-radius: 4px;
 }
 
-.StripeElement{
-    margin: '10px, 0';
-    width: '90%';
-}
+// .StripeElement{
+//     margin: 10px, 0;
+//     width: 90%;
+// }

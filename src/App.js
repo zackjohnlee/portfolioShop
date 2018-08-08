@@ -183,7 +183,26 @@ class App extends Component {
 		let cart = this.state.cart;
 		let product = this.state.modalSrc.product;
 		product.quantity = parseInt(qty);
-		cart.push(product);
+		let containsItem = false;
+
+		cart.forEach((item, index)=>{
+			console.log("thisItem", item, index);
+			if(item.id === product.id){
+				containsItem = true;
+				console.log("item matched", index);
+				console.log("product", product.quantity);
+				console.log("item", item.quantity);
+				let newQuant = product.quantity + item.quantity;
+				console.log("newQuant", newQuant);
+				item.quantity = newQuant;
+				console.log("updated Product", item);
+				cart.splice(index, 1, item);
+				console.log("newCart", cart);
+			}
+		})
+		if(!containsItem){
+			cart.push(product);
+		}
 		this.setState({
 			cart: cart
 		});
@@ -242,7 +261,9 @@ class App extends Component {
 						<StripeProvider stripe={this.state.stripe}>
 							<StoreCheckout
 								paymentOpen={this.state.paymentOpen}
-								togglePayment={this.handleToggle}/>
+								togglePayment={this.handleToggle}
+								cartContents={this.state.cart}
+							/>
 						</StripeProvider>
 						:
 						null
