@@ -15,7 +15,8 @@ const StoreCheckout = (props) => {
                 onChange={props.togglePayment}
             />
             <label htmlFor="paymentClose"/>
-            <Cart/>
+            <Cart
+                cart={props.cartContents}/>
             <Elements>
                 <CheckoutForm/>
             </Elements>
