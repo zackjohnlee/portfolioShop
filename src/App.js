@@ -182,30 +182,36 @@ class App extends Component {
 	addItemHandler(qty){
 		let cart = this.state.cart;
 		let product = this.state.modalSrc.product;
-		product.quantity = parseInt(qty);
 		let containsItem = false;
-
+		let newCart = [];
+		console.log("cart", this.state.cart);
 		cart.forEach((item, index)=>{
 			console.log("thisItem", item, index);
+			console.log("original quant",item.quantity);
 			if(item.id === product.id){
 				containsItem = true;
 				console.log("item matched", index);
-				console.log("product", product.quantity);
+				console.log("product", qty);
 				console.log("item", item.quantity);
-				let newQuant = product.quantity + item.quantity;
+				let newQuant = parseInt(qty) + item.quantity;
 				console.log("newQuant", newQuant);
 				item.quantity = newQuant;
 				console.log("updated Product", item);
-				cart.splice(index, 1, item);
 				console.log("newCart", cart);
+				this.setState({
+					cart: cart
+				});
 			}
-		})
-		if(!containsItem){
-			cart.push(product);
-		}
-		this.setState({
-			cart: cart
 		});
+		if(!containsItem){
+			product.quantity = parseInt(qty);
+			cart.push(product);
+			console.log("this was called");
+			this.setState({
+				cart: cart
+			});
+		}
+		
 	}
 
 	buyNow(e, qty){

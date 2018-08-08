@@ -14,7 +14,7 @@ class Modal extends Component {
 
     updateQuantity(e){
         this.setState({
-            quantity: e.target.value
+            quantity: parseInt(e.target.value)
         });
     }
     
