@@ -33,7 +33,11 @@ class App extends Component {
 				width: 0,
 				height: 0
 			},
-			cart: [],
+			cart: {
+				items: [],
+				itemCount: 0,
+				total: 0
+			},
 			products:[]
 		};
 
@@ -181,24 +185,35 @@ class App extends Component {
 	}
 
 	addItemHandler(qty){
-		let cart = this.state.cart;
+		let cart = this.state.cart.items;
 		let product = this.state.modalSrc.product;
 		let containsItem = false;
+		let total = 0;
 		cart.forEach((item, index)=>{
 			if(item.id === product.id){
 				containsItem = true;
 				let newQuant = parseInt(qty) + item.quantity;
+				total += (item.price*newQuant)-(item.price*item.quantity);
 				item.quantity = newQuant;
 				this.setState({
-					cart: cart
+					cart: {
+						items: cart,
+						itemCount: this.state.cart.itemCount + parseInt(qty),
+						total: this.state.cart.total + total
+					}
 				});
 			}
 		});
 		if(!containsItem){
 			product.quantity = parseInt(qty);
+			total = product.price*product.quantity;
 			cart.push(product);
 			this.setState({
-				cart: cart
+				cart: {
+					items: cart,
+					itemCount: this.state.cart.itemCount + qty,
+					total: this.state.cart.total + total
+				}
 			});
 		}
 		

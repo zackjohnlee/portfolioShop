@@ -32,7 +32,7 @@
                 right: -10px;
                 &:after{
                     color: #FFF;
-                    text-shadow: 2px 2px 2px rgba(255,129,124,1);
+                    text-shadow: $shadow;
                     content: "\00D7"; //"x"
                     font-size: 30px; 
                     line-height: 50px;
@@ -64,7 +64,7 @@
         position: relative;
         &:after{
             color: #FFF;
-            text-shadow: 2px 2px 2px rgba(255,129,124,1);
+            text-shadow: $shadow;
             content: "\203a";
             font-size: 50px; 
             text-align: right;
@@ -74,7 +74,7 @@
         position: relative;
         &:after{
             color: #FFF;
-            text-shadow: 2px 2px 2px rgba(255,129,124,1);
+            text-shadow: $shadow;
             content: "\2039";
             font-size: 50px; 
             text-align: left;

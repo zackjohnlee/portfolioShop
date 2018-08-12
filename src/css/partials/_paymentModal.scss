@@ -5,16 +5,58 @@
     height: 100vh;
     width: 100vw;
     background: rgba(255,255,255,.9);
+    overflow: scroll;
+    #payCloseLabel{
+        position: fixed;
+        right:80px;
+        top:15px;
+        label{
+            &:after{
+                color: #FFF;
+                text-shadow: $shadow;
+                content: "\00D7"; //"x"
+                font-size: 30px; 
+                line-height: 50px;
+                text-align: center;
+            }
+        }
+        #paymentClose{
+            display: none;
+        }
+    }
+
+    #cartTitle{
+        color: white;
+        text-shadow: $shadow;
+    }
     #cart{
-        height: 70vh;
+        min-height: 50vh;
     }
     #cartItem{
         display: grid;
-        grid-template-columns: 10% 40% 20% 20%;
+        grid-template-columns: 20% 40% 15% 25%;
         grid-template-areas: "image name price qty";
+        #itemImage{
+            grid-area: image;
+            overflow: hidden;
+            object-fit: cover;
+            justify-self: center;
+            align-self: center;
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            img{
+                height: 100%;
+                width: 100%;
+                // object-fit: cover;
+            }
+        }
         h1{
             grid-area: name;
             font-size: 1.2rem;
+            justify-self: start;
+            align-self: center;
+            margin: 0 10px;
         }
         #price{
             grid-area: price;
@@ -22,15 +64,14 @@
         }
         #qty{
             grid-area: qty;
-            display: inline;
             justify-self: center;
             align-self: center;
         }
         p{
             grid-area: qty;
-            display: inline;
             width: 4vw;
             align-self: center;
+            margin: auto 10%;
             &:first-child{
                 justify-self: start;
             }
@@ -39,4 +80,5 @@
             }
         }
     }
+
 }

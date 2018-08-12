@@ -7,14 +7,17 @@ import Cart from './Cart';
 const StoreCheckout = (props) => {
     return (
         <div id="paymentModal">
-            <input 
-                id="paymentClose" 
-                type="checkbox"
-                name="paymentOpen"
-                checked={props.paymentOpen}
-                onChange={props.togglePayment}
-            />
-            <label htmlFor="paymentClose"/>
+            <div id="payCloseLabel">
+                <input 
+                    id="paymentClose" 
+                    type="checkbox"
+                    name="paymentOpen"
+                    checked={props.paymentOpen}
+                    onChange={props.togglePayment}
+                />
+                <label htmlFor="paymentClose"/>
+            </div>
+            <h1 id="cartTitle">My Cart</h1>
             <Cart
                 data={props.data}
                 cart={props.cartContents}/>
