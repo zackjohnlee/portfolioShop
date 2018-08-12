@@ -16,6 +16,7 @@ const StoreCheckout = (props) => {
             />
             <label htmlFor="paymentClose"/>
             <Cart
+                data={props.data}
                 cart={props.cartContents}/>
             <Elements>
                 <CheckoutForm/>

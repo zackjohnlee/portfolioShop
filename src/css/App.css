@@ -248,13 +248,12 @@ nav {
     width: 85%; }
 
 #checkoutModal {
-  z-index: 7;
+  z-index: 10;
   top: 0;
   padding: 5px;
   margin: 0 auto; }
 
 form {
-  position: fixed;
   margin: 0 5%;
   height: 100px;
   width: 90%;
@@ -263,9 +262,36 @@ form {
 
 #paymentModal {
   position: fixed;
-  z-index: 5;
+  z-index: 10;
+  top: 0;
   height: 100vh;
   width: 100vw;
   background: rgba(255, 255, 255, 0.9); }
+  #paymentModal #cart {
+    height: 70vh; }
+  #paymentModal #cartItem {
+    display: grid;
+    grid-template-columns: 10% 40% 20% 20%;
+    grid-template-areas: "image name price qty"; }
+    #paymentModal #cartItem h1 {
+      grid-area: name;
+      font-size: 1.2rem; }
+    #paymentModal #cartItem #price {
+      grid-area: price;
+      align-self: center; }
+    #paymentModal #cartItem #qty {
+      grid-area: qty;
+      display: inline;
+      justify-self: center;
+      align-self: center; }
+    #paymentModal #cartItem p {
+      grid-area: qty;
+      display: inline;
+      width: 4vw;
+      align-self: center; }
+      #paymentModal #cartItem p:first-child {
+        justify-self: start; }
+      #paymentModal #cartItem p:last-child {
+        justify-self: end; }
 
 /*# sourceMappingURL=App.css.map */

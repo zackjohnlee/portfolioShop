@@ -114,11 +114,11 @@ class App extends Component {
 	scrollToggle() {
 		// test if #content has 'modal-open' class
 		let content = document.getElementById('content');
-		if (content.classList.contains('modal-open') && !this.state.modalOpen) {
+		if (content.classList.contains('modal-open')) {
 			// Dismiss modal:
 			// if it does, remove it and scroll to the px it was "scrolled"
 			content.classList.remove('modal-open');
-
+			
 			// only bother trying to work on the `top` css property if it's
 			// at least 3 characters long so that we can perform the substr()
 			// and if it's shorter than that, it's an empty string anyway
@@ -144,7 +144,8 @@ class App extends Component {
 			// if it doesn't, add the class and set `top` to -window.scrollY pixels
 			content.style.top = '-' + window.scrollY + 'px';
 			content.classList.add('modal-open');
-		}		
+		}
+		
 	}
 
 	navigateGallery(e){
@@ -255,6 +256,7 @@ class App extends Component {
 						?
 						<StripeProvider stripe={this.state.stripe}>
 							<StoreCheckout
+								data={galleryData}
 								paymentOpen={this.state.paymentOpen}
 								togglePayment={this.handleToggle}
 								cartContents={this.state.cart}

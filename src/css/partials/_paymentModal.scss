@@ -1,7 +1,42 @@
 #paymentModal{
     position: fixed;
-    z-index: 5;
+    z-index: 10;
+    top: 0;
     height: 100vh;
     width: 100vw;
     background: rgba(255,255,255,.9);
+    #cart{
+        height: 70vh;
+    }
+    #cartItem{
+        display: grid;
+        grid-template-columns: 10% 40% 20% 20%;
+        grid-template-areas: "image name price qty";
+        h1{
+            grid-area: name;
+            font-size: 1.2rem;
+        }
+        #price{
+            grid-area: price;
+            align-self: center;
+        }
+        #qty{
+            grid-area: qty;
+            display: inline;
+            justify-self: center;
+            align-self: center;
+        }
+        p{
+            grid-area: qty;
+            display: inline;
+            width: 4vw;
+            align-self: center;
+            &:first-child{
+                justify-self: start;
+            }
+            &:last-child{
+                justify-self: end;
+            }
+        }
+    }
 }

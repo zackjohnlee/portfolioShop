@@ -11,3 +11,17 @@ serverless is used to simplify the deployment of functions to Lambda.
 artist portfolio work is handled by a custom data structure and file naming system. This could probably be replaced with a CMS if necessary.
 
 also implemented lazy loading for images using React-Lazy-Load-Image-Component. I'm not 100% satisfied with this solution and something more effective could be implmented.
+
+current component Hierarchy:
+
+    App
+    |-Header
+    |-Nav
+    |-Content
+    |   |-LazyLoadImages
+    |   |-Modal
+    |-StripeProvider(StoreCheckout)
+        |-Cart
+        |   |-CartItems
+        |-Elements(CheckoutForm)
+        |   |-CardElements
