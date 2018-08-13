@@ -288,8 +288,8 @@ form {
     min-height: 50vh; }
   #paymentModal #cartItem {
     display: grid;
-    grid-template-columns: 20% 40% 15% 25%;
-    grid-template-areas: "image name price qty"; }
+    grid-template-columns: 20% 40% 25% 15%;
+    grid-template-areas: "image name qty price"; }
     #paymentModal #cartItem #itemImage {
       grid-area: image;
       overflow: hidden;
@@ -315,14 +315,19 @@ form {
       grid-area: qty;
       justify-self: center;
       align-self: center; }
-    #paymentModal #cartItem p {
+    #paymentModal #cartItem button {
       grid-area: qty;
       width: 4vw;
       align-self: center;
-      margin: auto 10%; }
-      #paymentModal #cartItem p:first-child {
+      margin: auto 10%;
+      background: white;
+      border-radius: 20%;
+      box-shadow: 2px 2px 2px #ff817c;
+      outline: none;
+      border: none; }
+      #paymentModal #cartItem button:first-child {
         justify-self: start; }
-      #paymentModal #cartItem p:last-child {
+      #paymentModal #cartItem button:last-child {
         justify-self: end; }
 
 /*# sourceMappingURL=App.css.map */

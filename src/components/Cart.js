@@ -9,11 +9,16 @@ const Cart = (props) => {
                     name={item.id}
                     price={item.price}
                     quantity={item.quantity}
+                    updateItem={props.updateItem}
                 />
     });
     return (
         <div id="cart">
             {cartItems}
+            <div id="cartSummary">
+                <p>items: {props.cart.itemCount}</p>
+                <p>total: ${props.cart.total/100}</p>
+            </div>
         </div>
     );
 };

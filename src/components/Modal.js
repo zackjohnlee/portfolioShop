@@ -51,7 +51,8 @@ class Modal extends Component {
                                 <button 
                                     id="addItem" 
                                     onClick={()=>this.props.addItem(this.state.quantity)}
-                                >add to cart</button>
+                                    >add to cart
+                                </button>
                                 <input 
                                     id="buyNow" 
                                     type="checkbox" 

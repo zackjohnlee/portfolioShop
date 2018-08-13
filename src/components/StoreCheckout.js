@@ -20,7 +20,9 @@ const StoreCheckout = (props) => {
             <h1 id="cartTitle">My Cart</h1>
             <Cart
                 data={props.data}
-                cart={props.cartContents}/>
+                cart={props.cartContents}
+                updateItem={props.updateItem}
+            />
             <Elements>
                 <CheckoutForm/>
             </Elements>

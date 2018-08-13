@@ -118,7 +118,7 @@ class App extends Component {
 	scrollToggle() {
 		// test if #content has 'modal-open' class
 		let content = document.getElementById('content');
-		if (content.classList.contains('modal-open')) {
+		if (content.classList.contains('modal-open') && !this.state.modalOpen) {
 			// Dismiss modal:
 			// if it does, remove it and scroll to the px it was "scrolled"
 			content.classList.remove('modal-open');
@@ -184,34 +184,58 @@ class App extends Component {
 		this.scrollToggle();
 	}
 
-	addItemHandler(qty){
+	addItemHandler(qty, name=null){
 		let cart = this.state.cart.items;
 		let product = this.state.modalSrc.product;
+		let thisItem = product.id;
+		let quantity = parseInt(qty);
 		let containsItem = false;
 		let total = 0;
+		if(name){
+			thisItem = name;
+		}
 		cart.forEach((item, index)=>{
-			if(item.id === product.id){
+			if(item.id === thisItem){
+				let inventory = item.inventory.quantity;
 				containsItem = true;
-				let newQuant = parseInt(qty) + item.quantity;
+
+				if((quantity + item.quantity) > inventory){
+					quantity = 0;
+					if(item.quantity < inventory){
+						quantity = inventory - item.quantity;
+					}
+				}
+
+				let newQuant = quantity + item.quantity;
+				if(newQuant <= 0){
+					// newQuant = 0;
+					cart.splice(index, 1);
+				} else if (newQuant>inventory){
+					newQuant = inventory;
+				}
+
 				total += (item.price*newQuant)-(item.price*item.quantity);
 				item.quantity = newQuant;
 				this.setState({
 					cart: {
 						items: cart,
-						itemCount: this.state.cart.itemCount + parseInt(qty),
+						itemCount: this.state.cart.itemCount + quantity,
 						total: this.state.cart.total + total
 					}
 				});
 			}
 		});
 		if(!containsItem){
-			product.quantity = parseInt(qty);
+			if(quantity > product.inventory.quantity){
+				quantity = product.inventory.quantity;
+			}
+			product.quantity = quantity;
 			total = product.price*product.quantity;
 			cart.push(product);
 			this.setState({
 				cart: {
 					items: cart,
-					itemCount: this.state.cart.itemCount + qty,
+					itemCount: this.state.cart.itemCount + quantity,
 					total: this.state.cart.total + total
 				}
 			});
@@ -275,6 +299,7 @@ class App extends Component {
 								paymentOpen={this.state.paymentOpen}
 								togglePayment={this.handleToggle}
 								cartContents={this.state.cart}
+								updateItem={this.addItemHandler}
 							/>
 						</StripeProvider>
 						:

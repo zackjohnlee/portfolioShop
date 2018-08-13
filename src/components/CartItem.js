@@ -14,9 +14,9 @@ const CartItem = (props) => {
             </div>
             <h1>{props.name}</h1>
             <h2 id="price">${props.price/100}</h2>
-            <p>+</p>
+            <button onClick={()=>props.updateItem(1, props.name)}>+</button>
             <h2 id="qty">{props.quantity}</h2>
-            <p>-</p>
+            <button onClick={()=>props.updateItem(-1, props.name)}>-</button>
         </div>
     );
 };

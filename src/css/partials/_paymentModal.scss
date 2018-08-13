@@ -34,8 +34,8 @@
     }
     #cartItem{
         display: grid;
-        grid-template-columns: 20% 40% 15% 25%;
-        grid-template-areas: "image name price qty";
+        grid-template-columns: 20% 40% 25% 15%;
+        grid-template-areas: "image name qty price";
         #itemImage{
             grid-area: image;
             overflow: hidden;
@@ -67,11 +67,16 @@
             justify-self: center;
             align-self: center;
         }
-        p{
+        button{
             grid-area: qty;
             width: 4vw;
             align-self: center;
             margin: auto 10%;
+            background: white;
+            border-radius: 20%;
+            box-shadow: $shadow;
+            outline: none;
+            border: none;
             &:first-child{
                 justify-self: start;
             }
