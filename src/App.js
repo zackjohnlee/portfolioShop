@@ -185,53 +185,79 @@ class App extends Component {
 	}
 
 	addItemHandler(qty, name=null){
+		//declare array for cart items, current product(from product page)
+		//the name of the product, how many are currently being added,
+		//check if item is already contained in array (default: false)
+		//the cart price total(default: 0)
 		let cart = this.state.cart.items;
 		let product = this.state.modalSrc.product;
 		let thisItem = product.id;
 		let quantity = parseInt(qty);
 		let containsItem = false;
 		let total = 0;
+
+		//check if item name was passed to function, set item name if true.
 		if(name){
 			thisItem = name;
 		}
+
+		//cycle through the carts item array
 		cart.forEach((item, index)=>{
+			//if the array item matches the item passed
 			if(item.id === thisItem){
+				//set items inventory availability
 				let inventory = item.inventory.quantity;
 				containsItem = true;
 
+				//if the quantity passed plus the items current quantity 
+				//are greater than the items available inventory
 				if((quantity + item.quantity) > inventory){
-					quantity = 0;
+					quantity = 0; //set quantity passed to 0
+					//if the items current quantity itself is less than 
+					//available inventory
 					if(item.quantity < inventory){
+						//set quantity to remaining inventory
 						quantity = inventory - item.quantity;
 					}
 				}
 
+				//create new quantity to update the items current quantity.
+				//should equal quantity passed plus current quantity in cart
 				let newQuant = quantity + item.quantity;
+				//if the new quantity is less than or equal to 0
 				if(newQuant <= 0){
-					// newQuant = 0;
-					cart.splice(index, 1);
-				} else if (newQuant>inventory){
-					newQuant = inventory;
+					cart.splice(index, 1); //remove the item from cart
+				} else if (newQuant>inventory){ //if new quantity is greater than inventory
+					newQuant = inventory; //new quantity equals available inventory
 				}
 
+				//the carts total value equals this item price times the new quantity,
+				//minus what the item values used to be
 				total += (item.price*newQuant)-(item.price*item.quantity);
+				//set the items quantity to the new quantity
 				item.quantity = newQuant;
 				this.setState({
 					cart: {
-						items: cart,
-						itemCount: this.state.cart.itemCount + quantity,
-						total: this.state.cart.total + total
+						items: cart, //add cart items array
+						itemCount: this.state.cart.itemCount + quantity, //add the quantity passed to the previous item count
+						total: this.state.cart.total + total //add the current total to the overall cart total
 					}
 				});
 			}
 		});
+		//if the item is not already in the array
 		if(!containsItem){
+			//check if quantity is greater than available inventory
 			if(quantity > product.inventory.quantity){
+				//if it is, set quantity passed to available inventory
 				quantity = product.inventory.quantity;
 			}
+			//set product quantity to quantity passed
 			product.quantity = quantity;
+			//set the products total to its price times its quantity
 			total = product.price*product.quantity;
-			cart.push(product);
+			cart.push(product); //add item to cart array
+			//see previous set state for clarification
 			this.setState({
 				cart: {
 					items: cart,
