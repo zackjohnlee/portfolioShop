@@ -58,12 +58,12 @@ class App extends Component {
 		window.addEventListener('resize', this.updateDimensions);
 		if (window.Stripe) {
 			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
-		  } else {
+		} else {
 			document.querySelector('#stripe-js').addEventListener('load', () => {
-			  // Create Stripe instance once Stripe.js loads
-			  this.setState({stripe: window.Stripe(config.stripe.apiKey)});
-			});
-		  }
+			// Create Stripe instance once Stripe.js loads
+			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
+		});
+		}
 	}
 
 	componentWillUnmount() {
@@ -86,7 +86,7 @@ class App extends Component {
 			[name]: value
 		});
 
-		this.scrollToggle();
+		// this.scrollToggle();
 	}
 
 	imageClick(col, src, name){
