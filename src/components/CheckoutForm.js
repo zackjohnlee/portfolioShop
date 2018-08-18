@@ -20,15 +20,19 @@ class CheckoutForm extends Component {
     
     handleSubmit = (ev) => {
         ev.preventDefault();
+        const email = this.state.email;
         this.props.stripe.createToken({
             name: this.state.name,
-            address_line1: this.state.addressLine1,
-            address_line2: this.state.addressLine2,
-            address_city: this.state.city,
-            address_state: this.state.state,
-            metadata: {email: this.state.email}
         }).then(({token}) => {
+            const shipping = {
+                line1: this.state.addressLine1,
+                line2: this.state.addressLine2,
+                city: this.state.city,
+                state: this.state.state,
+				postal_code: this.state.zip
+            }
             console.log('Received Stripe token:', token);
+            this.props.createOrder(token, email, shipping);
         });
     }
 
@@ -96,6 +100,14 @@ class CheckoutForm extends Component {
                             id="state" 
                             name="state" 
                             placeholder="State"
+                            onChange={(e)=>this.handleInput(e)}
+                            onBlur={(e)=>this.handleInput(e)}/>
+                        <input 
+                            style={styles} 
+                            type="text" 
+                            id="zip" 
+                            name="zip" 
+                            placeholder="Zip"
                             onChange={(e)=>this.handleInput(e)}
                             onBlur={(e)=>this.handleInput(e)}/>
                         <input 

@@ -1,0 +1,29 @@
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+module.exports.handler = (event, context, callback) => {  
+    
+    const requestBody = JSON.parse(event.body);   
+
+    // Payment information (from Stripe Checkout)  
+    const token = requestBody.token.id;  
+    const email = requestBody.order.email;   
+
+    // Order information  
+    const currency = requestBody.order.currency;  
+    const items = requestBody.order.items;  
+    const shipping = requestBody.order.shipping;
+
+    // Create order  
+    return stripe.orders.create({    
+        currency: currency,    
+        items: items,    
+        shipping: shipping,    
+        email: email  
+    }).then((order) => {
+        // Pay order with received token (from Stripe Checkout)   
+        return stripe.orders.pay(order.id, {     
+            source: token // obtained with Stripe.js    
+        });
+    // Return success info to client (see full code on github)
+    });
+};

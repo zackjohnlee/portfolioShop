@@ -48,6 +48,7 @@ class App extends Component {
 		this.navigateGallery = this.navigateGallery.bind(this);
 		this.addItemHandler = this.addItemHandler.bind(this);
 		this.buyNow = this.buyNow.bind(this);
+		this.createOrderHandler = this.createOrderHandler.bind(this);
 
 
 	}
@@ -286,7 +287,36 @@ class App extends Component {
         this.setState({
 			products
 		});
-    }
+	}
+	
+	async createOrderHandler(token, email, shipping){
+		console.log("creating order...");
+		const items = this.state.cart.items;
+		// console.log(token);
+		// console.log(email);
+		const orderItems = items.map((item)=>{
+			return {
+				amount: item.price,
+				quantity: item.quantity,
+				parent: item.id
+			}
+		});
+		const res = await fetch(config.stripe.checkoutUrl, { // Backend API url
+			method: 'POST',
+			body: JSON.stringify({
+			  token,
+			  order: {
+				currency: config.stripe.currency,
+				email: email,
+				items: orderItems,
+				shipping: {
+				  name: token.card.name,
+				  address: shipping
+				}
+			  }
+			}),
+		  });
+	}
 
 	render() {
 		return (
@@ -326,6 +356,7 @@ class App extends Component {
 								togglePayment={this.handleToggle}
 								cartContents={this.state.cart}
 								updateItem={this.addItemHandler}
+								createOrder={this.createOrderHandler}
 							/>
 						</StripeProvider>
 						:

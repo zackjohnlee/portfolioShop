@@ -24,7 +24,8 @@ const StoreCheckout = (props) => {
                 updateItem={props.updateItem}
             />
             <Elements>
-                <CheckoutForm/>
+                <CheckoutForm
+                    createOrder={props.createOrder}/>
             </Elements>
         </div>
     );
