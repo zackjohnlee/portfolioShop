@@ -33,6 +33,11 @@ class App extends Component {
 				width: 0,
 				height: 0
 			},
+			cart: {
+				items: [],
+				itemCount: 0,
+				total: 0
+			},
 			products:[]
 		};
 
@@ -41,6 +46,10 @@ class App extends Component {
 		this.handleToggle = this.handleToggle.bind(this);
 		this.fetchProducts = this.fetchProducts.bind(this);
 		this.navigateGallery = this.navigateGallery.bind(this);
+		this.addItemHandler = this.addItemHandler.bind(this);
+		this.buyNow = this.buyNow.bind(this);
+		this.createOrderHandler = this.createOrderHandler.bind(this);
+
 
 	}
 	
@@ -50,12 +59,12 @@ class App extends Component {
 		window.addEventListener('resize', this.updateDimensions);
 		if (window.Stripe) {
 			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
-		  } else {
+		} else {
 			document.querySelector('#stripe-js').addEventListener('load', () => {
-			  // Create Stripe instance once Stripe.js loads
-			  this.setState({stripe: window.Stripe(config.stripe.apiKey)});
-			});
-		  }
+			// Create Stripe instance once Stripe.js loads
+			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
+		});
+		}
 	}
 
 	componentWillUnmount() {
@@ -78,7 +87,7 @@ class App extends Component {
 			[name]: value
 		});
 
-		this.scrollToggle();
+		// this.scrollToggle();
 	}
 
 	imageClick(col, src, name){
@@ -110,11 +119,11 @@ class App extends Component {
 	scrollToggle() {
 		// test if #content has 'modal-open' class
 		let content = document.getElementById('content');
-		if (content.classList.contains('modal-open')) {
+		if (content.classList.contains('modal-open') && !this.state.modalOpen) {
 			// Dismiss modal:
 			// if it does, remove it and scroll to the px it was "scrolled"
 			content.classList.remove('modal-open');
-
+			
 			// only bother trying to work on the `top` css property if it's
 			// at least 3 characters long so that we can perform the substr()
 			// and if it's shorter than that, it's an empty string anyway
@@ -140,7 +149,8 @@ class App extends Component {
 			// if it doesn't, add the class and set `top` to -window.scrollY pixels
 			content.style.top = '-' + window.scrollY + 'px';
 			content.classList.add('modal-open');
-		}		
+		}
+		
 	}
 
 	navigateGallery(e){
@@ -175,6 +185,97 @@ class App extends Component {
 		this.scrollToggle();
 	}
 
+	addItemHandler(qty, name=null){
+		//declare array for cart items, current product(from product page)
+		//the name of the product, how many are currently being added,
+		//check if item is already contained in array (default: false)
+		//the cart price total(default: 0)
+		let cart = this.state.cart.items;
+		let product = this.state.modalSrc.product;
+		let thisItem = product.id;
+		let quantity = parseInt(qty);
+		let containsItem = false;
+		let total = 0;
+
+		//check if item name was passed to function, set item name if true.
+		if(name){
+			thisItem = name;
+		}
+
+		//cycle through the carts item array
+		cart.forEach((item, index)=>{
+			//if the array item matches the item passed
+			if(item.id === thisItem){
+				//set items inventory availability
+				let inventory = item.inventory.quantity;
+				containsItem = true;
+
+				//if the quantity passed plus the items current quantity 
+				//are greater than the items available inventory
+				if((quantity + item.quantity) > inventory){
+					quantity = 0; //set quantity passed to 0
+					//if the items current quantity itself is less than 
+					//available inventory
+					if(item.quantity < inventory){
+						//set quantity to remaining inventory
+						quantity = inventory - item.quantity;
+					}
+				}
+
+				//create new quantity to update the items current quantity.
+				//should equal quantity passed plus current quantity in cart
+				let newQuant = quantity + item.quantity;
+				//if the new quantity is less than or equal to 0
+				if(newQuant <= 0){
+					cart.splice(index, 1); //remove the item from cart
+				} else if (newQuant>inventory){ //if new quantity is greater than inventory
+					newQuant = inventory; //new quantity equals available inventory
+				}
+
+				//the carts total value equals this item price times the new quantity,
+				//minus what the item values used to be
+				total += (item.price*newQuant)-(item.price*item.quantity);
+				//set the items quantity to the new quantity
+				item.quantity = newQuant;
+				this.setState({
+					cart: {
+						items: cart, //add cart items array
+						itemCount: this.state.cart.itemCount + quantity, //add the quantity passed to the previous item count
+						total: this.state.cart.total + total //add the current total to the overall cart total
+					}
+				});
+			}
+		});
+		//if the item is not already in the array
+		if(!containsItem){
+			//check if quantity is greater than available inventory
+			if(quantity > product.inventory.quantity){
+				//if it is, set quantity passed to available inventory
+				quantity = product.inventory.quantity;
+			}
+			//set product quantity to quantity passed
+			product.quantity = quantity;
+			//set the products total to its price times its quantity
+			total = product.price*product.quantity;
+			cart.push(product); //add item to cart array
+			//see previous set state for clarification
+			this.setState({
+				cart: {
+					items: cart,
+					itemCount: this.state.cart.itemCount + quantity,
+					total: this.state.cart.total + total
+				}
+			});
+		}
+		
+	}
+
+	buyNow(e, qty){
+		this.addItemHandler(qty);
+		this.handleToggle(e);
+		console.log(e.target);
+	}
+
 	async fetchProducts(){
         console.log("fetch start...");
         const res = await fetch(config.stripe.productsUrl, {
@@ -186,7 +287,36 @@ class App extends Component {
         this.setState({
 			products
 		});
-    }
+	}
+	
+	async createOrderHandler(token, email, shipping){
+		console.log("creating order...");
+		const items = this.state.cart.items;
+		// console.log(token);
+		// console.log(email);
+		const orderItems = items.map((item)=>{
+			return {
+				amount: item.price,
+				quantity: item.quantity,
+				parent: item.id
+			}
+		});
+		const res = await fetch(config.stripe.checkoutUrl, { // Backend API url
+			method: 'POST',
+			body: JSON.stringify({
+			  token,
+			  order: {
+				currency: config.stripe.currency,
+				email: email,
+				items: orderItems,
+				shipping: {
+				  name: token.card.name,
+				  address: shipping
+				}
+			  }
+			}),
+		  });
+	}
 
 	render() {
 		return (
@@ -202,19 +332,36 @@ class App extends Component {
 					</div>
 					<Content
 						data={galleryData}
+
 						click={this.imageClick}
 						handleScroll={this.scrollFix}
-						modalOpen={this.state.modalOpen}
-						handleModal={this.handleToggle}
-						modalSrc={this.state.modalSrc}
-						mainSrc={this.state.modalSrc.src}
-						collection={this.state.modalSrc.collection}
-						desc={this.state.modalSrc.desc}
 						handleNav={this.navigateGallery}
+
+						modalSrc={this.state.modalSrc}
+						modalOpen={this.state.modalOpen}
+						toggleModal={this.handleToggle}
+
+						paymentOpen={this.state.paymentOpen}
+						buyNow={this.buyNow}
+						addItem={this.addItemHandler}
+						
+						
 					/>
-					<StripeProvider stripe={this.state.stripe}>
-						<StoreCheckout/>
-    				</StripeProvider>
+					{this.state.paymentOpen
+						?
+						<StripeProvider stripe={this.state.stripe}>
+							<StoreCheckout
+								data={galleryData}
+								paymentOpen={this.state.paymentOpen}
+								togglePayment={this.handleToggle}
+								cartContents={this.state.cart}
+								updateItem={this.addItemHandler}
+								createOrder={this.createOrderHandler}
+							/>
+						</StripeProvider>
+						:
+						null
+					}
 				</div>
 			</BrowserRouter>
 		);

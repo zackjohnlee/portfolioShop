@@ -2,12 +2,32 @@ import React from 'react';
 import {Elements} from 'react-stripe-elements';
 
 import CheckoutForm from './CheckoutForm';
+import Cart from './Cart';
 
-const StoreCheckout = () => {
+const StoreCheckout = (props) => {
     return (
-        <Elements>
-            <CheckoutForm/>
-        </Elements>
+        <div id="paymentModal">
+            <div id="payCloseLabel">
+                <input 
+                    id="paymentClose" 
+                    type="checkbox"
+                    name="paymentOpen"
+                    checked={props.paymentOpen}
+                    onChange={props.togglePayment}
+                />
+                <label htmlFor="paymentClose"/>
+            </div>
+            <h1 id="cartTitle">My Cart</h1>
+            <Cart
+                data={props.data}
+                cart={props.cartContents}
+                updateItem={props.updateItem}
+            />
+            <Elements>
+                <CheckoutForm
+                    createOrder={props.createOrder}/>
+            </Elements>
+        </div>
     );
 };
 

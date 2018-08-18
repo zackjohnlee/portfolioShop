@@ -18,6 +18,10 @@ export const galleryData = [
             {
                 src: "stickerTest",
                 name: "stickerTest",
+            },
+            {
+                src: "zineTest",
+                name: "zineTest",
             }
         ]
     },

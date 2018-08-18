@@ -18,34 +18,6 @@ const Content = (props, scrollPosition) => {
                     </div>
         });
     });
-    
-    // const scrollBackTo = (scroll) =>{
-    //     window.scrollTo(0, scroll);
-    //     scrollTo = false;
-    // }
-
-    // let styles = {};
-    // let scrollBack;
-    // let scrollTo;
-    // if(props.modalOpen || props.menuOpen){
-
-    //     scrollTo = false;
-    //     if(!scrollTo){
-    //         const scroll = window.scrollY;
-    //         console.log(scroll);
-    //         scrollBack = scroll;
-    //         scrollTo = true;
-    //         styles = {position: "fixed"};
-    //     }
-    //     console.log("scrollTo", scrollTo);
-    // }
-    // console.log("scrollTo", scrollTo);
-
-    // if(scrollTo && !props.modalOpen) {
-    //     scrollBackTo(scrollBack);
-    //     console.log("scrollBack", scrollBack);
-    // }
-    
 
     return (
         <div id="content">
@@ -53,14 +25,15 @@ const Content = (props, scrollPosition) => {
                 ?
                 <Modal
                     data={props.data}
-                    modalOpen={props.modalOpen}
+
                     modalSrc={props.modalSrc}
-                    handleModal={props.handleModal}
-                    mainSrc={props.mainSrc}
-                    collection={props.collection}
-                    desc={props.desc}
-                    scrollPosition={scrollPosition}
+                    modalOpen={props.modalOpen}
+                    toggleModal={props.toggleModal}
                     navGallery={props.handleNav}
+                    
+                    paymentOpen={props.paymentOpen}
+                    buyNow={props.buyNow}
+                    addItem={props.addItem}
                 /> 
                 :
                 null

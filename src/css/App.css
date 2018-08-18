@@ -101,7 +101,7 @@ nav {
         margin: 7px 0;
         border-radius: 1px;
         background: white;
-        box-shadow: 2px 2px 2px rgba(255, 129, 124, 0.7); }
+        box-shadow: 2px 2px 2px #ff817c; }
     nav #toggle .expandee {
       position: fixed;
       top: 0;
@@ -128,7 +128,7 @@ nav {
             font-weight: 300;
             font-size: 5rem;
             color: white;
-            text-shadow: 2px 2px 2px rgba(255, 129, 124, 0.7);
+            text-shadow: 2px 2px 2px #ff817c;
             height: 30%;
             display: block;
             text-decoration: none;
@@ -146,7 +146,7 @@ nav {
         opacity: 0; }
       nav #toggle #navToggle:checked ~ label :nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
-        box-shadow: -2px 2px 2px rgba(255, 129, 124, 0.7); }
+        box-shadow: 2px 2px 2px #ff817c; }
 
 #modal {
   position: fixed;
@@ -183,12 +183,14 @@ nav {
           color: #FFF;
           text-shadow: 2px 2px 2px #ff817c;
           content: "\00D7";
-          /* use the hex value here... */
           font-size: 30px;
           line-height: 50px;
           text-align: center; }
       #modal #modalContainer #modalToggle #modalCheck {
         display: none; }
+
+#buyNow {
+  display: none; }
 
 #galleryNav {
   grid-area: galNav;
@@ -246,26 +248,89 @@ nav {
     width: 85%; }
 
 #checkoutModal {
-  position: fixed;
-  display: none;
-  z-index: 7;
+  z-index: 10;
   top: 0;
-  height: 100vh;
-  width: 100vw;
-  background: rgba(255, 255, 255, 0.9); }
+  padding: 5px;
+  margin: 0 auto; }
 
 form {
-  position: fixed;
-  top: 100px;
   margin: 0 5%;
   height: 100px;
   width: 90%;
   background: white;
-  padding: 5px;
   border-radius: 4px; }
 
-.StripeElement {
-  margin: '10px, 0';
-  width: '90%'; }
+#paymentModal {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.9);
+  overflow: scroll; }
+  #paymentModal #payCloseLabel {
+    position: fixed;
+    right: 80px;
+    top: 15px; }
+    #paymentModal #payCloseLabel label:after {
+      color: #FFF;
+      text-shadow: 2px 2px 2px #ff817c;
+      content: "\00D7";
+      font-size: 30px;
+      line-height: 50px;
+      text-align: center; }
+    #paymentModal #payCloseLabel #paymentClose {
+      display: none; }
+  #paymentModal #cartTitle {
+    color: white;
+    font-weight: 300;
+    text-shadow: 2px 2px 2px #ff817c; }
+  #paymentModal #cart {
+    min-height: 50vh; }
+  #paymentModal #cartItem {
+    display: grid;
+    grid-template-columns: 20% 40% 25% 15%;
+    grid-template-areas: "image name qty price"; }
+    #paymentModal #cartItem #itemImage {
+      grid-area: image;
+      overflow: hidden;
+      object-fit: cover;
+      justify-self: center;
+      align-self: center;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%; }
+      #paymentModal #cartItem #itemImage img {
+        height: 100%;
+        width: 100%; }
+    #paymentModal #cartItem h1 {
+      grid-area: name;
+      font-size: 1.2rem;
+      justify-self: start;
+      align-self: center;
+      margin: 0 10px; }
+    #paymentModal #cartItem #price {
+      grid-area: price;
+      align-self: center; }
+    #paymentModal #cartItem #qty {
+      grid-area: qty;
+      justify-self: center;
+      align-self: center; }
+    #paymentModal #cartItem button {
+      grid-area: qty;
+      width: 4vw;
+      align-self: center;
+      margin: auto 10%;
+      padding: 0;
+      font-size: 1rem;
+      background: white;
+      border-radius: 20%;
+      box-shadow: 2px 2px 2px #ff817c;
+      outline: none;
+      border: none; }
+      #paymentModal #cartItem button:first-child {
+        justify-self: start; }
+      #paymentModal #cartItem button:last-child {
+        justify-self: end; }
 
 /*# sourceMappingURL=App.css.map */

@@ -16,11 +16,15 @@ service: myportfolio # NOTE: update this with your service name
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
+custom:
+  secrets: ${file(secrets.json)}
 
 provider:
   name: aws
   runtime: nodejs6.10
   region: us-west-1
+  environment:
+    STRIPE_SECRET_KEY: ${self:custom.secrets.stripeSecretKey}
   
 
 # you can overwrite defaults here
@@ -63,5 +67,12 @@ functions:
       - http:
           path: skus
           method: get
+          cors: true
+  createCharge:
+    handler: createOrder.handler
+    events:
+      - http:
+          path: orders
+          method: post
           cors: true
 
