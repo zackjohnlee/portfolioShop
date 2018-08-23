@@ -6,8 +6,14 @@ import Modal from "./Modal"
 const Content = (props, scrollPosition) => {
     let tiles = props.data.map((tile) =>{
         return tile.images.map((image) => {
+            let data = {
+                col: tile.collection,
+                src: image.src,
+                name: image.name,
+                desc: image.desc || null
+            }
             return <div className={"tile"}
-                        onClick={() => props.click(tile.collection, image.src, image.name)} 
+                        onClick={() => props.click(data)} 
                         key={image.src}>
                         <LazyLoadImage
                             key={image.src}

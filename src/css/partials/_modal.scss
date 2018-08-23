@@ -116,3 +116,39 @@
         width: 85%;
     }
 }
+
+#shopElements{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "title price"
+        "desc pay";
+    h2{
+        grid-area: title;
+    }
+    #desc{
+        grid-area: desc;
+    }
+    #priceDeets{
+        grid-area: price;
+        #price{
+
+        }
+        #stock{
+
+        }
+    }
+    #paymentDeets{
+        grid-area: pay;
+        #addItem{
+
+        }
+        #buy{
+
+        }
+        #qty{
+
+        }
+    }
+}

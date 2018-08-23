@@ -1,0 +1,14 @@
+version: 0.2
+            
+phases:
+  pre_build:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+artifacts:
+  files:
+    - '**/*'
+  name: portfolio-site-$(AWS_REGION)-$(date +%Y-%m-%d) 
+  base-directory: build

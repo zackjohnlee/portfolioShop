@@ -48,31 +48,45 @@ class Modal extends Component {
                             ? 
                             <div id="shopElements">
                                 <h2>{this.props.modalSrc.name}</h2>
-                                <button 
-                                    id="addItem" 
-                                    onClick={()=>this.props.addItem(this.state.quantity)}
-                                    >add to cart
-                                </button>
-                                <input 
-                                    id="buyNow" 
-                                    type="checkbox" 
-                                    name="paymentOpen" 
-                                    checked={this.props.paymentOpen}
-                                    onChange={(e)=>this.props.buyNow(e, this.state.quantity)}
-                                />
-                                <label htmlFor="buyNow">Buy Now</label>
-                                <h3>${this.props.modalSrc.product.price/100.00}</h3>
-                                <label htmlFor="quantity">Qty: </label>
-                                <input 
-                                    id="quantity" 
-                                    name="quantity" 
-                                    onChange={this.updateQuantity}
-                                    type="number" 
-                                    value={this.state.quantity} 
-                                    min="1" 
-                                    max={this.props.modalSrc.product.inventory.quantity}
-                                />
-                                <h3>in stock:{this.props.modalSrc.product.inventory.quantity}</h3>
+                                <div id="desc">
+                                    <p>{this.props.modalSrc.product.desc}</p>
+                                </div>
+                                <div id="priceDeets">
+                                    <h3 id="price">${this.props.modalSrc.product.price/100.00}</h3>
+                                    <h3 id="stock">
+                                        {this.props.modalSrc.product.inventory.quantity > 0
+                                            ? "In Stock"
+                                            : "Out of Stock"
+                                        }
+                                    </h3>
+                                </div>
+                                <div id="paymentDeets">
+                                    <div id="qty">
+                                        <label htmlFor="quantity">Qty: </label>
+                                        <input 
+                                            id="quantity" 
+                                            name="quantity" 
+                                            onChange={this.updateQuantity}
+                                            type="number" 
+                                            value={this.state.quantity} 
+                                            min="1" 
+                                            max={this.props.modalSrc.product.inventory.quantity}/>
+                                    </div>
+                                    <button 
+                                        id="addItem" 
+                                        onClick={()=>this.props.addItem(this.state.quantity)}>
+                                        add to cart
+                                    </button>
+                                    <div id="buy">
+                                        <label htmlFor="buyNow">Buy Now</label>
+                                        <input 
+                                            id="buyNow" 
+                                            type="checkbox" 
+                                            name="paymentOpen" 
+                                            checked={this.props.paymentOpen}
+                                            onChange={(e)=>this.props.buyNow(e, this.state.quantity)}/>
+                                    </div>
+                                </div>
                             </div>
                             :
                             <p>{this.props.modalSrc.data.desc}</p>

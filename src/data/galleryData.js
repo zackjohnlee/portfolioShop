@@ -18,10 +18,12 @@ export const galleryData = [
             {
                 src: "stickerTest",
                 name: "stickerTest",
+                desc: "You can put this sticker anywhere. Originally pen drawings, these miniature Saguaro's have a big personality."
             },
             {
                 src: "zineTest",
                 name: "zineTest",
+                desc: "This lovely little zine features 4 ceterfold images. Don't be fooled by its small size. The intricate illustrations were drawn in bic pen, and lovingly copied and reproduced here for you at a reasonable price."
             }
         ]
     },

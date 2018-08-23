@@ -47,6 +47,7 @@ body.noScroll {
     text-shadow: 1px 1px 0.3px #ff817c; }
 
 #content {
+  position: relative;
   display: grid;
   margin: auto;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -246,6 +247,20 @@ nav {
     font-weight: 300;
     margin: 0 auto 15vh;
     width: 85%; }
+
+#shopElements {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "title price" "desc pay"; }
+  #shopElements h2 {
+    grid-area: title; }
+  #shopElements #desc {
+    grid-area: desc; }
+  #shopElements #priceDeets {
+    grid-area: price; }
+  #shopElements #paymentDeets {
+    grid-area: pay; }
 
 #checkoutModal {
   z-index: 10;
