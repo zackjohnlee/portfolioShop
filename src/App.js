@@ -84,8 +84,6 @@ class App extends Component {
 		this.setState({
 			[name]: value
 		});
-
-		// this.scrollToggle();
 	}
 
 	imageClick(data){
@@ -111,45 +109,6 @@ class App extends Component {
 			},
 			modalOpen: true
 		});
-
-		this.scrollToggle();
-	}
-
-	scrollToggle() {
-		// // test if #content has 'modal-open' class
-		// let content = document.getElementById('content');
-		// if (content.classList.contains('modal-open') && !this.state.modalOpen) {
-		// 	// Dismiss modal:
-		// 	// if it does, remove it and scroll to the px it was "scrolled"
-		// 	content.classList.remove('modal-open');
-			
-		// 	// only bother trying to work on the `top` css property if it's
-		// 	// at least 3 characters long so that we can perform the substr()
-		// 	// and if it's shorter than that, it's an empty string anyway
-		// 	let px = content.style.top;
-		// 	if (px.length > 2) {
-				
-		// 		// turn that style string into an integer
-		// 		px = parseInt(px.substr(0,px.length - 2));
-
-		// 		// test that the integer is negative:
-		// 		// the scrollTo() isn't going to make sense unless it is, and we
-		// 		// can safely ignore the case where it's actually 0 because
-		// 		// then we're already done
-		// 		if (px < 0) {
-		// 			window.scrollTo({
-		// 				top: -px,
-		// 				behavior: 'instant'
-		// 			});
-		// 		}
-		// 	}
-		// } else {
-		// 	// Open modal:
-		// 	// if it doesn't, add the class and set `top` to -window.scrollY pixels
-		// 	content.style.top = '-' + window.scrollY + 'px';
-		// 	content.classList.add('modal-open');
-		// }
-		
 	}
 
 	navigateGallery(e){
@@ -180,8 +139,6 @@ class App extends Component {
 				product: this.state.modalSrc.product
 			},
 		});
-
-		this.scrollToggle();
 	}
 
 	addItemHandler(qty, name=null){
@@ -337,6 +294,8 @@ class App extends Component {
 						click={this.imageClick}
 						handleScroll={this.scrollFix}
 						handleNav={this.navigateGallery}
+
+						scrollY={window.scrollY}
 
 						modalSrc={this.state.modalSrc}
 						modalOpen={this.state.modalOpen}

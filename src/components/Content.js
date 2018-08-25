@@ -42,6 +42,32 @@ class Content extends Component {
         });
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.modalOpen && !this.props.modalOpen) {
+            // only bother trying to work on the `top` css property if it's
+			// at least 3 characters long so that we can perform the substr()
+			// and if it's shorter than that, it's an empty string anyway
+            let px = '-' + prevProps.scrollY + 'px';
+            console.log('top px:', px);
+			if (px.length > 2) {
+				
+				// turn that style string into an integer
+				px = parseInt(px.substr(0,px.length - 2));
+
+				// test that the integer is negative:
+				// the scrollTo() isn't going to make sense unless it is, and we
+				// can safely ignore the case where it's actually 0 because
+				// then we're already done
+				if (px < 0) {
+					window.scrollTo({
+						top: -px,
+						behavior: 'instant'
+					});
+				}
+			}
+        }
+    }
+
 	render() {
         let tiles = this.props.data.map((tile) => {
             return tile.images.map((image) => {
@@ -62,7 +88,15 @@ class Content extends Component {
         });
     
 		return (
-            <div id="content">
+            <div
+                id="content"
+                className={this.props.modalOpen ? 'modal-open' : ''}
+                style={{
+                    top: this.props.modalOpen ?
+                        '-' + window.scrollY + 'px' :
+                        '10vh',
+                }}
+                >
                 {this.props.modalOpen 
                     ?
                     <Modal
