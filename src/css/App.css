@@ -77,6 +77,11 @@ body.noScroll {
       width: 100%;
       object-fit: cover; }
 
+#video {
+  width: 200%;
+  height: 162px;
+  background: black; }
+
 nav {
   position: fixed;
   width: 100%;
@@ -250,17 +255,62 @@ nav {
 
 #shopElements {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 1fr;
   grid-template-rows: auto;
-  grid-template-areas: "title price" "desc pay"; }
+  grid-template-areas: "title price" "pay pay" "desc desc"; }
   #shopElements h2 {
-    grid-area: title; }
+    justify-self: center;
+    grid-area: title;
+    font-size: 3rem;
+    margin: 0; }
   #shopElements #desc {
     grid-area: desc; }
+    #shopElements #desc p {
+      text-align: justify; }
   #shopElements #priceDeets {
-    grid-area: price; }
+    grid-area: price;
+    margin: 2vh; }
+    #shopElements #priceDeets #price {
+      margin: 0;
+      font-size: 2rem;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 300; }
+    #shopElements #priceDeets #stock {
+      font-size: .8rem;
+      margin: 0; }
   #shopElements #paymentDeets {
+    display: grid;
+    grid-template-areas: "qty add buy";
     grid-area: pay; }
+    #shopElements #paymentDeets #addItem {
+      grid-area: add; }
+    #shopElements #paymentDeets #buy {
+      grid-area: buy; }
+    #shopElements #paymentDeets #qty {
+      grid-area: qty; }
+    #shopElements #paymentDeets .button {
+      display: inline-block;
+      border: none;
+      padding: .8rem 1.6rem;
+      margin: 0;
+      text-decoration: none;
+      background: #ff7788;
+      color: #ffffff;
+      font-family: sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 250ms ease-in-out,  transform 150ms ease;
+      -webkit-appearance: none;
+      -moz-appearance: none; }
+    #shopElements #paymentDeets .button:hover,
+    #shopElements #paymentDeets .button:focus {
+      background: #d83a84; }
+    #shopElements #paymentDeets .button:focus {
+      outline: 1px solid #fff;
+      outline-offset: -4px; }
+    #shopElements #paymentDeets .button:active {
+      transform: scale(0.99); }
 
 #checkoutModal {
   z-index: 10;

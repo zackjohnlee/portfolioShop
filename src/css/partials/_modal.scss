@@ -119,36 +119,82 @@
 
 #shopElements{
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr;
     grid-template-rows: auto;
     grid-template-areas: 
         "title price"
-        "desc pay";
+        "pay pay"
+        "desc desc";
     h2{
+        justify-self: center;
         grid-area: title;
+        font-size: 3rem;
+        margin: 0;
     }
     #desc{
         grid-area: desc;
+        p{
+            text-align: justify;
+        }
     }
     #priceDeets{
         grid-area: price;
+        margin: 2vh;
         #price{
-
+            margin: 0;
+            font-size: 2rem;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 300;
         }
         #stock{
-
+            font-size: .8rem;
+            margin: 0;
         }
     }
     #paymentDeets{
+        display: grid;
+        grid-template-areas: 
+            "qty add buy";
         grid-area: pay;
         #addItem{
-
+            grid-area: add;
         }
         #buy{
-
+            grid-area: buy;
         }
         #qty{
-
+            grid-area: qty;
+        }
+        .button {
+            display: inline-block;
+            border: none;
+            padding: .8rem 1.6rem;
+            margin: 0;
+            text-decoration: none;
+            background: #ff7788;
+            color: #ffffff;
+            font-family: sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: background 250ms ease-in-out, 
+                        transform 150ms ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+        
+        .button:hover,
+        .button:focus {
+            background: #d83a84;
+        }
+        
+        .button:focus {
+            outline: 1px solid #fff;
+            outline-offset: -4px;
+        }
+        
+        .button:active {
+            transform: scale(0.99);
         }
     }
 }
