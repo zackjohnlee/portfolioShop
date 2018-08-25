@@ -10,8 +10,7 @@ import config from './config';
 import {galleryData} from './data/galleryData';
 
 import './css/App.css';
-// import Content from "./components/Content";
-import ContentV2 from "./components/ContentV2";
+import Content from "./components/Content";
 import Nav from "./components/Nav";
 import Header from "./components/Header";
 import StoreCheckout from './components/StoreCheckout';
@@ -332,7 +331,7 @@ class App extends Component {
 							menuOpen={this.state.menuOpen}
 						/>
 					</div>
-					<ContentV2
+					<Content
 						data={galleryData}
 
 						click={this.imageClick}
