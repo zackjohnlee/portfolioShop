@@ -48,7 +48,6 @@ class Content extends Component {
 			// at least 3 characters long so that we can perform the substr()
 			// and if it's shorter than that, it's an empty string anyway
             let px = '-' + prevProps.scrollY + 'px';
-            console.log('top px:', px);
 			if (px.length > 2) {
 				
 				// turn that style string into an integer
@@ -94,7 +93,8 @@ class Content extends Component {
                 style={{
                     top: this.props.modalOpen ?
                         '-' + window.scrollY + 'px' :
-                        '10vh',
+                        '0',
+                    paddingTop: '10vh'
                 }}
                 >
                 {this.props.modalOpen 
