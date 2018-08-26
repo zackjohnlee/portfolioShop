@@ -36,6 +36,7 @@ class Content extends Component {
                 newImg.className = 'image';
                 entry.target.className = 'tile slide-in';
                 entry.target.appendChild(newImg);
+                // newImg.className = 'image fade-in';
 
                 // Stop observing once lazy-loaded
                 observer.unobserve(entry.target);

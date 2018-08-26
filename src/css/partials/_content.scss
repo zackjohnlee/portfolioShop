@@ -24,22 +24,32 @@
     width: 95%;
     border-radius: 5px;
     background-color: rgba(255,255,255,.5);
-    transition: transform 1s;
-    transform: translateY(30px);
-    .image{
-        height: 162px;
+    transition: 
+        transform 1s,
+        opacity 1.3s;
+    transform: translateY(60px);
+    opacity: 0;
+    img{
+        height: 100%;
         width: 100%;
-        position:relative;
-        z-index: 1;
-        img{
-            height: 100%;
+        object-fit: cover;
+        opacity: inherit;
+        .image{
+            height: 162px;
             width: 100%;
-            object-fit: cover;
+            position:relative;
+            z-index: 1;
+            
         }
     }
 }
 .slide-in{
     transform: translateY(0);
+    opacity: 1;
+}
+
+.fade-in{
+    
 }
 
 #video{
