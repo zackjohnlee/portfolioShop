@@ -34,6 +34,7 @@ class Content extends Component {
                 let newImg = document.createElement('img');
                 newImg.src = imgSrc;
                 newImg.className = 'image';
+                entry.target.className = 'tile slide-in';
                 entry.target.appendChild(newImg);
 
                 // Stop observing once lazy-loaded
