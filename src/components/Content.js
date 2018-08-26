@@ -7,7 +7,7 @@ class Content extends Component {
         
         let options = {
             root: null,
-            rootMargin: '0px',
+            rootMargin: '150px',
             threshold: 1.0
         };
         this.observer = new IntersectionObserver(this.intersectionObserved, options);
@@ -94,7 +94,8 @@ class Content extends Component {
                 style={{
                     top: this.props.modalOpen ?
                         '-' + window.scrollY + 'px' :
-                        '10vh',
+                        '0',
+                    paddingTop: '10vh'
                 }}
                 >
                 {this.props.modalOpen 
