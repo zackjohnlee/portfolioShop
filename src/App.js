@@ -63,6 +63,23 @@ class App extends Component {
 			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
 		});
 		}
+		let tiles = [];
+        galleryData.forEach(tile=>{
+            // console.log(tile);
+            tile.images.forEach(image=>{
+                let data = {
+                    col: tile.collection,
+                    src: image.src,
+                    name: image.name,
+                    desc: image.desc || null
+                }
+                tiles.push(data);
+            })
+        })
+        this.setState({ 
+            tileList: tiles
+        });
+        // console.log(this.state.tileList[2]);
 	}
 
 	componentWillUnmount() {
@@ -290,6 +307,7 @@ class App extends Component {
 					</div>
 					<Content
 						data={galleryData}
+						tiles={this.state.tileList}
 
 						click={this.imageClick}
 						handleScroll={this.scrollFix}

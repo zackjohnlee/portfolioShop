@@ -6,9 +6,7 @@ import range from 'lodash.range';
 class Content extends Component {
 	constructor(props) {
         super(props);
-        this.state={
-            tileList: []
-        }
+
         let options = {
             root: null,
             rootMargin: '150px',
@@ -18,29 +16,11 @@ class Content extends Component {
 	}
 	
 	componentDidMount() {
-        let tiles = [];
         let targets = document.querySelectorAll('.tile');
         targets.forEach((target) => {
             this.observer.observe(target);
         });
-        this.props.data.forEach(tile=>{
-            // console.log(tile);
-            tile.images.forEach(image=>{
-                let data = {
-                    col: tile.collection,
-                    src: image.src,
-                    name: image.name,
-                    desc: image.desc || null
-                }
-                tiles.push(data);
-            })
-        })
-        this.setState((state, props) => { 
-            return { 
-                tileList: tiles
-            }
-        });
-        
+        {console.log(this.props.tiles)}
     }
     
     intersectionObserved(entries, observer) {
@@ -112,7 +92,7 @@ class Content extends Component {
         //         )
         //     });
         // });
-    
+        
 		return (
             <div
                 id="content"
@@ -140,8 +120,8 @@ class Content extends Component {
                     null
                 }
                 {/*tiles*/}
-                <StaggeredMotion
-                    defaultStyles={range(this.state.tileList.length).map(()=>{y: 100})}
+                {/*<StaggeredMotion
+                    defaultStyles={range(this.props.tiles.length).map(()=>({y: 100}))}
                     styles={prevInterpolatedStyles => 
                         prevInterpolatedStyles.map((_, i) => {
                             return i === 0
@@ -152,18 +132,19 @@ class Content extends Component {
                     {interpolatingStyles =>
                         <div>
                             {interpolatingStyles.map((style, i) =>
-                                <div className={"tile"}
+                                <div 
+                                    className={"tile"}
                                     style={{
-                                        transform: `translateY(${style.y})`
+                                        transform: `translateY(${style.y}vh)`
                                     }}
-                                    onClick={() => this.props.click(this.state.tileList[i])} 
-                                    key={this.state.tileList[i].src}
-                                    data-source={require("../images/"+ this.state.tileList[i].col + "/lores/" + this.state.tileList[i].src + ".jpg")}>
-                                </div>)
-                            }
+                                    onClick={() => this.props.click(this.state.tiles[i])} 
+                                    key={this.props.tiles[i].src}
+                                    data-source={require("../images/"+ this.props.tiles[i].col + "/lores/" + this.props.tileList[i].src + ".jpg")}>
+                                </div>
+                            )}
                         </div>
                     }
-                </StaggeredMotion>
+                </StaggeredMotion>*/}
             </div>
 		);
 	}
