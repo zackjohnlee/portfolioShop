@@ -94,6 +94,16 @@ class Content extends Component {
         // });
         
 		return (
+            <StaggeredMotion
+                    defaultStyles={range(this.props.tiles.length).map(()=>({y: 100}))}
+                    styles={prevInterpolatedStyles => 
+                        prevInterpolatedStyles.map((_, i) => {
+                            return i === 0
+                            ? {y: spring(0)}
+                            : {y: spring(prevInterpolatedStyles[i - 1].y)}
+                        })
+                    }>
+                    {interpolatingStyles =>
             <div
                 id="content"
                 className={this.props.modalOpen ? 'modal-open' : ''}
@@ -104,6 +114,7 @@ class Content extends Component {
                     paddingTop: '10vh'
                 }}
                 >
+                
                 {this.props.modalOpen 
                     ?
                     <Modal
@@ -119,33 +130,24 @@ class Content extends Component {
                     :
                     null
                 }
-                {/*tiles*/}
-                {/*<StaggeredMotion
-                    defaultStyles={range(this.props.tiles.length).map(()=>({y: 100}))}
-                    styles={prevInterpolatedStyles => 
-                        prevInterpolatedStyles.map((_, i) => {
-                            return i === 0
-                            ? {y: spring(0)}
-                            : {y: spring(prevInterpolatedStyles[i - 1].y)}
-                        })
-                    }>
-                    {interpolatingStyles =>
-                        <div>
-                            {interpolatingStyles.map((style, i) =>
-                                <div 
-                                    className={"tile"}
-                                    style={{
-                                        transform: `translateY(${style.y}vh)`
-                                    }}
-                                    onClick={() => this.props.click(this.state.tiles[i])} 
-                                    key={this.props.tiles[i].src}
-                                    data-source={require("../images/"+ this.props.tiles[i].col + "/lores/" + this.props.tileList[i].src + ".jpg")}>
-                                </div>
-                            )}
+                {interpolatingStyles.map((style, i) =>
+                    {return (
+                        <div
+                            key={this.props.tiles[i].src}
+                            className="tile"
+                            style={{
+                                transform: `translateY(${style.y}vh)`
+                            }}
+                            onClick={() => this.props.click(this.props.tiles[i])}
+                            data-source={require("../images/"+ this.props.tiles[i].col + "/lores/" + this.props.tiles[i].src + ".jpg")}>
+                            {/* <span>style.y: {style.y}</span> */}
                         </div>
-                    }
-                </StaggeredMotion>*/}
-            </div>
+                    );}
+                )}
+                
+                    </div>
+                }
+            </StaggeredMotion>
 		);
 	}
 }
