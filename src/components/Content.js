@@ -84,11 +84,11 @@ class Content extends Component {
         //             desc: image.desc || null
         //         }
         //         return (
-        //             // <div className={"tile"}
-        //             //     onClick={() => this.props.click(data)} 
-        //             //     key={image.src}
-        //             //     data-source={require("../images/"+ tile.collection + "/lores/" + image.src + ".jpg")}>
-        //             // </div>
+        //             <div className={"tile"}
+        //                 onClick={() => this.props.click(data)} 
+        //                 key={image.src}
+        //                 data-source={require("../images/"+ tile.collection + "/lores/" + image.src + ".jpg")}>
+        //             </div>
         //         )
         //     });
         // });
@@ -120,6 +120,7 @@ class Content extends Component {
                     null
                 }
                 {/*tiles*/}
+                {console.log(this.props.tiles)}
                 {/*<StaggeredMotion
                     defaultStyles={range(this.props.tiles.length).map(()=>({y: 100}))}
                     styles={prevInterpolatedStyles => 

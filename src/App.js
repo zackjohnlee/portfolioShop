@@ -49,20 +49,7 @@ class App extends Component {
 		this.handleToggle = this.handleToggle.bind(this);
 		this.imageClick = this.imageClick.bind(this);
 		this.buyNow = this.buyNow.bind(this);
-	}
-	
-	componentDidMount() {
-		this.updateDimensions();
-		this.fetchProducts();
-		window.addEventListener('resize', this.updateDimensions);
-		if (window.Stripe) {
-			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
-		} else {
-			document.querySelector('#stripe-js').addEventListener('load', () => {
-			// Create Stripe instance once Stripe.js loads
-			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
-		});
-		}
+
 		let tiles = [];
         galleryData.forEach(tile=>{
             // console.log(tile);
@@ -79,7 +66,20 @@ class App extends Component {
         this.setState({ 
             tileList: tiles
         });
-        // console.log(this.state.tileList[2]);
+	}
+	
+	componentDidMount() {
+		this.updateDimensions();
+		this.fetchProducts();
+		window.addEventListener('resize', this.updateDimensions);
+		if (window.Stripe) {
+			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
+		} else {
+			document.querySelector('#stripe-js').addEventListener('load', () => {
+			// Create Stripe instance once Stripe.js loads
+			this.setState({stripe: window.Stripe(config.stripe.apiKey)});
+		});
+		}
 	}
 
 	componentWillUnmount() {
