@@ -19,6 +19,20 @@ import StoreCheckout from './components/StoreCheckout';
 class App extends Component {
 	constructor(props, context) {
 		super(props, context);
+		let tiles = [];
+        galleryData.forEach(tile=>{
+            // console.log(tile);
+            tile.images.forEach(image=>{
+                let data = {
+                    col: tile.collection,
+                    src: image.src,
+                    name: image.name,
+                    desc: image.desc || null
+                }
+                tiles.push(data);
+            })
+		});
+		
 		this.state={
 			stripe: null,
 			menuOpen: false,
@@ -38,7 +52,8 @@ class App extends Component {
 				itemCount: 0,
 				total: 0
 			},
-			products:[]
+			products:[],
+			tileList: tiles
 		};
 
 		this.createOrderHandler = this.createOrderHandler.bind(this);
@@ -49,23 +64,6 @@ class App extends Component {
 		this.handleToggle = this.handleToggle.bind(this);
 		this.imageClick = this.imageClick.bind(this);
 		this.buyNow = this.buyNow.bind(this);
-
-		let tiles = [];
-        galleryData.forEach(tile=>{
-            // console.log(tile);
-            tile.images.forEach(image=>{
-                let data = {
-                    col: tile.collection,
-                    src: image.src,
-                    name: image.name,
-                    desc: image.desc || null
-                }
-                tiles.push(data);
-            })
-        })
-        this.setState({ 
-            tileList: tiles
-        });
 	}
 	
 	componentDidMount() {

@@ -120,8 +120,7 @@ class Content extends Component {
                     null
                 }
                 {/*tiles*/}
-                {console.log(this.props.tiles)}
-                {/*<StaggeredMotion
+                <StaggeredMotion
                     defaultStyles={range(this.props.tiles.length).map(()=>({y: 100}))}
                     styles={prevInterpolatedStyles => 
                         prevInterpolatedStyles.map((_, i) => {
@@ -145,7 +144,7 @@ class Content extends Component {
                             )}
                         </div>
                     }
-                </StaggeredMotion>*/}
+                </StaggeredMotion>
             </div>
 		);
 	}
