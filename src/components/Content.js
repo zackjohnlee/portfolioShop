@@ -37,7 +37,7 @@ class Content extends Component {
                 let newImg = document.createElement('img');
                 newImg.src = imgSrc;
                 newImg.className = 'image';
-                entry.target.className = 'tile slide-in';
+                entry.target.className = 'tile';
                 entry.target.appendChild(newImg);
                 // newImg.className = 'image fade-in';
 
@@ -95,57 +95,67 @@ class Content extends Component {
         
 		return (
             <StaggeredMotion
-                    defaultStyles={range(this.props.tiles.length).map(()=>({y: 100}))}
-                    styles={prevInterpolatedStyles => 
-                        prevInterpolatedStyles.map((_, i) => {
-                            return i === 0
-                            ? {y: spring(0)}
-                            : {y: spring(prevInterpolatedStyles[i - 1].y)}
-                        })
-                    }>
-                    {interpolatingStyles =>
-            <div
-                id="content"
-                className={this.props.modalOpen ? 'modal-open' : ''}
-                style={{
-                    top: this.props.modalOpen ?
-                        '-' + window.scrollY + 'px' :
-                        '0',
-                    paddingTop: '10vh'
-                }}
+                defaultStyles={range(this.props.tiles.length).map(()=>(
+                    {
+                        y: 100,
+                        opacity: 0
+                    }
+                ))}
+                styles={prevInterpolatedStyles => 
+                    prevInterpolatedStyles.map((_, i) => {
+                        const config = {stiffness: 610, damping: 50};
+                        const config2 = {stiffness: 300, damping: 50};
+                        return i === 0
+                        ?{
+                            y: spring(0, config),
+                            opacity: spring(1)
+                        }:{
+                            y: spring(prevInterpolatedStyles[i - 1].y, config),
+                            opacity: spring(prevInterpolatedStyles[i - 1].opacity)
+                        }
+                    })
+                }>
+            {interpolatingStyles =>
+                <div
+                    id="content"
+                    className={this.props.modalOpen ? 'modal-open' : ''}
+                    style={{
+                        top: this.props.modalOpen ?
+                            '-' + window.scrollY + 'px' :
+                            '0',
+                        paddingTop: '10vh'
+                    }}
                 >
-                
-                {this.props.modalOpen 
-                    ?
-                    <Modal
-                        data={this.props.data}
-                        modalSrc={this.props.modalSrc}
-                        modalOpen={this.props.modalOpen}
-                        toggleModal={this.props.toggleModal}
-                        navGallery={this.props.handleNav}
-                        paymentOpen={this.props.paymentOpen}
-                        buyNow={this.props.buyNow}
-                        addItem={this.props.addItem}
-                    /> 
-                    :
-                    null
-                }
-                {interpolatingStyles.map((style, i) =>
-                    {return (
-                        <div
-                            key={this.props.tiles[i].src}
-                            className="tile"
-                            style={{
-                                transform: `translateY(${style.y}vh)`
-                            }}
-                            onClick={() => this.props.click(this.props.tiles[i])}
-                            data-source={require("../images/"+ this.props.tiles[i].col + "/lores/" + this.props.tiles[i].src + ".jpg")}>
-                            {/* <span>style.y: {style.y}</span> */}
-                        </div>
-                    );}
-                )}
-                
-                    </div>
+                    {this.props.modalOpen 
+                        ?
+                        <Modal
+                            data={this.props.data}
+                            modalSrc={this.props.modalSrc}
+                            modalOpen={this.props.modalOpen}
+                            toggleModal={this.props.toggleModal}
+                            navGallery={this.props.handleNav}
+                            paymentOpen={this.props.paymentOpen}
+                            buyNow={this.props.buyNow}
+                            addItem={this.props.addItem}
+                        /> 
+                        :
+                        null
+                    }
+                    {interpolatingStyles.map((style, i) =>
+                        {return (
+                            <div
+                                key={this.props.tiles[i].src}
+                                className="tile"
+                                style={{
+                                    transform: `translateY(${style.y}vh)`,
+                                    opacity: style.opacity
+                                }}
+                                onClick={() => this.props.click(this.props.tiles[i])}
+                                data-source={require("../images/"+ this.props.tiles[i].col + "/lores/" + this.props.tiles[i].src + ".jpg")}>
+                            </div>
+                        );}
+                    )}
+                </div>
                 }
             </StaggeredMotion>
 		);
