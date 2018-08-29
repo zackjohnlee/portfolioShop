@@ -75,23 +75,23 @@ class Content extends Component {
 
 	render() {
         
-        // let tiles = this.props.data.map((tile) => {
-        //     return tile.images.map((image) => {
-        //         let data = {
-        //             col: tile.collection,
-        //             src: image.src,
-        //             name: image.name,
-        //             desc: image.desc || null
-        //         }
-        //         return (
-        //             <div className={"tile"}
-        //                 onClick={() => this.props.click(data)} 
-        //                 key={image.src}
-        //                 data-source={require("../images/"+ tile.collection + "/lores/" + image.src + ".jpg")}>
-        //             </div>
-        //         )
-        //     });
-        // });
+        let tiles = this.props.data.map((tile) => {
+            return tile.images.map((image) => {
+                let data = {
+                    col: tile.collection,
+                    src: image.src,
+                    name: image.name,
+                    desc: image.desc || null
+                }
+                return (
+                    <div className={"tile"}
+                        onClick={() => this.props.click(data)} 
+                        key={image.src}
+                        data-source={require("../images/"+ tile.collection + "/lores/" + image.src + ".jpg")}>
+                    </div>
+                )
+            });
+        });
         
 		return (
             <div
@@ -119,32 +119,7 @@ class Content extends Component {
                     :
                     null
                 }
-                {/*tiles*/}
-                <StaggeredMotion
-                    defaultStyles={range(this.props.tiles.length).map(()=>({y: 100}))}
-                    styles={prevInterpolatedStyles => 
-                        prevInterpolatedStyles.map((_, i) => {
-                            return i === 0
-                            ? {y: spring(0)}
-                            : {y: spring(prevInterpolatedStyles[i - 1].y)}
-                        })
-                    }>
-                    {interpolatingStyles =>
-                        <div>
-                            {interpolatingStyles.map((style, i) =>
-                                <div 
-                                    className={"tile"}
-                                    style={{
-                                        transform: `translateY(${style.y}vh)`
-                                    }}
-                                    onClick={() => this.props.click(this.state.tiles[i])} 
-                                    key={this.props.tiles[i].src}
-                                    data-source={require("../images/"+ this.props.tiles[i].col + "/lores/" + this.props.tileList[i].src + ".jpg")}>
-                                </div>
-                            )}
-                        </div>
-                    }
-                </StaggeredMotion>
+                {tiles}
             </div>
 		);
 	}
