@@ -8,7 +8,6 @@ class Content extends Component {
         super(props);
 
         let initialTiles = this.props.tiles.slice(0, 10);
-        console.log(initialTiles);
 
         this.state={
             tiles: this.props.tiles,
@@ -25,12 +24,11 @@ class Content extends Component {
             threshold: 1.0
         };
 
-        this.observeTarget = this.observeTarget.bind(this);
         this.loadingTiles = this.loadingTiles.bind(this);
+        this.observeTarget = this.observeTarget.bind(this);
         this.intersectionObserved = this.intersectionObserved.bind(this);
 
         this.observer = new IntersectionObserver(this.intersectionObserved, options);
-
 	}
 	
 	componentDidMount() {
@@ -39,63 +37,33 @@ class Content extends Component {
 
     loadingTiles() {
         if(this.state.moreToLoad){
-            console.log("fired");
             let allTiles = this.state.tiles;
-            console.log("allTiles:", allTiles);
             let sliceIdx = this.state.curIndex + this.state.amtToLoad;
             if (sliceIdx > allTiles.length){
                 sliceIdx = allTiles.length;
                 this.setState({moreToLoad: false});
             }
-            console.log("sliceIndex:", sliceIdx);
             let nextTiles = allTiles.slice(this.state.curIndex, sliceIdx);
-            console.log("nextTiles:", nextTiles);
             let loadTiles = this.state.tilesLoaded;
-            console.log("loadTiles:", loadTiles);
             let allTheTiles = loadTiles.concat(nextTiles)
             this.setState({
                 tilesLoaded: allTheTiles,
                 curIndex: sliceIdx
             });
-            console.log(this.state.tilesLoaded);
         }
     }
 
     observeTarget(){
-        console.log("fired");
         let targets = document.querySelectorAll('.tile');
         this.observer.observe(targets[this.state.tilesLoaded.length-1]);
     }
     
     intersectionObserved(entries, observer) {
         if(entries[0].isIntersecting){
-            console.log("called");
             this.loadingTiles();
             observer.unobserve(entries[0].target);
             this.state.moreToLoad ? this.observeTarget() : null;
         }
-        // entries.forEach((entry) => {
-        //     if (entry.isIntersecting) {
-        //         /*
-        //          * TODO: not 100% satisfied with this technique,
-        //          * but otherwise would need a lot of heavy lifting
-        //          * to put each tile props and visibility, as
-        //          * determined by intersectionObserver, into
-        //          * Content state. Probably a lot of refs.
-        //          */
-        //         
-        //         // let imgSrc = entry.target.getAttribute('data-source');
-        //         // let newImg = document.createElement('img');
-        //         // newImg.src = imgSrc;
-        //         // newImg.className = 'image';
-        //         // entry.target.className = 'tile slide-in';
-        //         // entry.target.appendChild(newImg);
-        //         // newImg.className = 'image fade-in';
-
-        //         // Stop observing once lazy-loaded
-        //         // observer.unobserve(entry.target);
-        //     }
-        // });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -125,26 +93,6 @@ class Content extends Component {
     }
 
 	render() {
-        
-        // let tiles = this.props.data.map((tile) => {
-        //     return tile.images.map((image) => {
-        //         let data = {
-        //             col: tile.collection,
-        //             src: image.src,
-        //             name: image.name,
-        //             desc: image.desc || null
-        //         }
-        //         return (
-        //             <div className={"tile"}
-        //                 onClick={() => this.props.click(data)} 
-        //                 key={image.src}
-        //                 data-source={require("../images/"+ tile.collection + "/lores/" + image.src + ".jpg")}>
-        //                 <img className={"image"} src={require("../images/"+ tile.collection + "/lores/" + image.src + ".jpg")}/>
-        //             </div>
-        //         )
-        //     });
-        // });
-
         let tiles = this.state.tilesLoaded.map((tile)=>{
             return (
                 <div className={"tile"}
