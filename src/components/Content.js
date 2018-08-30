@@ -7,27 +7,30 @@ class Content extends Component {
 	constructor(props) {
         super(props);
 
-        let initialTiles = this.props.tiles.slice(0, 10);
+        let initialTiles = this.props.tiles.slice(0, 12);
         console.log(initialTiles);
 
         this.state={
             tiles: this.props.tiles,
             tilesLoaded: initialTiles,
-            curIndex: 0,
+            curIndex: initialTiles.length,
             amtToLoad: 10,
-            isLoading: false
+            lastIntersect: 0,
+            isLoading: false,
+            moreToLoad: true
         };
 
         let options = {
             root: null,
-            rootMargin: '50px',
+            rootMargin: '0px',
             threshold: 1.0
         };
 
-        this.observer = new IntersectionObserver(this.intersectionObserved, options);
         console.log(this.state.tilesLoaded);
         this.loadingTiles = this.loadingTiles.bind(this);
         this.intersectionObserved = this.intersectionObserved.bind(this);
+        this.observer = new IntersectionObserver(this.intersectionObserved, options);
+
 	}
 	
 	componentDidMount() {
@@ -38,26 +41,39 @@ class Content extends Component {
 
     }
 
-    loadingTiles(e) {
-        console.log("fired");
-        let allTiles = this.state.tiles;
-        console.log("allTiles:", allTiles);
-        let sliceIdx = this.state.curIndex + this.state.amtToLoad;
-        console.log("sliceIndex:", sliceIdx);
-        let nextTiles = allTiles.slice(this.state.curIndex, sliceIdx);
-        console.log("nextTiles:", nextTiles);
-        let loadTiles = this.state.tilesLoaded;
-        console.log("loadTiles:", loadTiles);
-        loadTiles.push(nextTiles)
-        this.setState({
-            tilesLoaded: loadTiles,
-            curIndex: sliceIdx
-        });
+    loadingTiles() {
+        if(this.state.moreToLoad){
+            console.log("fired");
+            let allTiles = this.state.tiles;
+            console.log("allTiles:", allTiles);
+            let sliceIdx = this.state.curIndex + this.state.amtToLoad;
+            if (sliceIdx > allTiles.length){
+                sliceIdx = allTiles.length;
+                this.setState({moreToLoad: false});
+            }
+            console.log("sliceIndex:", sliceIdx);
+            let nextTiles = allTiles.slice(this.state.curIndex, sliceIdx);
+            console.log("nextTiles:", nextTiles);
+            let loadTiles = this.state.tilesLoaded;
+            console.log("loadTiles:", loadTiles);
+            let allTheTiles = loadTiles.concat(nextTiles)
+            this.setState({
+                tilesLoaded: allTheTiles,
+                curIndex: sliceIdx
+            });
+            console.log(this.state.tilesLoaded);
+        }
     }
     
     intersectionObserved(entries, observer) {
-        this.loadingTiles;
-        console.log("called");
+        let intersect = entries[0].boundingClientRect.y;
+        console.log("observed");
+        console.log(intersect);
+        if(entries[0].isIntersecting){
+            console.log("called");
+            this.loadingTiles();
+            observer.unobserve(entries[0].target);
+        }
         // entries.forEach((entry) => {
         //     if (entry.isIntersecting) {
         //         /*
@@ -128,8 +144,8 @@ class Content extends Component {
         //         )
         //     });
         // });
-
-        let tiles = this.state.tilesLoaded.map((tile)=>{
+        // console.log("from render:", this.state.tilesLoaded);
+        let tiles = this.state.tilesLoaded.map((tile, index)=>{
             return (
                 <div className={"tile"}
                     onClick={() => this.props.click(tile)} 
