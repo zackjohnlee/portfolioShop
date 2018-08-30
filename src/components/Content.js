@@ -20,25 +20,25 @@ class Content extends Component {
 
         let options = {
             root: null,
-            rootMargin: '150px',
+            rootMargin: '50px',
             threshold: 1.0
         };
 
-        this.loadingTiles = this.loadingTiles.bind(this);
-        // this.intersectionObserved = this.intersectionObserved.bind(this);
-
         this.observer = new IntersectionObserver(this.intersectionObserved, options);
-        
+        console.log(this.state.tilesLoaded);
+        this.loadingTiles = this.loadingTiles.bind(this);
+        this.intersectionObserved = this.intersectionObserved.bind(this);
 	}
 	
 	componentDidMount() {
         let targets = document.querySelectorAll('.tile');
         this.observer.observe(targets[this.state.tilesLoaded.length-1]);
+        console.log(targets[this.state.tilesLoaded.length-1]);
         // this.observer.observe(targets);
 
     }
 
-    loadingTiles() {
+    loadingTiles(e) {
         console.log("fired");
         let allTiles = this.state.tiles;
         console.log("allTiles:", allTiles);
@@ -67,7 +67,7 @@ class Content extends Component {
         //          * determined by intersectionObserver, into
         //          * Content state. Probably a lot of refs.
         //          */
-                
+        //         
         //         // let imgSrc = entry.target.getAttribute('data-source');
         //         // let newImg = document.createElement('img');
         //         // newImg.src = imgSrc;
