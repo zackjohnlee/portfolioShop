@@ -19,6 +19,7 @@ import StoreCheckout from './components/StoreCheckout';
 class App extends Component {
 	constructor(props, context) {
 		super(props, context);
+		
 		let tiles = [];
         galleryData.forEach(tile=>{
             // console.log(tile);

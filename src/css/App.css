@@ -66,10 +66,7 @@ body.noScroll {
   height: 162px;
   width: 95%;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.5);
-  transition: transform 1s, opacity 1.3s;
-  transform: translateY(60px);
-  opacity: 0; }
+  background-color: rgba(255, 255, 255, 0.5); }
   .tile img {
     height: 100%;
     width: 100%;
