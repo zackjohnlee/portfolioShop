@@ -7,15 +7,14 @@ class Content extends Component {
 	constructor(props) {
         super(props);
 
-        let initialTiles = this.props.tiles.slice(0, 12);
+        let initialTiles = this.props.tiles.slice(0, 10);
         console.log(initialTiles);
 
         this.state={
             tiles: this.props.tiles,
             tilesLoaded: initialTiles,
             curIndex: initialTiles.length,
-            amtToLoad: 10,
-            lastIntersect: 0,
+            amtToLoad: 5,
             isLoading: false,
             moreToLoad: true
         };
@@ -26,19 +25,16 @@ class Content extends Component {
             threshold: 1.0
         };
 
-        console.log(this.state.tilesLoaded);
+        this.observeTarget = this.observeTarget.bind(this);
         this.loadingTiles = this.loadingTiles.bind(this);
         this.intersectionObserved = this.intersectionObserved.bind(this);
+
         this.observer = new IntersectionObserver(this.intersectionObserved, options);
 
 	}
 	
 	componentDidMount() {
-        let targets = document.querySelectorAll('.tile');
-        this.observer.observe(targets[this.state.tilesLoaded.length-1]);
-        console.log(targets[this.state.tilesLoaded.length-1]);
-        // this.observer.observe(targets);
-
+        this.observeTarget();
     }
 
     loadingTiles() {
@@ -64,15 +60,19 @@ class Content extends Component {
             console.log(this.state.tilesLoaded);
         }
     }
+
+    observeTarget(){
+        console.log("fired");
+        let targets = document.querySelectorAll('.tile');
+        this.observer.observe(targets[this.state.tilesLoaded.length-1]);
+    }
     
     intersectionObserved(entries, observer) {
-        let intersect = entries[0].boundingClientRect.y;
-        console.log("observed");
-        console.log(intersect);
         if(entries[0].isIntersecting){
             console.log("called");
             this.loadingTiles();
             observer.unobserve(entries[0].target);
+            this.state.moreToLoad ? this.observeTarget() : null;
         }
         // entries.forEach((entry) => {
         //     if (entry.isIntersecting) {
@@ -144,8 +144,8 @@ class Content extends Component {
         //         )
         //     });
         // });
-        // console.log("from render:", this.state.tilesLoaded);
-        let tiles = this.state.tilesLoaded.map((tile, index)=>{
+
+        let tiles = this.state.tilesLoaded.map((tile)=>{
             return (
                 <div className={"tile"}
                     onClick={() => this.props.click(tile)} 
