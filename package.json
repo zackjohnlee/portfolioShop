@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ajv": "^6.5.3",
     "lodash.range": "^3.2.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -11,7 +12,8 @@
     "react-motion": "^0.5.2",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "react-stripe-elements": "^2.0.1"
+    "react-stripe-elements": "^2.0.1",
+    "react-transition-group": "^2.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

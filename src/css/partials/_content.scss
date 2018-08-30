@@ -6,7 +6,7 @@
     grid-gap: 10px 0;
     top: 10vh;
     // height:100vh;
-    // overflow: scroll;
+    overflow: hidden;
     justify-items: center;
     align-items: center;
     z-index: 2;
@@ -29,6 +29,9 @@
     //     opacity 1.3s;
     // transform: translateY(60px);
     // opacity: 0;
+    // animation-name: slide-in;
+    // animation-duration: 1s;
+    // animation-timing-function: ease-out;
     img{
         height: 100%;
         width: 100%;
@@ -43,14 +46,26 @@
         }
     }
 }
-.slide-in{
-    transform: translateY(0);
+// @keyframes slide-in{
+//     from{
+//         transform: translateY(100px);
+//         opacity: 0;
+//     }
+//     to{
+//         transform: translateY(0px);
+//         opacity: 1;
+//     }
+// }
+.slide-in-enter, .slide-in-appear{
+    transform: translateY(60px);
+    opacity: 0;
+}
+
+.slide-in-enter-active, .slide-in-appear-active{
+    transform: translateY(0px);
     opacity: 1;
 }
 
-.fade-in{
-    
-}
 
 #video{
     width: 200%;

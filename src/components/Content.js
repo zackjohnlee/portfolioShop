@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './Modal'
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {Motion, StaggeredMotion, spring} from 'react-motion';
 import range from 'lodash.range';
 
@@ -13,14 +14,14 @@ class Content extends Component {
             tiles: this.props.tiles,
             tilesLoaded: initialTiles,
             curIndex: initialTiles.length,
-            amtToLoad: 5,
+            amtToLoad: 6,
             isLoading: false,
             moreToLoad: true
         };
 
         let options = {
             root: null,
-            rootMargin: '0px',
+            rootMargin: '100px',
             threshold: 1.0
         };
 
@@ -93,46 +94,65 @@ class Content extends Component {
     }
 
 	render() {
-        let tiles = this.state.tilesLoaded.map((tile)=>{
+
+        let tiles = this.state.tilesLoaded.map((tile, i)=>{
             return (
-                <div className={"tile"}
-                    onClick={() => this.props.click(tile)} 
-                    key={tile.src}
-                    data-source={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
-                    <img className={"image"} 
-                        src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}/>
-                </div>
+                <CSSTransition
+                    key={`${i}-${tile.src}`}
+                    classNames="slide-in"
+
+                    appear={true}
+                >
+                    <div 
+                        className={"tile"}
+                        style={{
+                            transition: `
+                               transform 500ms ease-out ${i*100}ms,
+                               opacity 500ms ease-out ${i*100}ms
+                            `
+                        }}
+                        onClick={() => this.props.click(tile)} 
+                        key={tile.src}
+                        data-source={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
+                        <img className={"image"} 
+                            src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}/>
+                    </div>
+                </CSSTransition>
             )
         });
         
 		return (
-            <div
-                id="content"
-                className={this.props.modalOpen ? 'modal-open' : ''}
-                style={{
-                    top: this.props.modalOpen ?
-                        '-' + window.scrollY + 'px' :
-                        '0',
-                    paddingTop: '10vh'
-                }}
+            
+                <div
+                    id="content"
+                    className={this.props.modalOpen ? 'modal-open' : ''}
+                    style={{
+                        top: this.props.modalOpen ?
+                            '-' + window.scrollY + 'px' :
+                            '0',
+                        paddingTop: '10vh'
+                    }}
                 >
-                {this.props.modalOpen 
-                    ?
-                    <Modal
-                        data={this.props.data}
-                        modalSrc={this.props.modalSrc}
-                        modalOpen={this.props.modalOpen}
-                        toggleModal={this.props.toggleModal}
-                        navGallery={this.props.handleNav}
-                        paymentOpen={this.props.paymentOpen}
-                        buyNow={this.props.buyNow}
-                        addItem={this.props.addItem}
-                    /> 
-                    :
-                    null
-                }
-                {tiles}
-            </div>
+                    {this.props.modalOpen 
+                        ?
+                        <Modal
+                            data={this.props.data}
+                            modalSrc={this.props.modalSrc}
+                            modalOpen={this.props.modalOpen}
+                            toggleModal={this.props.toggleModal}
+                            navGallery={this.props.handleNav}
+                            paymentOpen={this.props.paymentOpen}
+                            buyNow={this.props.buyNow}
+                            addItem={this.props.addItem}
+                        /> 
+                        :
+                        null
+                    }
+                    <TransitionGroup component={null} appear={true}>
+                    {tiles}
+                    </TransitionGroup>
+                </div>
+            
 		);
 	}
 }
