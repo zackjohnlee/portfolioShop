@@ -96,19 +96,27 @@ class Content extends Component {
 	render() {
 
         let tiles = this.state.tilesLoaded.map((tile, i)=>{
+            let delayIdx;
+
+            if(i>=10){
+                let divisor = Math.floor(i/10);
+                delayIdx = i - (divisor*10);
+            }else{
+                delayIdx = i;
+            }
             return (
                 <CSSTransition
                     key={`${i}-${tile.src}`}
                     classNames="slide-in"
-
+                    timeout={100}
                     appear={true}
                 >
                     <div 
                         className={"tile"}
                         style={{
                             transition: `
-                               transform 500ms ease-out ${i*100}ms,
-                               opacity 500ms ease-out ${i*100}ms
+                               transform 500ms ease-out ${delayIdx*100}ms,
+                               opacity 500ms ease-out ${delayIdx*100}ms
                             `
                         }}
                         onClick={() => this.props.click(tile)} 
