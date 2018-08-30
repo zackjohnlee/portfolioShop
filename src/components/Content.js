@@ -25,6 +25,7 @@ class Content extends Component {
         };
 
         this.loadingTiles = this.loadingTiles.bind(this);
+        // this.intersectionObserved = this.intersectionObserved.bind(this);
 
         this.observer = new IntersectionObserver(this.intersectionObserved, options);
         
@@ -38,6 +39,7 @@ class Content extends Component {
     }
 
     loadingTiles() {
+        console.log("fired");
         let allTiles = this.state.tiles;
         console.log("allTiles:", allTiles);
         let sliceIdx = this.state.curIndex + this.state.amtToLoad;
@@ -54,7 +56,8 @@ class Content extends Component {
     }
     
     intersectionObserved(entries, observer) {
-        this.loadingTiles();
+        this.loadingTiles;
+        console.log("called");
         // entries.forEach((entry) => {
         //     if (entry.isIntersecting) {
         //         /*
