@@ -100,9 +100,9 @@ class Content extends Component {
 
             if(i>=10){
                 let divisor = Math.floor(i/10);
-                delayIdx = i - (divisor*10);
+                delayIdx = (i - (divisor*10))/2;
             }else{
-                delayIdx = i;
+                delayIdx = i/2;
             }
             return (
                 <CSSTransition
