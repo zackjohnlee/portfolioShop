@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Modal from './Modal'
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import {Motion, StaggeredMotion, spring} from 'react-motion';
-import range from 'lodash.range';
+
 
 class Content extends Component {
 	constructor(props) {
@@ -159,6 +158,7 @@ class Content extends Component {
                     <TransitionGroup component={null} appear={true}>
                     {tiles}
                     </TransitionGroup>
+                    <div id="video"></div>
                 </div>
             
 		);
