@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './Modal'
+import Tile from './Tile';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 
@@ -7,13 +8,13 @@ class Content extends Component {
 	constructor(props) {
         super(props);
 
-        let initialTiles = this.props.tiles.slice(0, 10);
+        let initialTiles = this.props.tiles.slice(0, 10); //not including [10] load the first 10 tiles
 
         this.state={
             tiles: this.props.tiles,
             tilesLoaded: initialTiles,
             curIndex: initialTiles.length,
-            amtToLoad: 6,
+            amtToLoad: 5,
             isLoading: false,
             moreToLoad: true
         };
@@ -23,6 +24,8 @@ class Content extends Component {
             rootMargin: '100px',
             threshold: 1.0
         };
+
+        this.ref = React.createRef();
 
         this.loadingTiles = this.loadingTiles.bind(this);
         this.observeTarget = this.observeTarget.bind(this);
@@ -103,6 +106,7 @@ class Content extends Component {
             }else{
                 delayIdx = i/2;
             }
+            // console.log(this.ref);
             return (
                 <CSSTransition
                     key={`${i}-${tile.src}`}
@@ -110,7 +114,8 @@ class Content extends Component {
                     timeout={100}
                     appear={true}
                 >
-                    <div 
+                    <Tile 
+                        tile={tile}
                         className={"tile"}
                         style={{
                             transition: `
@@ -118,12 +123,12 @@ class Content extends Component {
                                opacity 500ms ease-out ${delayIdx*100}ms
                             `
                         }}
-                        onClick={() => this.props.click(tile)} 
+                        ref={this.ref}
+                        click={this.props.click} 
                         key={tile.src}
-                        data-source={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
-                        <img className={"image"} 
-                            src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}/>
-                    </div>
+                        src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
+                        
+                    </Tile>
                 </CSSTransition>
             )
         });
@@ -156,9 +161,8 @@ class Content extends Component {
                         null
                     }
                     <TransitionGroup component={null} appear={true}>
-                    {tiles}
+                        {tiles}
                     </TransitionGroup>
-                    <div id="video"></div>
                 </div>
             
 		);

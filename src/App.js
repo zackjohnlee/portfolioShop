@@ -102,7 +102,11 @@ class App extends Component {
 		});
 	}
 
-	imageClick(data){
+	imageClick(data, ref){
+		let thisRef= ref.current.getBoundingClientRect();
+		let {x, y, width, height} = thisRef;
+		console.log(ref.current);
+		console.log(ref.current.getBoundingClientRect());
 		let product;
 		let modalGallery = galleryData.filter((gallery) => {
 			return gallery.collection === data.col;
@@ -121,7 +125,13 @@ class App extends Component {
 				data: modalGallery[0],
 				src: data.src,
 				name: data.name,
-				product: product
+				product: product,
+				curRef: {
+					x: x,
+					y: y,
+					width: width,
+					height: height
+				}
 			},
 			modalOpen: true
 		});
