@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import {Transition} from 'react-transition-group';
 
 
 class Modal extends Component {
@@ -32,13 +33,15 @@ class Modal extends Component {
                         />
                         <label htmlFor="modalCheck"/>
                     </div>
-                    <div id="modalImage" >
-                        <LazyLoadImage
-                            src={require("../images/"+ this.props.modalSrc.data.collection + "/" + this.props.modalSrc.src + ".jpg")}
-                            effect="blur"
-                            wrapperClassName="image"
-                        />
-                    </div>
+                    <Transition>
+                        <div id="modalImage" >
+                            <LazyLoadImage
+                                src={require("../images/"+ this.props.modalSrc.data.collection + "/" + this.props.modalSrc.src + ".jpg")}
+                                effect="blur"
+                                wrapperClassName="image"
+                            />
+                        </div>
+                    </Transition>
                     <div id="galleryNav">
                         <button id="dec" onClick={this.props.navGallery}/>
                         <button id="adv" onClick={this.props.navGallery}/>
