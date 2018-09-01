@@ -25,7 +25,10 @@ class Content extends Component {
             threshold: 1.0
         };
 
-        this.ref = React.createRef();
+        this.ref = [];
+        for(let i=0; i<this.state.tiles.length; i++){
+            this.ref[i] = React.createRef();
+        }
 
         this.loadingTiles = this.loadingTiles.bind(this);
         this.observeTarget = this.observeTarget.bind(this);
@@ -123,7 +126,7 @@ class Content extends Component {
                                opacity 500ms ease-out ${delayIdx*100}ms
                             `
                         }}
-                        ref={this.ref}
+                        ref={this.ref[i]}
                         click={this.props.click} 
                         key={tile.src}
                         src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>

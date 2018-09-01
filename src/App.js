@@ -106,7 +106,6 @@ class App extends Component {
 		let thisRef= ref.current.getBoundingClientRect();
 		let {x, y, width, height} = thisRef;
 		console.log(ref.current);
-		console.log(ref.current.getBoundingClientRect());
 		let product;
 		let modalGallery = galleryData.filter((gallery) => {
 			return gallery.collection === data.col;

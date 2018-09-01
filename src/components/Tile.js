@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Tile = React.forwardRef((props, ref) => {
+    let tileId = props.tile.src;
     return (
         <div 
             className={"tile"}
