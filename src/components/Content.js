@@ -30,6 +30,7 @@ class Content extends Component {
             this.ref[i] = React.createRef();
         }
 
+        this.blurTile = this.blurTile.bind(this);
         this.loadingTiles = this.loadingTiles.bind(this);
         this.observeTarget = this.observeTarget.bind(this);
         this.intersectionObserved = this.intersectionObserved.bind(this);
@@ -72,8 +73,18 @@ class Content extends Component {
         }
     }
 
+    blurTile(ref){
+		console.log("blur ref: ", ref);
+		!this.state.modalOpen
+			?
+			ref.current.style.filter = `blur(40px)`
+			:
+			ref.current.style.filter = `blur(0)`
+	}
+
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.modalOpen && !this.props.modalOpen) {
+            this.props.modalSrc.curRef.ref.current.style.filter = `blur(0)`;
             // only bother trying to work on the `top` css property if it's
 			// at least 3 characters long so that we can perform the substr()
 			// and if it's shorter than that, it's an empty string anyway
@@ -119,13 +130,13 @@ class Content extends Component {
                 >
                     <Tile 
                         tile={tile}
-                        className={"tile"}
                         style={{
                             transition:
                                 `transform 500ms ease-out ${delayIdx*100}ms,
                                 opacity 500ms ease-out ${delayIdx*100}ms,
                                 filter 100ms ease-in-out`
                         }}
+                        blur={this.blurTile}
                         ref={this.ref[i]}
                         click={this.props.click} 
                         key={tile.src}

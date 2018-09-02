@@ -21,7 +21,7 @@ class Modal extends Component {
     
     render() {
         const defaultStyles = {
-            transition: `all 500ms ease-out`,
+            transition: `all 500ms ease-out 100ms`,
             transform: `translate(${this.props.modalSrc.curRef.x}px, ${this.props.modalSrc.curRef.y}px)`,
             width: `${this.props.modalSrc.curRef.width}px`,
             height: `${this.props.modalSrc.curRef.height}px`
