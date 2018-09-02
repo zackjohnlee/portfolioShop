@@ -241,11 +241,13 @@ nav {
       text-align: left; }
 
 #modalImage {
-  position: absolute;
+  position: relative;
   margin: 0;
   padding: 0;
   grid-area: image;
-  background: red; }
+  background: red;
+  width: 100%;
+  height: 100%; }
   #modalImage .image {
     position: relative;
     width: 100%;
