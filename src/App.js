@@ -64,7 +64,9 @@ class App extends Component {
 		this.fetchProducts = this.fetchProducts.bind(this);
 		this.handleToggle = this.handleToggle.bind(this);
 		this.imageClick = this.imageClick.bind(this);
+		this.blurTile = this.blurTile.bind(this);
 		this.buyNow = this.buyNow.bind(this);
+		
 	}
 	
 	componentDidMount() {
@@ -100,14 +102,22 @@ class App extends Component {
 		this.setState({
 			[name]: value
 		});
+		this.blurTile(this.state.modalSrc.curRef.ref); //unblurs current blurred tile
+	}
+
+	blurTile(ref){
+		console.log("blur ref: ", ref);
+		!this.state.modalOpen
+			?
+			ref.current.style.filter = `blur(40px)`
+			:
+			ref.current.style.filter = `blur(0)`
 	}
 
 	imageClick(data, ref){
 		let thisRef= ref.current.getBoundingClientRect();
 		let {x, y, width, height} = thisRef;
-		console.log(ref);
-		ref.current.style = {filter: `blur(40px)`};
-		console.log(ref.current.style.CSSStyleDeclaration);
+		this.blurTile(ref); //blurs current tile
 		let product;
 		let modalGallery = galleryData.filter((gallery) => {
 			return gallery.collection === data.col;
@@ -131,7 +141,8 @@ class App extends Component {
 					x: x,
 					y: y,
 					width: width,
-					height: height
+					height: height,
+					ref: ref
 				}
 			},
 			modalOpen: true

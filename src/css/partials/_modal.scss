@@ -11,6 +11,7 @@
         justify-items: center;
         height: 100%;
         background: rgba(255, 255, 255, 0.9);
+        // display: none;
         &:before{
             height: 60px;
             content: "";
@@ -84,18 +85,12 @@
 }
 
 #modalImage{
-    position: relative;
-    top: 0;
-    left: 0;
+    position: absolute;
+    // top: 0;
+    // left: 0;
     margin: 0;
     padding: 0;
     grid-area: image;
-    // display: flex;
-    // align-self: center;
-    // flex-direction: column;
-    // justify-content: center;
-    // height: 100%;
-    // width: 100%;
     background: red;
     // transform-origin: -50% -50%;
     // transition: all 500ms ease-out;

@@ -241,9 +241,7 @@ nav {
       text-align: left; }
 
 #modalImage {
-  position: relative;
-  top: 0;
-  left: 0;
+  position: absolute;
   margin: 0;
   padding: 0;
   grid-area: image;

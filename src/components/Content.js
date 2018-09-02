@@ -130,7 +130,6 @@ class Content extends Component {
                         click={this.props.click} 
                         key={tile.src}
                         src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
-                        
                     </Tile>
                 </CSSTransition>
             )
@@ -148,8 +147,7 @@ class Content extends Component {
                         paddingTop: '10vh'
                     }}
                 >
-                    {this.props.modalOpen 
-                        ?
+                    {this.props.modalOpen &&
                         <Modal
                             data={this.props.data}
                             modalSrc={this.props.modalSrc}
@@ -160,8 +158,6 @@ class Content extends Component {
                             buyNow={this.props.buyNow}
                             addItem={this.props.addItem}
                         /> 
-                        :
-                        null
                     }
                     <TransitionGroup component={null} appear={true}>
                         {tiles}

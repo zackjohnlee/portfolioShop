@@ -38,6 +38,7 @@ class Modal extends Component {
                 height: `100%`
             },
         };
+        const {open} = this.props.modalOpen;
         return (
             <div id="modal">
                 <div id="modalContainer">
@@ -53,8 +54,10 @@ class Modal extends Component {
                             <label htmlFor="modalCheck"/>
                         </div>
                         <Transition
-                            in={true}
+                            in={this.props.modalOpen}
                             timeout={100}
+                            mountOnEnter
+                            unmountOnExit
                         >{(state)=>(
                             <div id="modalImage" 
                                 style={{
