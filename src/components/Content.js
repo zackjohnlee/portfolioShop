@@ -159,16 +159,18 @@ class Content extends Component {
                     }}
                 >
                     {this.props.modalOpen &&
-                        <Modal
-                            data={this.props.data}
-                            modalSrc={this.props.modalSrc}
-                            modalOpen={this.props.modalOpen}
-                            toggleModal={this.props.toggleModal}
-                            navGallery={this.props.handleNav}
-                            paymentOpen={this.props.paymentOpen}
-                            buyNow={this.props.buyNow}
-                            addItem={this.props.addItem}
-                        /> 
+                        <TransitionGroup component={null}>
+                            <Modal
+                                data={this.props.data}
+                                modalSrc={this.props.modalSrc}
+                                modalOpen={this.props.modalOpen}
+                                toggleModal={this.props.toggleModal}
+                                navGallery={this.props.handleNav}
+                                paymentOpen={this.props.paymentOpen}
+                                buyNow={this.props.buyNow}
+                                addItem={this.props.addItem}
+                            /> 
+                        </TransitionGroup>
                     }
                     <TransitionGroup component={null} appear={true}>
                         {tiles}

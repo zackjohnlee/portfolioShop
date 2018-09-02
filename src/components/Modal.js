@@ -8,15 +8,24 @@ class Modal extends Component {
     constructor(props, context) {
         super(props, context);
         this.state={
-            quantity: 1
+            quantity: 1,
+            isVisible: true
         }
         this.updateQuantity = this.updateQuantity.bind(this);
+        this.exitTransition = this.exitTransition.bind(this);
     }
 
     updateQuantity(e){
         this.setState({
             quantity: parseInt(e.target.value)
         });
+    }
+
+    exitTransition(e){
+        this.setState(()=>{
+            isVisible: false
+        })
+        // setTimeout(this.props.toggleModal(e), 1000);
     }
     
     render() {
@@ -49,29 +58,34 @@ class Modal extends Component {
         const {open} = this.props.modalOpen;
         return (
             <div id="modal">
-                <TransitionGroup component={null} appear={true}>
+                
                     <CSSTransition
-                        in={this.props.modalOpen}
+                        in={this.state.isVisible}
                         classNames="modal-fade"
                         timeout={100}
                         appear={true}
                     >
                         <div id="modalContainer">
-                            <TransitionGroup component={null} appear={true}>
-                                <div id="modalToggle">
-                                    <input 
-                                        id="modalCheck" 
-                                        type="checkbox"
-                                        name="modalOpen"
-                                        checked={this.props.modalOpen}
-                                        onChange={this.props.toggleModal}
-                                    />
-                                    <label htmlFor="modalCheck"/>
-                                </div>
+                            
                                 <Transition
-                                    in={this.props.modalOpen}
                                     timeout={0}
-                                    unmountOnExit
+                                >
+                                    <div id="modalToggle">
+                                        <input 
+                                            id="modalCheck" 
+                                            type="checkbox"
+                                            name="modalOpen"
+                                            checked={this.props.modalOpen}
+                                            onChange={(e)=> this.exitTransition(e)}
+                                        />
+                                        <label htmlFor="modalCheck"/>
+                                    </div>
+                                </Transition>
+                                <Transition
+                                    in={this.state.isVisible}
+                                    timeout={0}
+                                    appear={true}
+                                    onExit={()=>{console.log("exit called");}}
                                 >{(state)=>(
                                     <div id="modalImage" 
                                         style={{
@@ -87,11 +101,18 @@ class Modal extends Component {
                                     </div>
                                 )}
                                 </Transition>
-                                <div id="galleryNav">
-                                    <button id="dec" onClick={this.props.navGallery}/>
-                                    <button id="adv" onClick={this.props.navGallery}/>
-                                </div>
-                                <div id="modalDesc">
+                                <Transition
+                                    timeout={0}
+                                >
+                                    <div id="galleryNav">
+                                        <button id="dec" onClick={this.props.navGallery}/>
+                                        <button id="adv" onClick={this.props.navGallery}/>
+                                    </div>
+                                </Transition>
+                                <Transition
+                                    timeout={0}
+                                >
+                                    <div id="modalDesc">
                                     {this.props.modalSrc.data.type === "shop"
                                         ? 
                                         <div id="shopElements">
@@ -149,10 +170,11 @@ class Modal extends Component {
                                         <p>{this.props.modalSrc.data.desc}</p>
                                     }
                                 </div>
-                            </TransitionGroup>
+                                </Transition>
+                            
                         </div>
                     </CSSTransition>
-                </TransitionGroup>
+                
             </div>
         );
     }
