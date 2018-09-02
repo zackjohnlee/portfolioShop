@@ -25,6 +25,7 @@ class Content extends Component {
             threshold: 1.0
         };
 
+        //create a refs array for each available image to access DOM of tile
         this.ref = [];
         for(let i=0; i<this.state.tiles.length; i++){
             this.ref[i] = React.createRef();
@@ -74,13 +75,12 @@ class Content extends Component {
     }
 
     blurTile(ref){
-		console.log("blur ref: ", ref);
 		!this.state.modalOpen
 			?
-			ref.current.style.filter = `blur(40px)`
+			ref.current.style.filter = `blur(20px)`
 			:
 			ref.current.style.filter = `blur(0)`
-	}
+    }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.modalOpen && !this.props.modalOpen) {
@@ -134,7 +134,7 @@ class Content extends Component {
                             transition:
                                 `transform 500ms ease-out ${delayIdx*100}ms,
                                 opacity 500ms ease-out ${delayIdx*100}ms,
-                                filter 100ms ease-in-out`
+                                filter 300ms ease-in-out`
                         }}
                         blur={this.blurTile}
                         ref={this.ref[i]}

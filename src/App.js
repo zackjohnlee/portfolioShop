@@ -28,7 +28,8 @@ class App extends Component {
                     col: tile.collection,
                     src: image.src,
                     name: image.name,
-                    desc: image.desc || null
+					desc: image.desc || null,
+					isLoaded: false
                 }
                 tiles.push(data);
             })

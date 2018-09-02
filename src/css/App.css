@@ -182,41 +182,50 @@ nav {
     grid-template-areas: "image" "galNav" "desc";
     justify-items: center;
     height: 100%;
-    background: rgba(255, 255, 255, 0.9); }
+    transition: 300ms ease-in; }
     #modal #modalContainer:before {
       height: 60px;
       content: ""; }
-    #modal #modalContainer #modalToggle {
-      height: 40px;
-      width: 40px;
-      border-radius: 5px;
-      position: fixed;
-      top: 69px;
-      left: 22px;
-      z-index: 5; }
-      #modal #modalContainer #modalToggle label {
-        position: absolute;
-        z-index: 5;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: -10px; }
-        #modal #modalContainer #modalToggle label:after {
-          color: #FFF;
-          text-shadow: 2px 2px 2px #ff817c;
-          content: "\00D7";
-          font-size: 30px;
-          line-height: 50px;
-          text-align: center; }
-      #modal #modalContainer #modalToggle #modalCheck {
-        display: none; }
+
+.modal-fade-appear {
+  background-color: rgba(255, 255, 255, 0); }
+
+.modal-fade-enter-done {
+  background-color: rgba(255, 255, 255, 0.9); }
 
 #buyNow {
   display: none; }
 
+#modalToggle {
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  position: fixed;
+  top: 69px;
+  left: 22px;
+  z-index: 5;
+  opacity: 1; }
+  #modalToggle label {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -10px; }
+    #modalToggle label:after {
+      color: #FFF;
+      text-shadow: 2px 2px 2px #ff817c;
+      content: "\00D7";
+      font-size: 30px;
+      line-height: 50px;
+      text-align: center; }
+  #modalToggle #modalCheck {
+    display: none; }
+
 #galleryNav {
   grid-area: galNav;
-  align-self: center; }
+  align-self: center;
+  opacity: 1; }
   #galleryNav button {
     position: relative;
     border: none;
@@ -245,9 +254,9 @@ nav {
   margin: 0;
   padding: 0;
   grid-area: image;
-  background: red;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  opacity: 1; }
   #modalImage .image {
     position: relative;
     width: 100%;
@@ -262,7 +271,8 @@ nav {
 
 #modalDesc {
   position: relative;
-  grid-area: desc; }
+  grid-area: desc;
+  opacity: 1; }
   #modalDesc p {
     text-align: left;
     font-size: 1.2rem;
@@ -271,6 +281,7 @@ nav {
     width: 85%; }
 
 #shopElements {
+  opacity: 1;
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: auto;
