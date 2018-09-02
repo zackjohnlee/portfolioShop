@@ -105,7 +105,9 @@ class App extends Component {
 	imageClick(data, ref){
 		let thisRef= ref.current.getBoundingClientRect();
 		let {x, y, width, height} = thisRef;
-		console.log(ref.current);
+		console.log(ref);
+		ref.current.style = {filter: `blur(40px)`};
+		console.log(ref.current.style.CSSStyleDeclaration);
 		let product;
 		let modalGallery = galleryData.filter((gallery) => {
 			return gallery.collection === data.col;
@@ -161,7 +163,8 @@ class App extends Component {
 				data: this.state.modalSrc.data,
 				src: nextImg,
 				name: this.state.modalSrc.name,
-				product: this.state.modalSrc.product
+				product: this.state.modalSrc.product,
+				curRef: this.state.modalSrc.curRef
 			},
 		});
 	}

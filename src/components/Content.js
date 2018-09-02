@@ -114,17 +114,17 @@ class Content extends Component {
                 <CSSTransition
                     key={`${i}-${tile.src}`}
                     classNames="slide-in"
-                    timeout={100}
+                    timeout={0}
                     appear={true}
                 >
                     <Tile 
                         tile={tile}
                         className={"tile"}
                         style={{
-                            transition: `
-                               transform 500ms ease-out ${delayIdx*100}ms,
-                               opacity 500ms ease-out ${delayIdx*100}ms
-                            `
+                            transition:
+                                `transform 500ms ease-out ${delayIdx*100}ms,
+                                opacity 500ms ease-out ${delayIdx*100}ms,
+                                filter 100ms ease-in-out`
                         }}
                         ref={this.ref[i]}
                         click={this.props.click} 
