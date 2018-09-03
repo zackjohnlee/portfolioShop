@@ -25,9 +25,13 @@ class Modal extends Component {
         console.log("fired", e.target.checked);
         this.setState({
             isVisible: !this.state.isVisible,
-            target: e
+            event: {
+                target:{
+                    checked: false,
+                    name: "modalOpen"
+                }
+            }
         })
-        console.log(this.state.target);
         // setTimeout(this.props.toggleModal(e), 5000);
     }
 
@@ -56,13 +60,13 @@ class Modal extends Component {
                 opacity: `1`
             },
             exiting:{
-                transform: `translateY(0)`,
-                opacity: `1`
-            },
-            exited: {
                 transform: `translateY(-100%)`,
                 opacity: `0`
             }
+            // exited: {
+            //     transform: `translateY(-100%)`,
+            //     opacity: `0`
+            // }
         };
         const {open} = this.props.modalOpen;
         return (
@@ -95,9 +99,13 @@ class Modal extends Component {
                         {/* image */}
                         <Transition
                             in={this.state.isVisible}
-                            timeout={0}
+                            timeout={{
+                                enter: 0,
+                                exit: 500
+                            }}
                             appear={true}
-                            onExit={()=>{this.props.toggleModal(this.state.target)}}
+                            onExited={()=>{this.props.toggleModal(this.state.event)}}
+                            // onExited={()=>{console.log("it exited!");}}
                         >{(state)=>(
                             <div id="modalImage" 
                                 style={{

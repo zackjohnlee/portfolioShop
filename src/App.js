@@ -97,12 +97,12 @@ class App extends Component {
 	}
 
 	handleToggle(e){
-		console.log("from toggle: ",e);
-		// const value = e.target.checked;
-		// const name = e.target.name;
-		// this.setState({
-		// 	[name]: value
-		// });
+		// console.log("from toggle: ", e.target);
+		const value = e.target.checked;
+		const name = e.target.name;
+		this.setState({
+			[name]: value
+		});
 	}
 
 
