@@ -179,8 +179,8 @@ nav {
     display: grid;
     padding-top: 60px;
     overflow: scroll;
+    grid-template-rows: minmax(40vh 70vh) 50px auto;
     grid-template-areas: "image" "galNav" "desc";
-    justify-items: center;
     height: 100%;
     transition: 300ms ease-in; }
     #modal #modalContainer:before {
@@ -203,7 +203,7 @@ nav {
   position: fixed;
   top: 69px;
   left: 22px;
-  z-index: 5;
+  z-index: 6;
   transition: 300ms ease-out 200ms; }
   #modalToggle label {
     position: absolute;
@@ -214,7 +214,7 @@ nav {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5); }
+    background: rgba(255, 149, 149, 0.11); }
     #modalToggle label:after {
       color: #FFF;
       text-shadow: 2px 2px 2px #ff817c;
@@ -247,7 +247,7 @@ nav {
     position: relative;
     border: none;
     background-color: rgba(255, 255, 255, 0);
-    z-index: 8;
+    z-index: 4;
     width: 50vw; }
   #galleryNav #adv {
     position: relative; }
@@ -266,25 +266,15 @@ nav {
       font-size: 50px;
       text-align: left; }
 
-.nav-slide-appear {
-  transform: translateY(-100%);
-  opacity: 0; }
-
-.nav-slide-enter-done {
-  transform: translateY(0);
-  opacity: 1; }
-
-.nav-slide-exit-done {
-  transform: translateY(-100%);
-  opacity: 0; }
-
 #modalImage {
   position: relative;
+  z-index: 5;
   margin: 0;
   padding: 0;
   grid-area: image;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  max-height: 70vh; }
   #modalImage .image {
     position: relative;
     width: 100%;
@@ -300,13 +290,24 @@ nav {
 #modalDesc {
   position: relative;
   grid-area: desc;
-  opacity: 1; }
+  background: rgba(255, 255, 255, 0.5);
+  transition: 400ms ease-in-out; }
   #modalDesc p {
     text-align: left;
     font-size: 1.2rem;
     font-weight: 300;
     margin: 0 auto 15vh;
-    width: 85%; }
+    width: 85%;
+    transition: 300ms ease-out; }
+
+.desc-fade-entering {
+  opacity: 0; }
+
+.desc-fade-entered {
+  opacity: 1; }
+
+.desc-fade-exited {
+  opacity: 0; }
 
 #shopElements {
   opacity: 1;

@@ -50,6 +50,16 @@ class Modal extends Component {
             transform: `translateY(-100%)`,
             opacity: `0`
         }
+
+        const defaultNav = {
+            transition: 
+                `transform 500ms ease-out,
+                opacity 100ms linear`
+            ,
+            transform: `translateY(-100%)`,
+            opacity: `0`
+        }
+
         const transitionStyles = {
             entering: { 
                 transform: `translateY(-100%)`,
@@ -60,7 +70,7 @@ class Modal extends Component {
                 opacity: `1`
             },
             exiting:{
-                transform: `translateY(-100%)`,
+                transform: `translateY(-150%)`,
                 opacity: `0`
             }
         };
@@ -100,7 +110,7 @@ class Modal extends Component {
                             in={this.state.isVisible}
                             timeout={{
                                 enter: 0,
-                                exit: 500
+                                exit: 200
                             }}
                             appear={true}
                             onExited={()=>{this.props.toggleModal(this.state.event)}}
@@ -121,26 +131,37 @@ class Modal extends Component {
                         </Transition>
                         
                         {/* nav */}
-                        <CSSTransition
+                        <Transition
                             timeout={{
-                                enter: 100,
+                                enter: 500,
                                 exit: 0
                             }}
                             appear={true}
                             in={this.state.isVisible}
-                            classNames="nav-slide"
-                        >
-                            <div id="galleryNav">
+                        >{(state)=>(
+                            <div id="galleryNav"
+                                style={{
+                                    ...defaultNav,
+                                    ...transitionStyles[state]
+                            }} 
+                            >
                                 <button id="dec" onClick={this.props.navGallery}/>
                                 <button id="adv" onClick={this.props.navGallery}/>
                             </div>
-                        </CSSTransition>
+                        )}
+                        </Transition>
                         
                         {/* desc */}
                         <Transition
-                                timeout={0}
-                            >
-                                <div id="modalDesc">
+                            timeout={{
+                                enter: 400,
+                                exit: 0
+                            }}
+                            appear={true}
+                            in={this.state.isVisible}
+                            
+                        >{(state)=>(
+                            <div id="modalDesc" className={`desc-fade-${state}`}>
                                 {this.props.modalSrc.data.type === "shop"
                                     ? 
                                     <div id="shopElements">
@@ -195,10 +216,21 @@ class Modal extends Component {
                                         </div>
                                     </div>
                                     :
-                                    <p>{this.props.modalSrc.data.desc}</p>
+                                    <Transition
+                                        timeout={{
+                                            enter: 600,
+                                            exit: 600
+                                        }}
+                                        appear={true}
+                                        in={state === "entered"}
+                                        // classNames="desc-fade"
+                                    >
+                                        <p className={`desc-fade-${state}`}>{this.props.modalSrc.data.desc}</p>
+                                    </Transition>
                                 }
                             </div>
-                            </Transition>
+                        )}
+                        </Transition>
                         
                     </div>
                 </CSSTransition>

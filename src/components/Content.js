@@ -77,7 +77,7 @@ class Content extends Component {
     blurTile(ref){
 		!this.state.modalOpen
 			?
-			ref.current.style.filter = `blur(20px)`
+			ref.current.style.filter = `blur(10px)`
 			:
 			ref.current.style.filter = `blur(0)`
     }
