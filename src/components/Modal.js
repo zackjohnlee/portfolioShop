@@ -45,7 +45,7 @@ class Modal extends Component {
         const defaultStyles = {
             transition: 
                 `transform 500ms ease-out,
-                opacity 500ms ease-in-out 200ms`
+                opacity 100ms linear 200ms`
             ,
             transform: `translateY(-100%)`,
             opacity: `0`
@@ -63,12 +63,8 @@ class Modal extends Component {
                 transform: `translateY(-100%)`,
                 opacity: `0`
             }
-            // exited: {
-            //     transform: `translateY(-100%)`,
-            //     opacity: `0`
-            // }
         };
-        const {open} = this.props.modalOpen;
+        
         return (
             <div id="modal">
                 
@@ -81,8 +77,11 @@ class Modal extends Component {
                     <div id="modalContainer">
                         
                         {/* toggle */}
-                        <Transition
+                        <CSSTransition
+                            in={this.state.isVisible}
                             timeout={0}
+                            classNames="toggle-slide"
+                            appear={true}
                         >
                             <div id="modalToggle">
                                 <input 
@@ -94,7 +93,7 @@ class Modal extends Component {
                                 />
                                 <label htmlFor="modalCheck"/>
                             </div>
-                        </Transition>
+                        </CSSTransition>
                         
                         {/* image */}
                         <Transition
@@ -105,7 +104,6 @@ class Modal extends Component {
                             }}
                             appear={true}
                             onExited={()=>{this.props.toggleModal(this.state.event)}}
-                            // onExited={()=>{console.log("it exited!");}}
                         >{(state)=>(
                             <div id="modalImage" 
                                 style={{
@@ -123,14 +121,20 @@ class Modal extends Component {
                         </Transition>
                         
                         {/* nav */}
-                        <Transition
-                            timeout={0}
+                        <CSSTransition
+                            timeout={{
+                                enter: 100,
+                                exit: 0
+                            }}
+                            appear={true}
+                            in={this.state.isVisible}
+                            classNames="nav-slide"
                         >
                             <div id="galleryNav">
                                 <button id="dec" onClick={this.props.navGallery}/>
                                 <button id="adv" onClick={this.props.navGallery}/>
                             </div>
-                        </Transition>
+                        </CSSTransition>
                         
                         {/* desc */}
                         <Transition

@@ -11,8 +11,6 @@
         justify-items: center;
         height: 100%;
         transition: 300ms ease-in;
-        // background-color: rgba(255, 255, 255, 0.9);
-        // display: none;
         &:before{
             height: 60px;
             content: "";
@@ -31,6 +29,7 @@
 #buyNow{
     display: none;
 }
+
 #modalToggle{
     height: 40px;
     width: 40px;;
@@ -39,20 +38,23 @@
     top: 69px;
     left: 22px;
     z-index: 5;
-    opacity: 1;
+    // opacity: 1;
+    transition: 300ms ease-out 200ms;
     label{
         position: absolute;
         z-index: 5;
         top: 0;
         bottom: 0;
         left: 0;
-        right: -10px;
+        width:40px;
+        height:40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
         &:after{
             color: #FFF;
             text-shadow: $shadow;
             content: "\00D7"; //"x"
             font-size: 30px; 
-            line-height: 50px;
             text-align: center;
         }
     }
@@ -61,11 +63,30 @@
     }
 }
 
+.toggle-slide-appear{
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.toggle-slide-enter-done{
+    transform: translateX(0);
+    opacity: 1
+}
+.toggle-slide-exit-done{
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+
 
 #galleryNav{
+    position: relative;
     grid-area: galNav;
     align-self: center;
-    opacity: 1;
+    // opacity: 0;
+    width: 100%;
+    height: 100%;
+    transition: 400ms ease-in-out;
     button{
         position: relative;
         border: none;
@@ -96,19 +117,28 @@
     }
 }
 
+.nav-slide-appear{
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.nav-slide-enter-done{
+    transform: translateY(0);
+    opacity: 1
+}
+.nav-slide-exit-done{
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+
 #modalImage{
     position: relative;
-    // top: 0;
-    // left: 0;
     margin: 0;
     padding: 0;
     grid-area: image;
-    // background: red;
     width: 100%;
     height: 100%;
-    opacity: 1;
-    // transform-origin: -50% -50%;
-    // transition: all 500ms ease-out;
     .image{
         position: relative;
         width: 100%;
