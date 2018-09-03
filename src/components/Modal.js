@@ -22,10 +22,19 @@ class Modal extends Component {
     }
 
     exitTransition(e){
-        this.setState(()=>{
-            isVisible: false
+        console.log("fired", e.target.checked);
+        this.setState({
+            isVisible: !this.state.isVisible,
+            target: e
         })
-        // setTimeout(this.props.toggleModal(e), 1000);
+        console.log(this.state.target);
+        // setTimeout(this.props.toggleModal(e), 5000);
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.isVisible !== this.state.isVisible){
+            console.log("not the same");
+        }
     }
     
     render() {
@@ -59,121 +68,128 @@ class Modal extends Component {
         return (
             <div id="modal">
                 
-                    <CSSTransition
-                        in={this.state.isVisible}
-                        classNames="modal-fade"
-                        timeout={100}
-                        appear={true}
-                    >
-                        <div id="modalContainer">
-                            
-                                <Transition
-                                    timeout={0}
-                                >
-                                    <div id="modalToggle">
-                                        <input 
-                                            id="modalCheck" 
-                                            type="checkbox"
-                                            name="modalOpen"
-                                            checked={this.props.modalOpen}
-                                            onChange={(e)=> this.exitTransition(e)}
-                                        />
-                                        <label htmlFor="modalCheck"/>
-                                    </div>
-                                </Transition>
-                                <Transition
-                                    in={this.state.isVisible}
-                                    timeout={0}
-                                    appear={true}
-                                    onExit={()=>{console.log("exit called");}}
-                                >{(state)=>(
-                                    <div id="modalImage" 
-                                        style={{
-                                            ...defaultStyles,
-                                            ...transitionStyles[state]
-                                        }} 
-                                    >
-                                        <LazyLoadImage
-                                            src={require("../images/"+ this.props.modalSrc.data.collection + "/" + this.props.modalSrc.src + ".jpg")}
-                                            effect="blur"
-                                            wrapperClassName="image"
-                                        />
-                                    </div>
-                                )}
-                                </Transition>
-                                <Transition
-                                    timeout={0}
-                                >
-                                    <div id="galleryNav">
-                                        <button id="dec" onClick={this.props.navGallery}/>
-                                        <button id="adv" onClick={this.props.navGallery}/>
-                                    </div>
-                                </Transition>
-                                <Transition
-                                    timeout={0}
-                                >
-                                    <div id="modalDesc">
-                                    {this.props.modalSrc.data.type === "shop"
-                                        ? 
-                                        <div id="shopElements">
-                                            <h2>{this.props.modalSrc.name}</h2>
-                                            <div id="desc">
-                                                <p>{this.props.modalSrc.product.desc}</p>
+                <CSSTransition
+                    in={this.state.isVisible}
+                    classNames="modal-fade"
+                    timeout={100}
+                    appear={true}
+                >
+                    <div id="modalContainer">
+                        
+                        {/* toggle */}
+                        <Transition
+                            timeout={0}
+                        >
+                            <div id="modalToggle">
+                                <input 
+                                    id="modalCheck" 
+                                    type="checkbox"
+                                    name="modalOpen"
+                                    checked={this.props.modalOpen}
+                                    onChange={(e)=> this.exitTransition(e)}
+                                />
+                                <label htmlFor="modalCheck"/>
+                            </div>
+                        </Transition>
+                        
+                        {/* image */}
+                        <Transition
+                            in={this.state.isVisible}
+                            timeout={0}
+                            appear={true}
+                            onExit={()=>{this.props.toggleModal(this.state.target)}}
+                        >{(state)=>(
+                            <div id="modalImage" 
+                                style={{
+                                    ...defaultStyles,
+                                    ...transitionStyles[state]
+                                }} 
+                            >
+                                <LazyLoadImage
+                                    src={require("../images/"+ this.props.modalSrc.data.collection + "/" + this.props.modalSrc.src + ".jpg")}
+                                    effect="blur"
+                                    wrapperClassName="image"
+                                />
+                            </div>
+                        )}
+                        </Transition>
+                        
+                        {/* nav */}
+                        <Transition
+                            timeout={0}
+                        >
+                            <div id="galleryNav">
+                                <button id="dec" onClick={this.props.navGallery}/>
+                                <button id="adv" onClick={this.props.navGallery}/>
+                            </div>
+                        </Transition>
+                        
+                        {/* desc */}
+                        <Transition
+                                timeout={0}
+                            >
+                                <div id="modalDesc">
+                                {this.props.modalSrc.data.type === "shop"
+                                    ? 
+                                    <div id="shopElements">
+                                        <h2>{this.props.modalSrc.name}</h2>
+                                        <div id="desc">
+                                            <p>{this.props.modalSrc.product.desc}</p>
+                                        </div>
+                                        <div id="priceDeets">
+                                            <h3 id="price">${this.props.modalSrc.product.price/100.00}</h3>
+                                            <h3 id="stock">
+                                                {this.props.modalSrc.product.inventory.quantity > 0
+                                                    ? "In Stock"
+                                                    : "Out of Stock"
+                                                }
+                                            </h3>
+                                        </div>
+                                        <div id="paymentDeets">
+                                            <div id="qty">
+                                                <label htmlFor="quantity">Qty: </label>
+                                                <input 
+                                                    id="quantity" 
+                                                    name="quantity" 
+                                                    onChange={this.updateQuantity}
+                                                    type="number" 
+                                                    value={this.state.quantity} 
+                                                    min="1" 
+                                                    max={this.props.modalSrc.product.inventory.quantity}
+                                                />
                                             </div>
-                                            <div id="priceDeets">
-                                                <h3 id="price">${this.props.modalSrc.product.price/100.00}</h3>
-                                                <h3 id="stock">
-                                                    {this.props.modalSrc.product.inventory.quantity > 0
-                                                        ? "In Stock"
-                                                        : "Out of Stock"
-                                                    }
-                                                </h3>
-                                            </div>
-                                            <div id="paymentDeets">
-                                                <div id="qty">
-                                                    <label htmlFor="quantity">Qty: </label>
-                                                    <input 
-                                                        id="quantity" 
-                                                        name="quantity" 
-                                                        onChange={this.updateQuantity}
-                                                        type="number" 
-                                                        value={this.state.quantity} 
-                                                        min="1" 
-                                                        max={this.props.modalSrc.product.inventory.quantity}
-                                                    />
-                                                </div>
-                                                <button 
-                                                    id="addItem" 
+                                            <button 
+                                                id="addItem" 
+                                                className="button"
+                                                onClick={()=>this.props.addItem(this.state.quantity)}
+                                            >
+                                                add to cart
+                                            </button>
+                                            <div id="buy">
+                                                <label 
+                                                    htmlFor="buyNow" 
                                                     className="button"
-                                                    onClick={()=>this.props.addItem(this.state.quantity)}
                                                 >
-                                                    add to cart
-                                                </button>
-                                                <div id="buy">
-                                                    <label 
-                                                        htmlFor="buyNow" 
-                                                        className="button"
-                                                    >
-                                                        Buy Now
-                                                    </label>
-                                                    <input 
-                                                        id="buyNow" 
-                                                        type="checkbox" 
-                                                        name="paymentOpen" 
-                                                        checked={this.props.paymentOpen}
-                                                        onChange={(e)=>this.props.buyNow(e, this.state.quantity)}
-                                                    />
-                                                </div>
+                                                    Buy Now
+                                                </label>
+                                                <input 
+                                                    id="buyNow" 
+                                                    type="checkbox" 
+                                                    name="paymentOpen" 
+                                                    checked={this.props.paymentOpen}
+                                                    onChange={(e)=>this.props.buyNow(e, this.state.quantity)}
+                                                />
                                             </div>
                                         </div>
-                                        :
-                                        <p>{this.props.modalSrc.data.desc}</p>
-                                    }
-                                </div>
-                                </Transition>
-                            
-                        </div>
-                    </CSSTransition>
+                                    </div>
+                                    :
+                                    <p>{this.props.modalSrc.data.desc}</p>
+                                }
+                            </div>
+                            </Transition>
+                        
+                    </div>
+                </CSSTransition>
                 
             </div>
         );
