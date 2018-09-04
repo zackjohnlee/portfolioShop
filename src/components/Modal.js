@@ -244,7 +244,7 @@ class Modal extends Component {
                                <Transition
                                     in={this.state.nextImage}
                                     timeout={{
-                                        enter: 5000,
+                                        enter: 500,
                                         exit: 0
                                     }}
                                     exit={false}
