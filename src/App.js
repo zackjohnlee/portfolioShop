@@ -148,6 +148,7 @@ class App extends Component {
 		let images = this.state.modalSrc.data.images;
 		images.forEach((image, index)=>{
 			if(image.src === this.state.modalSrc.src){
+				//these 2 conditionals create a circular gallery
 				index >= images.length-1
 					? addImg = images[0].src
 					: addImg = images[index+1].src
@@ -156,6 +157,7 @@ class App extends Component {
 					: prevImg = images[index-1].src
 			}
 		});
+		//set the nextImg based on direction
 		navDir === "adv"
 			? nextImg = addImg
 			: nextImg = prevImg
@@ -164,6 +166,7 @@ class App extends Component {
 			modalSrc: {
 				data: this.state.modalSrc.data,
 				src: nextImg,
+				outGoingSrc: this.state.modalSrc.src,
 				name: this.state.modalSrc.name,
 				product: this.state.modalSrc.product,
 				curRef: this.state.modalSrc.curRef

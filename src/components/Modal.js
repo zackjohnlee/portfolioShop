@@ -9,8 +9,11 @@ class Modal extends Component {
         super(props, context);
         this.state={
             quantity: 1,
-            isVisible: true
+            isVisible: true,
+            dir: 0,
+            nextImage: false
         }
+        this.transGallery = this.transGallery.bind(this);
         this.updateQuantity = this.updateQuantity.bind(this);
         this.exitTransition = this.exitTransition.bind(this);
     }
@@ -35,6 +38,14 @@ class Modal extends Component {
         // setTimeout(this.props.toggleModal(e), 5000);
     }
 
+    transGallery(dir){
+        console.log("direction: ", dir);
+        this.setState({
+            dir: dir,
+            nextImage: true
+        });
+    }
+
     componentDidUpdate(prevProps, prevState){
         if(prevState.isVisible !== this.state.isVisible){
             console.log("not the same");
@@ -42,6 +53,16 @@ class Modal extends Component {
     }
     
     render() {
+
+        let translate;
+        if(this.state.dir === 1){
+            translate = -100;
+        }else if(this.state.dir === -1){
+            translate = 100;
+        }else{
+            translate = 0;
+        } 
+
         const defaultStyles = {
             transition: 
                 `transform 500ms ease-out,
@@ -60,6 +81,100 @@ class Modal extends Component {
             opacity: `0`
         }
 
+        // const defaultNextImg = {
+        //     transition: 
+        //         `transform 500ms ease-out,
+        //         opacity 100ms linear`
+        //     ,
+        //     transform: `translateX(100%)`,
+        //     opacity: `0`
+        // }
+        // const defaultPrevImg = {
+        //     transition: 
+        //         `transform 500ms ease-out,
+        //         opacity 100ms linear`
+        //     ,
+        //     transform: `translateX()`,
+        //     opacity: `0`
+        // }
+
+        const defaultOutGoing = {
+            transition: 
+                `transform 500ms ease-out,
+                opacity 100ms linear`
+            ,
+            transform: `translateX(0)`,
+            opacity: `1`
+        }
+
+        const outGoingBackin = {
+            transition: 
+                `height 300ms ease-out,
+                width 300ms ease-out`
+            ,
+            transform: `translateX(0)`,
+            opacity: `1`,
+            height: `100%`,
+            width: `100%`
+        }
+
+        
+        let outGoingStyles;
+        this.state.nextImage
+            ? outGoingStyles = defaultOutGoing
+            : outGoingStyles = outGoingBackin
+
+        const defaultIncoming = {
+            transition: 
+                `transform 500ms ease-out,
+                opacity 100ms linear`
+            ,
+            transform: `translateX(${(-1*translate)}%)`,
+            opacity: `1`,
+            position: `absolute`,
+            top: `0`,
+            height: `100%`,
+            width: `100%`
+        }
+
+        const transitionOutGoing = {
+            entering: { 
+                transform: `translateX(${translate}%)`,
+                opacity: `1`
+            },
+            entered: {
+                transform: `translateX(${translate}%)`,
+                opacity: `0`
+            },
+            exiting:  { 
+                transform: `translateX(0)`,
+                opacity: `1`
+            },
+            exited:{
+                transform: `translateX(0)`,
+                opacity: `1`
+            }
+        }
+
+        const transitionIncoming = {
+            entering: { 
+                transform: `translateX(${(-1*translate)}%)`,
+                opacity: `0`
+            },
+            entered: {
+                transform: `translateX(0)`,
+                opacity: `1`
+            },
+            exiting:  { 
+                transform: `translateX(0)`,
+                opacity: `1`
+            },
+            exited:{
+                transform: `translateX(0)`,
+                opacity: `1`
+            }
+        }
+
         const transitionStyles = {
             entering: { 
                 transform: `translateY(-100%)`,
@@ -74,6 +189,11 @@ class Modal extends Component {
                 opacity: `0`
             }
         };
+
+        let activeImg;
+        this.state.nextImage 
+            ? activeImg = this.props.modalSrc.outGoingSrc
+            : activeImg = this.props.modalSrc.src
         
         return (
             <div id="modal">
@@ -121,11 +241,52 @@ class Modal extends Component {
                                     ...transitionStyles[state]
                                 }} 
                             >
-                                <LazyLoadImage
-                                    src={require("../images/"+ this.props.modalSrc.data.collection + "/" + this.props.modalSrc.src + ".jpg")}
-                                    effect="blur"
-                                    wrapperClassName="image"
-                                />
+                               <Transition
+                                    in={this.state.nextImage}
+                                    timeout={{
+                                        enter: 5000,
+                                        exit: 0
+                                    }}
+                                    exit={false}
+                                    appear={true}
+                                    onEntered={()=>{
+                                        this.setState({
+                                            nextImage: false,
+                                            dir: 0
+                                        });
+                                    }}
+                               >{(imgState)=>(
+                                    <div className="image"
+                                        style={{
+                                            ...outGoingStyles,
+                                            ...transitionOutGoing[imgState]
+                                        }}
+                                    >
+                                        <img src={require("../images/"+ this.props.modalSrc.data.collection + "/" + activeImg + ".jpg")}/>
+                                    </div>
+                                )}
+                                </Transition>
+                                {this.state.nextImage &&
+                                    <Transition
+                                        in={this.state.nextImage}
+                                        timeout={{
+                                            enter: 100,
+                                            exit: 0
+                                        }}
+                                        appear={true}
+                                        exit={false}
+                                    >{(state)=>(
+                                        <div className="image"
+                                            style={{
+                                                ...defaultIncoming,
+                                                ...transitionIncoming[state]
+                                            }}
+                                        >
+                                            <img src={require("../images/"+ this.props.modalSrc.data.collection + "/" + this.props.modalSrc.src + ".jpg")}/>
+                                        </div>
+                                    )}
+                                    </Transition>
+                                }
                             </div>
                         )}
                         </Transition>
@@ -145,8 +306,16 @@ class Modal extends Component {
                                     ...transitionStyles[state]
                             }} 
                             >
-                                <button id="dec" onClick={this.props.navGallery}/>
-                                <button id="adv" onClick={this.props.navGallery}/>
+                                <button id="dec" 
+                                    onClick={(e)=>{
+                                        this.props.navGallery(e);
+                                        this.transGallery(-1);
+                                    }}/>
+                                <button id="adv" 
+                                    onClick={(e)=>{
+                                        this.props.navGallery(e);
+                                        this.transGallery(1);
+                                    }}/>
                             </div>
                         )}
                         </Transition>
