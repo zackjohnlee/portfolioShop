@@ -7,10 +7,8 @@
         display: grid;
         padding-top: 60px;
         overflow: scroll;
-        grid-template-rows: minmax(40vh 70vh) 50px auto;
+        // grid-template-rows: max-content auto;
         grid-template-areas: "image" "galNav" "desc";
-        // justify-items: center;
-        // align-items: center;
         height: 100%;
         transition: 300ms ease-in;
         &:before{
@@ -88,10 +86,11 @@
     // opacity: 0;
     width: 100%;
     height: 100%;
-    transition: 400ms ease-in-out;
+    // transition: 400ms ease-in-out;
     button{
         position: relative;
         border: none;
+        outline: none;
         background-color: rgba(255, 255, 255, 0);
         z-index: 4;
         width: 50vw;

@@ -179,7 +179,6 @@ nav {
     display: grid;
     padding-top: 60px;
     overflow: scroll;
-    grid-template-rows: minmax(40vh 70vh) 50px auto;
     grid-template-areas: "image" "galNav" "desc";
     height: 100%;
     transition: 300ms ease-in; }
@@ -241,11 +240,11 @@ nav {
   grid-area: galNav;
   align-self: center;
   width: 100%;
-  height: 100%;
-  transition: 400ms ease-in-out; }
+  height: 100%; }
   #galleryNav button {
     position: relative;
     border: none;
+    outline: none;
     background-color: rgba(255, 255, 255, 0);
     z-index: 4;
     width: 50vw; }

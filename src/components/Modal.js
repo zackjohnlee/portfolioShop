@@ -75,50 +75,27 @@ class Modal extends Component {
         const defaultNav = {
             transition: 
                 `transform 500ms ease-out,
-                opacity 100ms linear`
+                opacity 500ms ease-out`
             ,
             transform: `translateY(-100%)`,
             opacity: `0`
         }
 
-        // const defaultNextImg = {
-        //     transition: 
-        //         `transform 500ms ease-out,
-        //         opacity 100ms linear`
-        //     ,
-        //     transform: `translateX(100%)`,
-        //     opacity: `0`
-        // }
-        // const defaultPrevImg = {
-        //     transition: 
-        //         `transform 500ms ease-out,
-        //         opacity 100ms linear`
-        //     ,
-        //     transform: `translateX()`,
-        //     opacity: `0`
-        // }
-
         const defaultOutGoing = {
             transition: 
                 `transform 500ms ease-out,
-                opacity 100ms linear`
+                opacity 500ms ease-out 200ms`
             ,
             transform: `translateX(0)`,
             opacity: `1`
         }
 
         const outGoingBackin = {
-            transition: 
-                `height 300ms ease-out,
-                width 300ms ease-out`
-            ,
+            transition: ``,
             transform: `translateX(0)`,
-            opacity: `1`,
-            height: `100%`,
-            width: `100%`
+            opacity: `1`
         }
 
-        
         let outGoingStyles;
         this.state.nextImage
             ? outGoingStyles = defaultOutGoing
@@ -127,20 +104,18 @@ class Modal extends Component {
         const defaultIncoming = {
             transition: 
                 `transform 500ms ease-out,
-                opacity 100ms linear`
+                opacity 300ms ease-out`
             ,
             transform: `translateX(${(-1*translate)}%)`,
-            opacity: `1`,
+            opacity: `0`,
             position: `absolute`,
-            top: `0`,
-            height: `100%`,
-            width: `100%`
+            top: `0`
         }
 
         const transitionOutGoing = {
             entering: { 
                 transform: `translateX(${translate}%)`,
-                opacity: `1`
+                opacity: `0`
             },
             entered: {
                 transform: `translateX(${translate}%)`,
@@ -241,11 +216,11 @@ class Modal extends Component {
                                     ...transitionStyles[state]
                                 }} 
                             >
-                               <Transition
+                                <Transition
                                     in={this.state.nextImage}
                                     timeout={{
-                                        enter: 500,
-                                        exit: 0
+                                        enter: 530,
+                                        exit: 100
                                     }}
                                     exit={false}
                                     appear={true}
@@ -270,7 +245,7 @@ class Modal extends Component {
                                     <Transition
                                         in={this.state.nextImage}
                                         timeout={{
-                                            enter: 100,
+                                            enter: 30,
                                             exit: 0
                                         }}
                                         appear={true}
