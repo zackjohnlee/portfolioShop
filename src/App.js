@@ -40,7 +40,7 @@ class App extends Component {
 				total: 0
 			},
 			products:[],
-			filter: "all"
+			filter: ["all"]
 		};
 
 		this.createOrderHandler = this.createOrderHandler.bind(this);

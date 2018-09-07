@@ -2,34 +2,28 @@ import React, { Component } from 'react';
 import Modal from './Modal'
 import Tile from './Tile';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import isequal from 'lodash.isequal';
+
 
 
 class Content extends Component {
 	constructor(props) {
         super(props);
 
-        let tiles = [];
+        this.tiles = [];
         this.props.data.forEach(tile=>{
-            // console.log(tile);
-            if(this.props.filter === "all"){
-                tile.images.forEach(image=>{
-                    let data = {
-                        col: tile.collection,
-                        src: image.src,
-                        name: image.name,
-                        desc: image.desc || null,
-                        isLoaded: false
-                    }
-                    tiles.push(data);
-                })
+            if(isequal(this.props.filter, ["all"])){
+                this.pushTile(tile);
+            }else if(this.handleFilter(tile.type, this.props.filter)){
+                this.pushTile(tile);
             }
         });
         
         //not including [10] load the first 10 tiles (0-9)
-        let initialTiles = tiles.slice(0, 10); 
+        let initialTiles = this.tiles.slice(0, 10); 
 
         this.state={
-            tiles: tiles,
+            tiles: this.tiles,
             tilesLoaded: initialTiles,
             curIndex: initialTiles.length,
             amtToLoad: 5,
@@ -50,6 +44,8 @@ class Content extends Component {
         }
 
         this.blurTile = this.blurTile.bind(this);
+        this.pushTile = this.pushTile.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
         this.loadingTiles = this.loadingTiles.bind(this);
         this.observeTarget = this.observeTarget.bind(this);
         this.intersectionObserved = this.intersectionObserved.bind(this);
@@ -59,6 +55,30 @@ class Content extends Component {
 	
 	componentDidMount() {
         this.observeTarget();
+    }
+
+    handleFilter(supr, sub){
+        console.log("superSet: ", supr);
+        console.log("subSet: ", sub);
+        if (0 === sub.length) {
+            return false;
+        }
+        return sub.every(function (value) {
+            return (supr.indexOf(value) >= 0);
+        });
+    }
+
+    pushTile(tile){
+        tile.images.forEach(image=>{
+            let data = {
+                col: tile.collection,
+                src: image.src,
+                name: image.name,
+                desc: image.desc || null,
+                isLoaded: false
+            }
+            this.tiles.push(data);
+        })
     }
 
     loadingTiles() {
