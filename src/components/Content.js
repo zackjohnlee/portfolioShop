@@ -8,10 +8,28 @@ class Content extends Component {
 	constructor(props) {
         super(props);
 
-        let initialTiles = this.props.tiles.slice(0, 10); //not including [10] load the first 10 tiles
+        let tiles = [];
+        this.props.data.forEach(tile=>{
+            // console.log(tile);
+            if(this.props.filter === "all"){
+                tile.images.forEach(image=>{
+                    let data = {
+                        col: tile.collection,
+                        src: image.src,
+                        name: image.name,
+                        desc: image.desc || null,
+                        isLoaded: false
+                    }
+                    tiles.push(data);
+                })
+            }
+        });
+        
+        //not including [10] load the first 10 tiles (0-9)
+        let initialTiles = tiles.slice(0, 10); 
 
         this.state={
-            tiles: this.props.tiles,
+            tiles: tiles,
             tilesLoaded: initialTiles,
             curIndex: initialTiles.length,
             amtToLoad: 5,

@@ -20,21 +20,6 @@ class App extends Component {
 	constructor(props, context) {
 		super(props, context);
 		
-		let tiles = [];
-        galleryData.forEach(tile=>{
-            // console.log(tile);
-            tile.images.forEach(image=>{
-                let data = {
-                    col: tile.collection,
-                    src: image.src,
-                    name: image.name,
-					desc: image.desc || null,
-					isLoaded: false
-                }
-                tiles.push(data);
-            })
-		});
-		
 		this.state={
 			stripe: null,
 			menuOpen: false,
@@ -55,7 +40,7 @@ class App extends Component {
 				total: 0
 			},
 			products:[],
-			tileList: tiles
+			filter: "all"
 		};
 
 		this.createOrderHandler = this.createOrderHandler.bind(this);
@@ -323,7 +308,7 @@ class App extends Component {
 					</div>
 					<Content
 						data={galleryData}
-						tiles={this.state.tileList}
+						filter={this.state.filter}
 
 						click={this.imageClick}
 						handleScroll={this.scrollFix}

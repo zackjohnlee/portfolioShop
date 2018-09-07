@@ -58,6 +58,20 @@ body.noScroll {
   justify-items: center;
   align-items: center;
   z-index: 2; }
+  @media (min-width: 400px) {
+    #content {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); } }
+  @media (min-width: 450px) {
+    #content {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } }
+  @media (min-width: 600px) {
+    #content {
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); } }
+  @media (min-width: 800px) {
+    #content {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      max-width: 1000px;
+      margin: 0 auto; } }
   #content.modal-open {
     position: fixed;
     top: 0; }

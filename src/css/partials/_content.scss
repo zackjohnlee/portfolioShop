@@ -18,21 +18,21 @@
     justify-items: center;
     align-items: center;
     z-index: 2;
-    // @media #{$small}{
-    //     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    // }
-    // @media #{$smallMedium}{
-    //     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    @media #{$small}{
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    @media #{$smallMedium}{
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         
-    // }
-    // @media #{$medium}{
-    //     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    // }
-    // @media #{$mediumBig}{
-    //     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    //     max-width: 1000px;
-    //     margin: 0 auto;
-    // }
+    }
+    @media #{$medium}{
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    }
+    @media #{$mediumBig}{
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        max-width: 1000px;
+        margin: 0 auto;
+    }
     &.modal-open {
         position: fixed;
         top: 0;
