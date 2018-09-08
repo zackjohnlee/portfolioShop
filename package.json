@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.0.2",
     "ajv": "^6.5.3",
     "lodash.every": "^4.6.0",
     "lodash.indexof": "^4.0.5",

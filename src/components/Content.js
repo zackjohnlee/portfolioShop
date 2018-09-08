@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from './Modal'
 import Tile from './Tile';
+import Filter from './Filter';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import isequal from 'lodash.isequal';
 
@@ -151,8 +152,7 @@ class Content extends Component {
 
         let tiles = this.state.tilesLoaded.map((tile, i)=>{
             let delayIdx;
-
-            if(i>=10){
+            if(i>=20){
                 let divisor = Math.floor(i/10);
                 delayIdx = (i - (divisor*10))/2;
             }else{
@@ -213,6 +213,9 @@ class Content extends Component {
                     <TransitionGroup component={null} appear={true}>
                         {tiles}
                     </TransitionGroup>
+                    <Filter
+                        filter={this.props.updateFilter}
+                    />
                 </div>
             
 		);

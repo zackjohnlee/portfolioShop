@@ -81,6 +81,10 @@ class App extends Component {
 		});
 	}
 
+	updateFilter(e){
+		console.log(e.target.checked);
+	}
+
 	handleToggle(e){
 		// console.log("from toggle: ", e.target);
 		const value = e.target.checked;
@@ -309,6 +313,7 @@ class App extends Component {
 					<Content
 						data={galleryData}
 						filter={this.state.filter}
+						updateFilter={this.updateFilter}
 
 						click={this.imageClick}
 						handleScroll={this.scrollFix}
