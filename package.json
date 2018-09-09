@@ -10,6 +10,7 @@
     "lodash.indexof": "^4.0.5",
     "lodash.isequal": "^4.5.0",
     "lodash.range": "^3.2.0",
+    "lodash.without": "^4.4.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-flip-toolkit": "^4.0.2",

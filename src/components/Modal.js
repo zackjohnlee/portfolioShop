@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
+import {CSSTransition, Transition} from 'react-transition-group';
 import includes from 'lodash.includes';
 
 
@@ -21,12 +19,11 @@ class Modal extends Component {
 
     updateQuantity(e){
         this.setState({
-            quantity: parseInt(e.target.value)
+            quantity: parseInt(e.target.value, 10)
         });
     }
 
     exitTransition(e){
-        console.log("fired", e.target.checked);
         this.setState({
             isVisible: !this.state.isVisible,
             event: {
@@ -36,21 +33,13 @@ class Modal extends Component {
                 }
             }
         })
-        // setTimeout(this.props.toggleModal(e), 5000);
     }
 
     transGallery(dir){
-        console.log("direction: ", dir);
         this.setState({
             dir: dir,
             nextImage: true
         });
-    }
-
-    componentDidUpdate(prevProps, prevState){
-        if(prevState.isVisible !== this.state.isVisible){
-            console.log("not the same");
-        }
     }
     
     render() {

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import {
-	BrowserRouter,
-	Route,
-	Switch
-} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {StripeProvider} from 'react-stripe-elements';
 import config from './config';
+import without from 'lodash.without';
 
 import {galleryData} from './data/galleryData';
 
@@ -49,6 +46,7 @@ class App extends Component {
 		this.navigateGallery = this.navigateGallery.bind(this);
 		this.addItemHandler = this.addItemHandler.bind(this);
 		this.fetchProducts = this.fetchProducts.bind(this);
+		this.updateFilter = this.updateFilter.bind(this);
 		this.handleToggle = this.handleToggle.bind(this);
 		this.imageClick = this.imageClick.bind(this);
 		this.buyNow = this.buyNow.bind(this);
@@ -84,6 +82,19 @@ class App extends Component {
 
 	updateFilter(e){
 		console.log(e.target.checked);
+		let filters = this.state.filter;
+		let isChecked = e.target.checked;
+		let filterName = e.target.value;
+		if(isChecked){
+			filters = filters.concat(filterName);
+			console.log(filters);
+		}else{
+			filters = without(filters, filterName);
+			console.log(filters);
+		};
+		this.setState({
+			filter: filters
+		});
 	}
 
 	handleToggle(e){
@@ -273,8 +284,6 @@ class App extends Component {
 	async createOrderHandler(token, email, shipping){
 		console.log("creating order...");
 		const items = this.state.cart.items;
-		// console.log(token);
-		// console.log(email);
 		const orderItems = items.map((item)=>{
 			return {
 				amount: item.price,

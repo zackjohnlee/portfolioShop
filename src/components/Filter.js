@@ -4,7 +4,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core/styles';
 
 
 const Filter = (props) => {
@@ -25,7 +24,7 @@ const Filter = (props) => {
                 control={
                 <Switch
                     style={{height: `35px`}}
-                    color='primary'
+                    color='secondary'
                     onChange={(e)=>props.filter(e)}
                     value={`${type}`}
                 />

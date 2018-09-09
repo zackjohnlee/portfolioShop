@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import config from '../config';
 import {
     injectStripe, 
-    CardElement,
-    CardNumberElement,
-    CardExpiryElement,
-    CardCVCElement,
-    PostalCodeElement
+    CardElement
 } from 'react-stripe-elements';
 
 const styles = {base: {fontSize: '18px', fontWeight: '200'}};

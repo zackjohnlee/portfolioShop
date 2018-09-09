@@ -32,7 +32,7 @@ class Content extends Component {
             curIndex: initialTiles.length,
             amtToLoad: 5,
             isLoading: false,
-            moreToLoad: true
+            moreToLoad: true,
         };
 
         let options = {
@@ -119,6 +119,7 @@ class Content extends Component {
     }
 
     blurTile(ref){
+        console.log(this.tiles);
 		!this.state.modalOpen
 			?
 			ref.current.style.filter = `blur(10px)`
@@ -221,38 +222,6 @@ class Content extends Component {
                         {this.state.tiles.length === 0
                             ? <p>Couldn't find anything...yet</p>
                             : tileload
-                            // this.state.tilesLoaded.map((tile, i)=>{
-                            //     let delayIdx;
-                            //     if(i>=20){
-                            //         let divisor = Math.floor(i/10);
-                            //         delayIdx = (i - (divisor*10))/2;
-                            //     }else{
-                            //         delayIdx = i/2;
-                            //     }
-                            //     return (
-                            //         <CSSTransition
-                            //             key={`${i}-${tile.src}`}
-                            //             classNames="slide-in"
-                            //             timeout={0}
-                            //             appear={true}
-                            //         >
-                            //             <Tile 
-                            //                 tile={tile}
-                            //                 style={{
-                            //                     transition:
-                            //                         `transform 500ms ease-out ${delayIdx*100}ms,
-                            //                         opacity 500ms ease-out ${delayIdx*100}ms,
-                            //                         filter 300ms ease-in-out`
-                            //                 }}
-                            //                 blur={this.blurTile}
-                            //                 ref={this.ref[i]}
-                            //                 click={this.props.click} 
-                            //                 key={tile.src}
-                            //                 src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
-                            //             </Tile>
-                            //         </CSSTransition>
-                            //     )
-                            // })
                         }
                     </TransitionGroup>
                     <Filter
