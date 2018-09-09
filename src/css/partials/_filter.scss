@@ -1,10 +1,10 @@
 #filterForm{
     margin: 0 auto;
     position: fixed;
-    background: rgba(255, 203, 61, 0.877);
+    background: rgb(255, 203, 61);
     right: 0;
     bottom: 10vh;
-    width: 55%;
+    width: 210px;
     border-radius: 5px 0 0 0;
     transition: 300ms ease-in-out;
     transform: translateX(100%);
@@ -15,20 +15,22 @@ label{
     .filter-toggler{
         position: fixed;
         bottom: 10vh;
-        right: 54.86%;
+        right: -20px;
+        // left: 50%;
         transition: 300ms ease-in-out;
-        transform: translateX(300%);
+        // transform: translateX(0);
         height: 50px;
-        width: 70px;
+        width: 80px;
         border-radius: 50px 0 0 50px;
-        background: rgba(255, 203, 61, 0.877);
+        background: rgb(255, 203, 61);
         &:before{
             position: absolute;
             content: '+';
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: white; 
             line-height: 50px;
             left: 15px;
+            transition: 500ms linear;
             text-shadow: 1px 1px 2px rgba(153, 122, 37, 0.623);
         }
     }
@@ -42,7 +44,11 @@ label{
     }
     &:checked ~ label{
         & .filter-toggler{
-            transform: translateX(0);
+            // transform: translateX(-190px);
+            right: 190px;
+            &:before{
+                transform: rotate(225deg);
+            }
         }
     }
 }
