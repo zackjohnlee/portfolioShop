@@ -112,11 +112,37 @@ body.noScroll {
   position: fixed;
   background: rgba(255, 203, 61, 0.877);
   right: 0;
-  bottom: 0;
-  width: 55%; }
+  bottom: 10vh;
+  width: 55%;
+  border-radius: 5px 0 0 0;
+  transition: 300ms ease-in-out;
+  transform: translateX(100%); }
 
-.color-primary {
-  color: #ff9100; }
+label .filter-toggler {
+  position: fixed;
+  bottom: 10vh;
+  right: 54.86%;
+  transition: 300ms ease-in-out;
+  transform: translateX(300%);
+  height: 50px;
+  width: 70px;
+  border-radius: 50px 0 0 50px;
+  background: rgba(255, 203, 61, 0.877); }
+  label .filter-toggler:before {
+    position: absolute;
+    content: '+';
+    font-size: 2rem;
+    color: white;
+    line-height: 50px;
+    left: 15px;
+    text-shadow: 1px 1px 2px rgba(153, 122, 37, 0.623); }
+
+#filterToggle {
+  display: none; }
+  #filterToggle:checked ~ #filterForm {
+    transform: translateX(0); }
+  #filterToggle:checked ~ label .filter-toggler {
+    transform: translateX(0); }
 
 nav {
   position: fixed;

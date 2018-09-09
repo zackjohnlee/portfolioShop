@@ -12,6 +12,9 @@ class Content extends Component {
         super(props);
 
         this.tiles = [];
+
+        //process data and create tiles array
+        //filter tiles here based on filter array
         this.props.data.forEach(tile=>{
             if(isequal(this.props.filter, ["all"])){
                 this.pushTile(tile);
@@ -215,6 +218,8 @@ class Content extends Component {
                     </TransitionGroup>
                     <Filter
                         filter={this.props.updateFilter}
+                        filterOpen={this.props.filterOpen}
+                        handleFilter={this.props.handleFilter}
                     />
                 </div>
             

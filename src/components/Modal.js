@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import {CSSTransition, Transition, TransitionGroup} from 'react-transition-group';
+import includes from 'lodash.includes';
 
 
 class Modal extends Component {
@@ -306,7 +307,7 @@ class Modal extends Component {
                             
                         >{(state)=>(
                             <div id="modalDesc" className={`desc-fade-${state}`}>
-                                {this.props.modalSrc.data.type === "shop"
+                                {includes(this.props.modalSrc.data.type, "shop")
                                     ? 
                                     <div id="shopElements">
                                         <h2>{this.props.modalSrc.name}</h2>

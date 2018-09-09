@@ -12,7 +12,7 @@ export const galleryData = [
     // },
     {
         collection: "store",
-        type: ["shop"],
+        type: "shop",
         desc: "store front",
         images: [
             {

@@ -37,6 +37,15 @@ const Filter = (props) => {
 
     return (
         <MuiThemeProvider theme={theme}>
+            <input 
+                id="filterToggle" 
+                type="checkbox"
+                name="filterOpen"
+                checked={props.filterOpen}
+                onChange={props.handleFilter}/>
+            <label htmlFor="filterToggle">
+                <div className="filter-toggler"></div>
+            </label>
             <FormControl 
                 id="filterForm"
                 component="fieldset"

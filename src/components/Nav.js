@@ -16,7 +16,7 @@ const Nav = props => {
                     <div className="menu-bar"></div>
                     <div className="menu-bar"></div>
                 </label>
-                <div className="expandee" name="menuOpen" type="checkbox" onClick={props.handleMenu}>
+                <div className="expandee">
 					<ul>
 						<li><NavLink exact to="/">WORKS</NavLink></li>
 						<li><NavLink to="/about">ABOUT</NavLink></li>

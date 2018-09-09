@@ -24,6 +24,7 @@ class App extends Component {
 			stripe: null,
 			menuOpen: false,
 			modalOpen: false,
+			filterOpen: false,
 			paymentOpen: false,
 			modalSrc: {
 				data: null,
@@ -314,6 +315,8 @@ class App extends Component {
 						data={galleryData}
 						filter={this.state.filter}
 						updateFilter={this.updateFilter}
+						handleFilter={this.handleToggle}
+						filterOpen={this.state.filterOpen}
 
 						click={this.imageClick}
 						handleScroll={this.scrollFix}
