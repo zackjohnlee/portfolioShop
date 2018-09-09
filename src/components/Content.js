@@ -86,7 +86,7 @@ class Content extends Component {
     }
 
     loadingTiles() {
-        if(this.state.moreToLoad){
+        if(this.state.moreToLoad && (this.state.tiles.length > 0)){
             let allTiles = this.state.tiles;
             let sliceIdx = this.state.curIndex + this.state.amtToLoad;
             if (sliceIdx > allTiles.length){
@@ -104,8 +104,10 @@ class Content extends Component {
     }
 
     observeTarget(){
-        let targets = document.querySelectorAll('.tile');
-        this.observer.observe(targets[this.state.tilesLoaded.length-1]);
+        if(this.state.tiles.length > 0){
+            let targets = document.querySelectorAll('.tile');
+            this.observer.observe(targets[this.state.tilesLoaded.length-1]);
+        }
     }
     
     intersectionObserved(entries, observer) {
@@ -153,7 +155,9 @@ class Content extends Component {
 
 	render() {
 
-        let tiles = this.state.tilesLoaded.map((tile, i)=>{
+        //TILE FACTORY
+        
+        let tileload = this.state.tilesLoaded.map((tile, i)=>{
             let delayIdx;
             if(i>=20){
                 let divisor = Math.floor(i/10);
@@ -161,7 +165,6 @@ class Content extends Component {
             }else{
                 delayIdx = i/2;
             }
-            // console.log(this.ref);
             return (
                 <CSSTransition
                     key={`${i}-${tile.src}`}
@@ -186,6 +189,7 @@ class Content extends Component {
                 </CSSTransition>
             )
         });
+        
         
 		return (
             
@@ -214,7 +218,42 @@ class Content extends Component {
                         </TransitionGroup>
                     }
                     <TransitionGroup component={null} appear={true}>
-                        {tiles}
+                        {this.state.tiles.length === 0
+                            ? <p>Couldn't find anything...yet</p>
+                            : tileload
+                            // this.state.tilesLoaded.map((tile, i)=>{
+                            //     let delayIdx;
+                            //     if(i>=20){
+                            //         let divisor = Math.floor(i/10);
+                            //         delayIdx = (i - (divisor*10))/2;
+                            //     }else{
+                            //         delayIdx = i/2;
+                            //     }
+                            //     return (
+                            //         <CSSTransition
+                            //             key={`${i}-${tile.src}`}
+                            //             classNames="slide-in"
+                            //             timeout={0}
+                            //             appear={true}
+                            //         >
+                            //             <Tile 
+                            //                 tile={tile}
+                            //                 style={{
+                            //                     transition:
+                            //                         `transform 500ms ease-out ${delayIdx*100}ms,
+                            //                         opacity 500ms ease-out ${delayIdx*100}ms,
+                            //                         filter 300ms ease-in-out`
+                            //                 }}
+                            //                 blur={this.blurTile}
+                            //                 ref={this.ref[i]}
+                            //                 click={this.props.click} 
+                            //                 key={tile.src}
+                            //                 src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
+                            //             </Tile>
+                            //         </CSSTransition>
+                            //     )
+                            // })
+                        }
                     </TransitionGroup>
                     <Filter
                         filter={this.props.updateFilter}
