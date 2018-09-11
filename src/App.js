@@ -4,6 +4,7 @@ import {StripeProvider} from 'react-stripe-elements';
 import config from './config';
 import without from 'lodash.without';
 
+
 import {galleryData} from './data/galleryData';
 
 import './css/App.css';
@@ -38,7 +39,7 @@ class App extends Component {
 				total: 0
 			},
 			products:[],
-			filter: ["all"]
+			filter: []
 		};
 
 		this.createOrderHandler = this.createOrderHandler.bind(this);

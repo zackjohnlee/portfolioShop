@@ -4,6 +4,7 @@ import Tile from './Tile';
 import Filter from './Filter';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import isequal from 'lodash.isequal';
+import isEmpty from 'lodash.isempty';
 
 
 
@@ -11,19 +12,10 @@ class Content extends Component {
 	constructor(props) {
         super(props);
 
-        this.tiles = [];
-
-        //process data and create tiles array
-        //filter tiles here based on filter array
-        this.props.data.forEach(tile=>{
-            if(isequal(this.props.filter, ["all"])){
-                this.pushTile(tile);
-            }else if(this.handleFilter(tile.type, this.props.filter)){
-                this.pushTile(tile);
-            }
-        });
+        //gather all tiles compared against filter
+        this.tiles = this.gatherTiles();
         
-        //not including [10] load the first 10 tiles (0-9)
+        //load the first 10 tiles (0-9)
         let initialTiles = this.tiles.slice(0, 10); 
 
         this.state={
@@ -33,6 +25,7 @@ class Content extends Component {
             amtToLoad: 5,
             isLoading: false,
             moreToLoad: true,
+            filter: []
         };
 
         let options = {
@@ -49,6 +42,7 @@ class Content extends Component {
 
         this.blurTile = this.blurTile.bind(this);
         this.pushTile = this.pushTile.bind(this);
+        this.gatherTiles = this.gatherTiles.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
         this.loadingTiles = this.loadingTiles.bind(this);
         this.observeTarget = this.observeTarget.bind(this);
@@ -62,17 +56,28 @@ class Content extends Component {
     }
 
     handleFilter(supr, sub){
-        console.log("superSet: ", supr);
-        console.log("subSet: ", sub);
         if (0 === sub.length) {
             return false;
         }
-        return sub.every(function (value) {
+        return sub.every((value) => {
             return (supr.indexOf(value) >= 0);
         });
     }
+    gatherTiles(){
+        let tiles = [];
+        this.props.data.forEach(tile=>{
+            if(isEmpty(this.props.filter)){
+                tiles = tiles.concat(this.pushTile(tile));
+            }
+            else if(this.handleFilter(tile.type, this.props.filter)){
+                tiles = tiles.concat(this.pushTile(tile));
+            }
+        });
+        return tiles;
+    }
 
     pushTile(tile){
+        let tiles = [];
         tile.images.forEach(image=>{
             let data = {
                 col: tile.collection,
@@ -81,8 +86,9 @@ class Content extends Component {
                 desc: image.desc || null,
                 isLoaded: false
             }
-            this.tiles.push(data);
-        })
+            tiles.push(data);
+        });
+        return tiles;
     }
 
     loadingTiles() {
@@ -104,9 +110,10 @@ class Content extends Component {
     }
 
     observeTarget(){
-        if(this.state.tiles.length > 0){
+        if(this.state.tilesLoaded.length > 0){
             let targets = document.querySelectorAll('.tile');
-            this.observer.observe(targets[this.state.tilesLoaded.length-1]);
+            console.log(targets);
+            // this.observer.observe(targets[this.state.tilesLoaded.length-1]);
         }
     }
     
@@ -119,7 +126,6 @@ class Content extends Component {
     }
 
     blurTile(ref){
-        console.log(this.tiles);
 		!this.state.modalOpen
 			?
 			ref.current.style.filter = `blur(10px)`
@@ -157,40 +163,50 @@ class Content extends Component {
 	render() {
 
         //TILE FACTORY
-        
-        let tileload = this.state.tilesLoaded.map((tile, i)=>{
-            let delayIdx;
-            if(i>=20){
-                let divisor = Math.floor(i/10);
-                delayIdx = (i - (divisor*10))/2;
-            }else{
-                delayIdx = i/2;
-            }
-            return (
-                <CSSTransition
-                    key={`${i}-${tile.src}`}
-                    classNames="slide-in"
-                    timeout={0}
-                    appear={true}
-                >
-                    <Tile 
-                        tile={tile}
-                        style={{
-                            transition:
-                                `transform 500ms ease-out ${delayIdx*100}ms,
-                                opacity 500ms ease-out ${delayIdx*100}ms,
-                                filter 300ms ease-in-out`
-                        }}
-                        blur={this.blurTile}
-                        ref={this.ref[i]}
-                        click={this.props.click} 
-                        key={tile.src}
-                        src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
-                    </Tile>
-                </CSSTransition>
-            )
-        });
-        
+        let tileload;
+        if(this.props.filter !== this.state.filter){
+            let filteredTiles = this.gatherTiles();
+            let initialTiles = filteredTiles.slice(0, 10);
+            this.setState({
+                tiles: filteredTiles,
+                tilesLoaded: initialTiles,
+                curIndex: initialTiles.length,
+                filter: this.props.filter
+            });
+        }else{
+            tileload = this.state.tilesLoaded.map((tile, i)=>{
+                let delayIdx;
+                if(i>=20){
+                    let divisor = Math.floor(i/10);
+                    delayIdx = (i - (divisor*10))/2;
+                }else{
+                    delayIdx = i/2;
+                }
+                return (
+                    <CSSTransition
+                        key={`${i}-${tile.src}`}
+                        classNames="slide-in"
+                        timeout={0}
+                        appear={true}
+                    >
+                        <Tile 
+                            tile={tile}
+                            style={{
+                                transition:
+                                    `transform 500ms ease-out ${delayIdx*100}ms,
+                                    opacity 500ms ease-out ${delayIdx*100}ms,
+                                    filter 300ms ease-in-out`
+                            }}
+                            blur={this.blurTile}
+                            ref={this.ref[i]}
+                            click={this.props.click} 
+                            key={tile.src}
+                            src={require("../images/"+ tile.col + "/lores/" + tile.src + ".jpg")}>
+                        </Tile>
+                    </CSSTransition>
+                )
+            });
+        }
         
 		return (
             

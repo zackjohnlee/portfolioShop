@@ -8,6 +8,7 @@
     "lodash.every": "^4.6.0",
     "lodash.includes": "^4.3.0",
     "lodash.indexof": "^4.0.5",
+    "lodash.isempty": "^4.4.0",
     "lodash.isequal": "^4.5.0",
     "lodash.range": "^3.2.0",
     "lodash.without": "^4.4.0",
