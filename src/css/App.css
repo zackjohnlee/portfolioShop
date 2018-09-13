@@ -120,7 +120,7 @@ body.noScroll {
 
 label .filter-toggler {
   position: fixed;
-  bottom: 10vh;
+  bottom: 15vh;
   right: -20px;
   transition: 300ms ease-in-out;
   height: 50px;
@@ -222,6 +222,7 @@ nav {
   position: fixed;
   z-index: 4;
   top: 0;
+  left: 0;
   height: 100vh; }
   #modal #modalContainer {
     display: grid;

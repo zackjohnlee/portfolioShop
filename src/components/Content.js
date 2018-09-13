@@ -16,7 +16,7 @@ class Content extends Component {
 
         //gather all tiles compared against filter
         this.tiles = this.gatherTiles([]);
-        
+        console.log("the constructor!");
         //load the first 10 tiles (0-9)
         let initialTiles = this.tiles.slice(0, 20); 
 
@@ -32,8 +32,8 @@ class Content extends Component {
 
         let options = {
             root: null,
-            rootMargin: '',
-            threshold: 0.5
+            rootMargin: '0px',
+            threshold: 0
         };
 
 
@@ -141,11 +141,12 @@ class Content extends Component {
 
     observeTarget(){
         if(this.state.tilesLoaded.length > 0){
-            // let targets = document.querySelectorAll('.tile');
-            // this.observer.observe(targets[this.state.tilesLoaded.length-1]);
-            let targets = this.loadingRef.current;
-            this.observer.observe(this.loadingRef.current);
+            let targets = document.querySelectorAll('.tile');
+            this.observer.observe(targets[this.state.tilesLoaded.length-1]);
+            // let targets = this.loadingRef.current;
+            // this.observer.observe(this.loadingRef.current);
             console.log(targets);
+            console.log("the observed:",targets[this.state.tilesLoaded.length-1]);
         }
     }
     
@@ -154,8 +155,8 @@ class Content extends Component {
             console.log("it intersected!");
             console.log(entries[0]);
             this.loadingTiles();
-            // observer.unobserve(entries[0].target);
-            // this.state.moreToLoad ? this.observeTarget() : null;
+            observer.unobserve(entries[0].target);
+            this.state.moreToLoad ? this.observeTarget() : null;
         }
     }
 
@@ -169,6 +170,7 @@ class Content extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         console.log("it updated!");
+        this.state.moreToLoad ? this.observeTarget() : null;
         // this.observeTarget();
         // if (prevProps.modalOpen && !this.props.modalOpen) {
         //     // this.props.modalSrc.curRef.ref.current.style.filter = `blur(0)`;
@@ -240,12 +242,12 @@ class Content extends Component {
                 <div
                     id="content"
                     // className={this.props.modalOpen ? 'modal-open' : ''}
-                    style={{
-                        top: this.props.modalOpen ?
-                            '-' + window.scrollY + 'px' :
-                            '0',
-                        paddingTop: '10vh'
-                    }}
+                    // style={{
+                    //     top: this.props.modalOpen ?
+                    //         '-' + window.scrollY + 'px' :
+                    //         '0',
+                    //     paddingTop: '10vh'
+                    // }}
                 >
                     {this.props.modalOpen &&
                         <TransitionGroup component={null}>
@@ -267,16 +269,17 @@ class Content extends Component {
                             : tileload
                         }
                     </TransitionGroup>
-                    <div id="loading"
+                    {/* <div id="loading"
                         ref={this.loadingRef}
                     >
                         <span>Loading...</span>
-                    </div>
+                    </div> */}
                     <Filter
                         filter={this.updateFilter}
                         filterOpen={this.props.filterOpen}
                         handleFilter={this.props.handleFilter}
                     />
+                    
                 </div>
             
 		);
