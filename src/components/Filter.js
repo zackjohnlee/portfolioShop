@@ -16,6 +16,7 @@ const Filter = (props) => {
 
     const types = ["drawing", "installation", "sculpture", "sound", "video", "watercolor"];
 
+    //FILTER FACTORY
     const filters = types.map((type)=>{
         return(
             <FormControlLabel

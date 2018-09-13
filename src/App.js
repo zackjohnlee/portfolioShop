@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {BrowserRouter} from 'react-router-dom';
 import {StripeProvider} from 'react-stripe-elements';
 import config from './config';
-import without from 'lodash.without';
 
 
 import {galleryData} from './data/galleryData';
@@ -39,7 +38,7 @@ class App extends Component {
 				total: 0
 			},
 			products:[],
-			filter: []
+			// filter: []
 		};
 
 		this.createOrderHandler = this.createOrderHandler.bind(this);
@@ -47,7 +46,6 @@ class App extends Component {
 		this.navigateGallery = this.navigateGallery.bind(this);
 		this.addItemHandler = this.addItemHandler.bind(this);
 		this.fetchProducts = this.fetchProducts.bind(this);
-		this.updateFilter = this.updateFilter.bind(this);
 		this.handleToggle = this.handleToggle.bind(this);
 		this.imageClick = this.imageClick.bind(this);
 		this.buyNow = this.buyNow.bind(this);
@@ -81,23 +79,6 @@ class App extends Component {
 		});
 	}
 
-	updateFilter(e){
-		console.log(e.target.checked);
-		let filters = this.state.filter;
-		let isChecked = e.target.checked;
-		let filterName = e.target.value;
-		if(isChecked){
-			filters = filters.concat(filterName);
-			console.log(filters);
-		}else{
-			filters = without(filters, filterName);
-			console.log(filters);
-		};
-		this.setState({
-			filter: filters
-		});
-	}
-
 	handleToggle(e){
 		// console.log("from toggle: ", e.target);
 		const value = e.target.checked;
@@ -109,8 +90,8 @@ class App extends Component {
 
 
 	imageClick(data, ref){
-		let thisRef= ref.current.getBoundingClientRect();
-		let {x, y, width, height} = thisRef;
+		// let thisRef= ref.current.getBoundingClientRect();
+		// let {x, y, width, height} = thisRef;
 		let product;
 		let modalGallery = galleryData.filter((gallery) => {
 			return gallery.collection === data.col;
@@ -130,13 +111,13 @@ class App extends Component {
 				src: data.src,
 				name: data.name,
 				product: product,
-				curRef: {
-					x: x,
-					y: y,
-					width: width,
-					height: height,
-					ref: ref
-				}
+				// curRef: {
+				// 	x: x,
+				// 	y: y,
+				// 	width: width,
+				// 	height: height,
+				// 	ref: ref
+				// }
 			},
 			modalOpen: true
 		});
@@ -324,7 +305,6 @@ class App extends Component {
 					<Content
 						data={galleryData}
 						filter={this.state.filter}
-						updateFilter={this.updateFilter}
 						handleFilter={this.handleToggle}
 						filterOpen={this.state.filterOpen}
 
