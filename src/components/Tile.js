@@ -8,8 +8,8 @@ const Tile = React.forwardRef((props, ref) => {
             style={props.style}
             ref={ref}
             onClick={() => {
-                props.click(props.tile, ref);
-                props.blur(ref);
+                props.click(props.tile, ref)
+                props.blur(ref)
             }} 
             onBlur={() => props.blur(ref)}
             data-source={require("../images/"+ props.tile.col + "/lores/" + props.tile.src + ".jpg")}>

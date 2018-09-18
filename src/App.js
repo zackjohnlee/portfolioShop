@@ -92,6 +92,7 @@ class App extends Component {
 
 
 	imageClick(data, ref){
+		console.log(ref);
 		let thisRef= ref.current.getBoundingClientRect();
 		let {x, y, width, height} = thisRef;
 		let product;

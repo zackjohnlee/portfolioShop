@@ -138,7 +138,7 @@ class Content extends Component {
             }else{
                 delayIdx = i/2;
             }
-            // console.log(this.ref);
+            // console.log(this.ref[i]);
             return (
                 <CSSTransition
                     key={`${i}-${tile.src}`}
