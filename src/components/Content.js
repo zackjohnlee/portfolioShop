@@ -54,11 +54,11 @@ class Content extends Component {
         this.observeTarget = this.observeTarget.bind(this);
         this.intersectionObserved = this.intersectionObserved.bind(this);
 
-        this.observer = new IntersectionObserver(this.intersectionObserved, options);
+        // this.observer = new IntersectionObserver(this.intersectionObserved, options);
 	}
 	
 	componentDidMount() {
-        this.observeTarget();
+        // this.observeTarget();
     }
 
     loadingTiles() {
@@ -129,7 +129,7 @@ class Content extends Component {
 
 	render() {
 
-        let tiles = this.state.tilesLoaded.map((tile, i)=>{
+        let tiles = this.props.tiles.map((tile, i)=>{
             let delayIdx;
 
             if(i>=10){

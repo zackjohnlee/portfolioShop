@@ -19,6 +19,21 @@ import StoreCheckout from './components/StoreCheckout';
 class App extends Component {
 	constructor(props, context) {
 		super(props, context);
+
+		const tiles = galleryData.map((tile)=>{
+			let data = {
+				col: tile.collection,
+				src: tile.hero,
+				// name: image.name,
+				type: tile.type,
+				desc: tile.desc || null,
+				images: tile.images,
+				isLoaded: false
+			}
+			return data;
+		});
+
+		this.tileCol = tiles;
 		
 		this.state={
 			stripe: null,
@@ -40,6 +55,7 @@ class App extends Component {
 				total: 0
 			},
 			products:[],
+			tiles: this.tileCol,
 			filter: "all"
 		};
 
@@ -309,6 +325,7 @@ class App extends Component {
 					</div>
 					<Content
 						data={galleryData}
+						tiles={this.state.tiles}
 						filter={this.state.filter}
 
 						click={this.imageClick}
