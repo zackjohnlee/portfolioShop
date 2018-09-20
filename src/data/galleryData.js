@@ -12,7 +12,7 @@ export const galleryData = [
     // },
     {
         collection: "store",
-        type: ["shop"],
+        type: "shop",
         desc: "store front",
         images: [
             {
@@ -62,6 +62,22 @@ export const galleryData = [
             },
             {
                 src: "cactus8",
+                name: ""
+            },
+            {
+                src: "cactus9",
+                name: ""
+            },
+            {
+                src: "cactus10",
+                name: ""
+            },
+            {
+                src: "cactus11",
+                name: ""
+            },
+            {
+                src: "cactus12",
                 name: ""
             }
         ]
@@ -138,7 +154,7 @@ export const galleryData = [
     },
     {
         collection: "flawless",
-        type: "drawing",
+        type: ["drawing"],
         desc: "Flawless is a short series exploring what is meant by\"beauty.\" The series uses idealistic images from fashion magazines apposed to grotesque, organic, slime-like tentical drawings.",
         images: [
             {
@@ -159,4 +175,38 @@ export const galleryData = [
             }
         ]
     },
+    {
+        collection: "beneathe",
+        type: ["drawing", "watercolor"],
+        desc: "\"Beneathe the Surface\" is a 2014 series exploring alternative water color techniques overlayed with ballpoint pen. The random patterns of the watercolor under painting was slowly embelished with pen to bring out subtle details.",
+        images: [
+            {
+                src: "bts1",
+                name: "",
+            },
+            {
+                src: "bts2",
+                name: "",
+            },
+            {
+                src: "bts3",
+                name: "",
+            },
+            {
+                src: "bts4",
+                name: "",
+            },{
+                src: "bts5",
+                name: "",
+            },
+            {
+                src: "bts6",
+                name: "",
+            },
+            {
+                src: "bts7",
+                name: "",
+            }
+        ]
+    }
 ];

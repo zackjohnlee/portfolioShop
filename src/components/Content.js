@@ -26,7 +26,7 @@ class Content extends Component {
         });
         
         //not including [10] load the first 10 tiles (0-9)
-        let initialTiles = tiles.slice(0, 10); 
+        let initialTiles = tiles.slice(0, 20); 
 
         this.state={
             tiles: tiles,
