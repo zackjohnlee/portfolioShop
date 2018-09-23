@@ -14,7 +14,17 @@ const Tile = React.forwardRef((props, ref) => {
             onBlur={() => props.blur(ref)}
             data-source={require("../images/"+ props.tile.col + "/lores/" + props.tile.src + ".jpg")}>
             <img className={"image"} 
-                src={props.src}/>
+                src={props.src}
+            />
+            <div id="tileDesc">
+                <p style={{
+                        fontSize: (props.tile.name.length > 13) ? `70%` : `100%`
+                    }} 
+                    id="colTitle"
+                >
+                    {props.tile.name}
+                </p>
+            </div>
         </div>
     );
 });

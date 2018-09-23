@@ -24,7 +24,7 @@ class App extends Component {
 			let data = {
 				col: tile.collection,
 				src: tile.hero,
-				// name: image.name,
+				name: tile.name,
 				type: tile.type,
 				desc: tile.desc || null,
 				images: tile.images,

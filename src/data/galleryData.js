@@ -12,6 +12,7 @@ export const galleryData = [
     // },
     {
         collection: "store",
+        name: "Store",
         type: "shop",
         hero: "stickerTest",
         desc: "store front",
@@ -30,6 +31,7 @@ export const galleryData = [
     },
     {
         collection: "cactus",
+        name: "Cactus",
         type: ["series", "drawing"],
         hero: "cactus10",
         desc: "A series of cacti drawn with ink on paper and cutout. Inspired by the amazing diversity of Saguaro cacti found in the Sonoran desert. ",
@@ -86,6 +88,7 @@ export const galleryData = [
     },
     {
         collection: "finland",
+        name: "Tuuli Harp",
         type: ["installation", "sculpture", "sound"],
         hero: "harp1",
         desc: "During my residency in Finland I became very interested in sound and organology (the study of instruments). The Tuuli Harp, or Wind Harp, is an instrument made of reclaimed material. Small \"hammers\" on pendulums swing in the wind and sound the instrument string. The Tuuli Harp, is in essence, a wood instrument played by the wind.",
@@ -106,6 +109,7 @@ export const galleryData = [
     },
     {
         collection: "on the line",
+        name: "On The Line",
         type: ["series", "drawing", "installation"],
         hero: "otl5",
         desc: "On the Line was about transforming a single geature, a moment in time, into a dynamic entity. Using a custom built 18 inch sumi brush, a 5 foot \"line\" with a single motion. This figure would then be meticulously cut until it stood alone. The arrangment of these gestures created the \"On The Line\" installation for the \"Being Human\" show at The Mine Factory in Pittsburgh, PA.",
@@ -158,6 +162,7 @@ export const galleryData = [
     },
     {
         collection: "flawless",
+        name: "Flawless",
         type: ["drawing"],
         hero: "flaw1",
         desc: "Flawless is a short series exploring what is meant by\"beauty.\" The series uses idealistic images from fashion magazines apposed to grotesque, organic, slime-like tentical drawings.",
@@ -182,6 +187,7 @@ export const galleryData = [
     },
     {
         collection: "beneathe",
+        name: "Beneathe The Surface",
         type: ["drawing", "watercolor"],
         hero: "bts2",
         desc: "\"Beneathe the Surface\" is a 2014 series exploring alternative water color techniques overlayed with ballpoint pen. The random patterns of the watercolor under painting was slowly embelished with pen to bring out subtle details.",
